@@ -1,11 +1,44 @@
 {
-  description = "A very basic flake";
+  description = "NixOS configuration";
 
-  outputs = { self, nixpkgs }: {
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    hyprland = {
+      url = "github:hyprwm/hyprland";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+  outputs = { self, nixpkgs, hyprland, home-manager, ... }@inputs: {
+    homeConfigurations."caio@nixos" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
-
+      modules = [
+        hyprland.homeManagerModules.default
+        { wayland.windowManager.hyprland.enable = true; }
+      ];
+    };
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs.inputs = inputs;
+      modules = [
+        hyprland.nixosModules.default
+        { programs.hyprland.enable = true; }
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs.inputs = inputs;
+            # users.caio = import ./home.nix;
+          };
+        }
+        # ./configuration.nix
+      ];
+    };
   };
 }
