@@ -20,6 +20,7 @@
       modules = [
         hyprland.homeManagerModules.default
         { wayland.windowManager.hyprland.enable = true; }
+        ./home/home.nix
       ];
     };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -37,7 +38,7 @@
             # users.caio = import ./home.nix;
           };
         }
-        # ./configuration.nix
+         ./modules/configuration.nix
       ];
     };
   };
