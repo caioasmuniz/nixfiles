@@ -2,27 +2,11 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, inputs, ... }:
-let
-  swayConfig = pkgs.writeText "greetd-sway-config" ''
-    exec "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP"
-    input "type:touchpad" {
-      tap enabled
-    }
-    xwayland disable
-    bindsym Mod4+shift+e exec swaynag \
-      -t warning \
-      -m 'What do you want to do?' \
-      -b 'Poweroff' 'systemctl poweroff' \
-      -b 'Reboot' 'systemctl reboot'
-    exec "regreet; swaymsg exit"
-  '';
-in
-{
+{ pkgs, ... }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./regreet.nix
+    ./greetd.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -86,23 +70,12 @@ in
   security = {
     polkit.enable = true;
     rtkit.enable = true;
-    pam.services.greetd.enableGnomeKeyring = true;
     pam.services.gtklock = { };
   };
 
   services = {
     fwupd.enable = true;
     power-profiles-daemon.enable = true;
-    greetd = {
-      enable = true;
-      settings = {
-        default_session.command = "${pkgs.sway}/bin/sway --config ${swayConfig}";
-        initial_session = {
-          command = "${inputs.hyprland.packages.${pkgs.hostPlatform.system}.default}/bin/Hyprland";
-          user = "caio";
-        };
-      };
-    };
     gnome = {
       evolution-data-server.enable = true;
       gnome-online-accounts.enable = true;
@@ -123,18 +96,6 @@ in
     kdeconnect.enable = true;
     dconf.enable = true;
     seahorse.enable = true;
-    regreet = {
-      enable = true;
-      package = pkgs.greetd.regreet;
-      settings = {
-        GTK = {
-          cursor_theme_name = "Adwaita";
-          font_name = "Fira Sans 12";
-          icon_theme_name = "Adwaita";
-          theme_name = "Adwaita-dark";
-        };
-      };
-    };
   };
 
   qt.platformTheme = "qt5ct";
@@ -155,6 +116,7 @@ in
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
     fira
   ];
+
   nixpkgs = {
     config.allowUnfree = true;
     config.packageOverrides = pkgs: {
@@ -184,8 +146,6 @@ in
       gnome.adwaita-icon-theme
       power-profiles-daemon
       plymouth
-      greetd.greetd
-      greetd.regreet
       sway
     ];
     pathsToLink = [ "/share/zsh" ];
