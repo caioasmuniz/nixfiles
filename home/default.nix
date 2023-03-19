@@ -1,8 +1,12 @@
 { config, pkgs, inputs, ... }: {
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
-  imports = [ ./zsh.nix ./xdg.nix];
-  users.caio.home = {
+  
+  imports = [
+    ./zsh.nix
+    ./xdg.nix
+    ./hyprland.nix
+  ];
+
+  home = {
     username = "caio";
     homeDirectory = "/home/caio";
     stateVersion = "22.11";
@@ -22,7 +26,6 @@
       swaybg
       wlsunset
       swayidle
-      power-profiles-daemon
       brightnessctl
       playerctl
       pavucontrol
@@ -76,7 +79,7 @@
       enable = true;
       package = inputs.hyprland.packages.${pkgs.hostPlatform.system
       }.waybar-hyprland;
-      systemd.enable = true;
+      # systemd.enable = true;
     };
     home-manager.enable = true;
     firefox = {

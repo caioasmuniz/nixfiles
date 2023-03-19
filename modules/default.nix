@@ -45,59 +45,54 @@ in
     };
   };
 
-  networking.hostName = "nixos";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "nixos";
+    networkmanager.enable = true;
+  };
 
   time.timeZone = "America/Sao_Paulo";
 
-  i18n.defaultLocale = "en_US.UTF-8";
-  # console.keyMap = "br-abnt2";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "pt_BR.UTF-8";
-    LC_IDENTIFICATION = "pt_BR.UTF-8";
-    LC_MEASUREMENT = "pt_BR.UTF-8";
-    LC_MONETARY = "pt_BR.UTF-8";
-    LC_NAME = "pt_BR.UTF-8";
-    LC_NUMERIC = "pt_BR.UTF-8";
-    LC_PAPER = "pt_BR.UTF-8";
-    LC_TELEPHONE = "pt_BR.UTF-8";
-    LC_TIME = "pt_BR.UTF-8";
-  };
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.polkit.enable = true;
-  security.rtkit.enable = true;
-  security.pam.services.greetd.enableGnomeKeyring = true;
-
-  hardware.opengl = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-  };
-
-  programs.regreet = {
-    enable = true;
-    package = pkgs.greetd.regreet;
-    settings = {
-      GTK = {
-        cursor_theme_name = "Adwaita";
-        font_name = "Fira Sans 12";
-        icon_theme_name = "Adwaita";
-        theme_name = "Adwaita-dark";
-      };
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    # console.keyMap = "br-abnt2";
+    extraLocaleSettings = {
+      LC_ADDRESS = "pt_BR.UTF-8";
+      LC_IDENTIFICATION = "pt_BR.UTF-8";
+      LC_MEASUREMENT = "pt_BR.UTF-8";
+      LC_MONETARY = "pt_BR.UTF-8";
+      LC_NAME = "pt_BR.UTF-8";
+      LC_NUMERIC = "pt_BR.UTF-8";
+      LC_PAPER = "pt_BR.UTF-8";
+      LC_TELEPHONE = "pt_BR.UTF-8";
+      LC_TIME = "pt_BR.UTF-8";
     };
   };
 
+  sound.enable = true;
+
+  hardware = {
+    pulseaudio.enable = false;
+    opengl = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver # LIBVA_DRIVER_NAME=iHD
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
+  };
+
+  security = {
+    polkit.enable = true;
+    rtkit.enable = true;
+    pam.services.greetd.enableGnomeKeyring = true;
+    pam.services.gtklock = { };
+  };
+
   services = {
+    fwupd.enable = true;
+    power-profiles-daemon.enable = true;
     greetd = {
       enable = true;
       settings = {
@@ -107,12 +102,12 @@ in
           user = "caio";
         };
       };
-      # settings.default_session.command = "${pkgs.cage}/bin/cage -s -m last ${pkgs.greetd.regreet}/bin/regreet";
     };
     gnome = {
       evolution-data-server.enable = true;
       gnome-online-accounts.enable = true;
       gnome-keyring.enable = true;
+      at-spi2-core.enable = true;
     };
     pipewire = {
       enable = true;
@@ -122,13 +117,26 @@ in
       #jack.enable = true;
     };
   };
+
   programs = {
     adb.enable = true;
     kdeconnect.enable = true;
     dconf.enable = true;
     seahorse.enable = true;
-
+    regreet = {
+      enable = true;
+      package = pkgs.greetd.regreet;
+      settings = {
+        GTK = {
+          cursor_theme_name = "Adwaita";
+          font_name = "Fira Sans 12";
+          icon_theme_name = "Adwaita";
+          theme_name = "Adwaita-dark";
+        };
+      };
+    };
   };
+
   qt.platformTheme = "qt5ct";
 
   users = {
@@ -158,11 +166,11 @@ in
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
     fira
   ];
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  nixpkgs = {
+    config.allowUnfree = true;
+    config.packageOverrides = pkgs: {
+      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+    };
   };
 
   nix.settings = {
@@ -170,31 +178,31 @@ in
     trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     experimental-features = [ "nix-command" "flakes" ];
   };
-  environment.sessionVariables = {
-    MOZ_ENABLE_WAYLAND = "1";
-    XDG_CURRENT_DESKTOP = "hyprland";
+
+  environment = {
+    sessionVariables = {
+      MOZ_ENABLE_WAYLAND = "1";
+      XDG_CURRENT_DESKTOP = "hyprland";
+    };
+    systemPackages = with pkgs; [
+      zsh
+      qt5ct
+      micro
+      git
+      nil
+      nixpkgs-fmt
+      glib
+      gnome.adwaita-icon-theme
+      power-profiles-daemon
+      plymouth
+      greetd.greetd
+      greetd.regreet
+      sway
+    ];
+    pathsToLink = [ "/share/zsh" ];
+    shells = [ pkgs.zsh ];
   };
-
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    zsh
-    qt5ct
-    micro
-    git
-    nil
-    nixpkgs-fmt
-    glib
-    plymouth
-    greetd.greetd
-    greetd.regreet
-    sway
-  ];
-  environment.pathsToLink = [ "/share/zsh" ];
-  environment.shells = [ pkgs.zsh ];
-
   system.stateVersion = "22.11"; # Did you read the comment?
-
 }
+
 
