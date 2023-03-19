@@ -1,5 +1,5 @@
 { pkgs, inputs, ... }: {
-  
+
   imports = [
     ./zsh.nix
     ./xdg.nix
@@ -37,6 +37,13 @@
       fx_cast_bridge
       darkman
       wallutils
+      vscode
+      wofi
+      kitty
+      osu-lazer-bin
+      bottles
+      libsecret
+      vulkan-tools
     ];
   };
 

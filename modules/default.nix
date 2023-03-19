@@ -148,17 +148,6 @@ in
       description = "Caio Muniz";
       extraGroups = [ "networkmanager" "wheel" "audio" "adbusers" ];
       shell = pkgs.zsh;
-      packages = with pkgs; [
-        firefox-wayland
-        vscode
-        wofi
-        kitty
-        osu-lazer-bin
-        bottles
-        libsecret
-        gamescope
-        vulkan-tools
-      ];
     };
   };
 
