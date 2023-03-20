@@ -6,6 +6,7 @@
     ./hyprland.nix
     ./firefox.nix
     ./swayidle.nix
+    ./polkitAgent.nix
   ];
 
   home = {
