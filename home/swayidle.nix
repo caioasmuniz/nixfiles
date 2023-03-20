@@ -13,18 +13,18 @@
     ];
     timeouts = [
       {
-        timeout = 310;
+        timeout = 300;
         command = "${pkgs.systemd}/bin/loginctl lock-session";
       }
-      # {
-      #   timeout = 310;
-      #   command = ''
-      #     ${pkgs.pipewire}/bin/pw-cli i all | ${pkgs.gnugrep}/bin/grep running
-      #     if [ $? == 1 ]; then
-      #       ${pkgs.systemd}/bin/systemctl suspend
-      #     fi
-      #     '';
-      # }
+      {
+        timeout = 300;
+        command = ''
+          ${pkgs.pipewire}/bin/pw-cli i all | ${pkgs.gnugrep}/bin/grep running
+          if [ $? == 1 ]; then
+            ${pkgs.systemd}/bin/systemctl suspend
+          fi
+          '';
+      }
     ];
   };
 }
