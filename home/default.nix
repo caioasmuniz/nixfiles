@@ -1,8 +1,9 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, ... }: {
 
   imports = [
     ./zsh.nix
     ./xdg.nix
+    ./waybar.nix
     ./hyprland.nix
     ./firefox.nix
     ./swayidle.nix
@@ -49,12 +50,6 @@
 
   programs = {
     vscode.enable = true;
-    waybar = {
-      enable = true;
-      package = inputs.hyprland.packages.${pkgs.hostPlatform.system
-      }.waybar-hyprland;
-      # systemd.enable = true;
-    };
     home-manager.enable = true;
   };
 }
