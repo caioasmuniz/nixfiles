@@ -38,7 +38,6 @@
       fx_cast_bridge
       darkman
       wallutils
-      vscode
       wofi
       kitty
       osu-lazer-bin
@@ -49,6 +48,7 @@
   };
 
   programs = {
+    vscode.enable = true;
     waybar = {
       enable = true;
       package = inputs.hyprland.packages.${pkgs.hostPlatform.system
