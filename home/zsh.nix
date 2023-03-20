@@ -29,7 +29,7 @@
       enableVteIntegration = true;
       historySubstringSearch.enable = true;
       shellAliases = {
-        update = "sudo nix flake update /etc/nixos;sudo nixos-rebuild switch --upgrade --flake /etc/nixos";
+        update = "sudo nix flake update ~/Documents/nixfiles;sudo nixos-rebuild switch --upgrade --flake ~/Documents/nixfiles";
         ls = "exa --color=always --icons";
         cat = "bat";
       };
