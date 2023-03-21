@@ -68,7 +68,14 @@
             tooltip-format = "{avg_frequency}";
           };
           "custom/darkman" = {
-            exec = "~/.config/waybar/modules/darkman.sh";
+            exec = ''
+              state=$(darkman get)
+              if [[ $state == "light" ]];
+              then
+                  echo ""
+              else
+                  echo ""
+              fi'';
             format = "{}<sup> </sup>";
             interval = 10;
             on-click = "darkman toggle";
@@ -143,8 +150,14 @@
             format = "󱇱<sup> </sup>";
             interface = "wg0";
             interval = 5;
-            on-click = "~/.config/waybar/modules/wireguard.sh";
             tooltip-format = "VPN Connected: {ipaddr}";
+            on-click = ''
+              if [[ $(nmcli device status | grep wg0 | grep connected) == "" ]]
+              then
+              	nmcli connection up wg0
+              else
+              	nmcli connection down wg0
+              fi'';
           };
           pulseaudio = {
             format = "{icon} {volume}%";
@@ -279,11 +292,7 @@
           font-weight: bold;
           min-height: 24px;
         }
-
-        /* -----------------------------------------------------------------------------
-         * Module styles
-         * -------------------------------------------------------------------------- */
-
+        
         #battery {
           animation-timing-function: linear;
           animation-iteration-count: infinite;
