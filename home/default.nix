@@ -5,6 +5,7 @@
     ./xdg.nix
     ./wofi.nix
     ./waybar.nix
+    ./swaync.nix
     ./firefox.nix
     ./hyprland.nix
     ./swayidle.nix
@@ -24,9 +25,7 @@
       gsettings-desktop-schemas
       qbittorrent
       wdisplays
-      swaynotificationcenter
       libnotify
-      gtklock
       swaybg
       wlsunset
       brightnessctl
