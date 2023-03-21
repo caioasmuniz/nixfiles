@@ -3,9 +3,10 @@
   imports = [
     ./zsh.nix
     ./xdg.nix
+    ./wofi.nix
     ./waybar.nix
-    ./hyprland.nix
     ./firefox.nix
+    ./hyprland.nix
     ./swayidle.nix
     ./polkitAgent.nix
   ];
@@ -38,7 +39,6 @@
       fx_cast_bridge
       darkman
       wallutils
-      wofi
       kitty
       osu-lazer-bin
       bottles
