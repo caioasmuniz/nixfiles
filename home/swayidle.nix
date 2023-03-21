@@ -1,10 +1,11 @@
 { pkgs, ... }: {
   services.swayidle = {
     enable = true;
+    systemdTarget = "hyprland-session.target";
     events = [
       {
         event = "before-sleep";
-        command = "${pkgs.systemd}/bin/loginctl lock-session";
+        command = "${pkgs.gtklock}/bin/gtklock";
       }
       {
         event = "lock";
@@ -14,17 +15,17 @@
     timeouts = [
       {
         timeout = 300;
-        command = "${pkgs.systemd}/bin/loginctl lock-session";
+        command = "lock";
       }
-      {
-        timeout = 300;
-        command = ''
-          ${pkgs.pipewire}/bin/pw-cli i all | ${pkgs.gnugrep}/bin/grep running
-          if [ $? == 1 ]; then
-            ${pkgs.systemd}/bin/systemctl suspend
-          fi
-          '';
-      }
+      # {
+      #   timeout = 300;
+      #   command = ''
+      #     ${pkgs.pipewire}/bin/pw-cli i all | ${pkgs.gnugrep}/bin/grep running
+      #     if [ $? == 1 ]; then
+      #       ${pkgs.systemd}/bin/systemctl suspend
+      #     fi
+      #     '';
+      # }
     ];
   };
 }
