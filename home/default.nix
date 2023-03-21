@@ -21,7 +21,6 @@
       gnome.nautilus
       gnome.geary
       gsettings-desktop-schemas
-      polkit_gnome
       qbittorrent
       wdisplays
       swaynotificationcenter

@@ -10,7 +10,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, hyprland, home-manager, ... }@inputs: {
+  outputs = { nixpkgs, hyprland, home-manager, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs.inputs = inputs;
@@ -25,8 +25,8 @@
             useUserPackages = true;
             extraSpecialArgs.inputs = inputs;
             users.caio.imports = [
-              hyprland.homeManagerModules.default
               ./home
+              hyprland.homeManagerModules.default
             ];
           };
         }
