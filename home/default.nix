@@ -9,7 +9,7 @@
     ./firefox.nix
     ./hyprland.nix
     ./swayidle.nix
-    ./polkitAgent.nix
+    ./polkit-agent.nix
   ];
 
   home = {
@@ -22,6 +22,7 @@
       gnome.adwaita-icon-theme
       gnome.nautilus
       gnome.geary
+      gcr
       gsettings-desktop-schemas
       qbittorrent
       wdisplays
@@ -46,6 +47,10 @@
     ];
   };
 
+  services.gnome-keyring = {
+    enable = true;
+    components = [ "pkcs11" "secrets" "ssh" ];
+  };
   programs = {
     vscode.enable = true;
     home-manager.enable = true;
