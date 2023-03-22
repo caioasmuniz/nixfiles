@@ -30,7 +30,11 @@ in
     };
   };
 
-  environment.systemPackages = [ pkgs.greetd.regreet ];
+  environment.systemPackages = with pkgs; [
+    gnome.adwaita-icon-theme
+    greetd.regreet
+    sway
+  ];
 
   programs.regreet = {
     enable = true;

@@ -2,13 +2,14 @@
   home = {
     packages = with pkgs; [
       zplug
-      zsh
       neofetch
       fzf
       exa
       bat
       btop
       direnv
+      micro
+      git
     ];
   };
 

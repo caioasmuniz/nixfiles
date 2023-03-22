@@ -138,15 +138,11 @@
     systemPackages = with pkgs; [
       zsh
       qt5ct
-      micro
-      git
       nil
       nixpkgs-fmt
       glib
-      gnome.adwaita-icon-theme
       power-profiles-daemon
       plymouth
-      sway
     ];
     pathsToLink = [ "/share/zsh" ];
     shells = [ pkgs.zsh ];
