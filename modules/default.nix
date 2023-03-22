@@ -87,7 +87,6 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      #jack.enable = true;
     };
   };
 
@@ -125,6 +124,8 @@
   };
 
   nix.settings = {
+    keep-outputs = true;
+    keep-derivations = true;
     substituters = [ "https://hyprland.cachix.org" ];
     trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     experimental-features = [ "nix-command" "flakes" ];
@@ -138,10 +139,7 @@
     systemPackages = with pkgs; [
       zsh
       qt5ct
-      nil
-      nixpkgs-fmt
       glib
-      power-profiles-daemon
       plymouth
     ];
     pathsToLink = [ "/share/zsh" ];

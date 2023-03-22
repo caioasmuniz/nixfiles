@@ -7,13 +7,13 @@
       exa
       bat
       btop
-      direnv
       micro
       git
     ];
   };
 
   programs = {
+    direnv.enable = true;
     starship = {
       enable = true;
       settings = { };

@@ -10,27 +10,38 @@
     };
   };
 
-  outputs = { nixpkgs, hyprland, home-manager, ... }@inputs: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+  outputs = { nixpkgs, hyprland, home-manager, ... }@inputs:
+    let
       system = "x86_64-linux";
-      specialArgs.inputs = inputs;
-      modules = [
-        ./modules
-        hyprland.nixosModules.default
-        home-manager.nixosModules.home-manager
-        {
-          programs.hyprland.enable = true;
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            extraSpecialArgs.inputs = inputs;
-            users.caio.imports = [
-              ./home
-              hyprland.homeManagerModules.default
-            ];
-          };
-        }
-      ];
+      pkgs = import nixpkgs { inherit system; };
+    in
+    {
+      devShells.x86_64-linux.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          nixpkgs-fmt
+          nil
+        ];
+      };
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.inputs = inputs;
+        modules = [
+          ./modules
+          hyprland.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            programs.hyprland.enable = true;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs.inputs = inputs;
+              users.caio.imports = [
+                ./home
+                hyprland.homeManagerModules.default
+              ];
+            };
+          }
+        ];
+      };
     };
-  };
 }
