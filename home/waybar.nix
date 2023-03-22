@@ -29,15 +29,16 @@
             "pulseaudio"
             "backlight"
             "tray"
-            "custom/darkman"
             "network#vpn"
+            "custom/darkman"
+            "custom/powerprofiles"
             "custom/notification"
           ];
 
           backlight = {
             device = "intel_backlight";
             format = "{icon} {percent}%";
-            format-icons = [ "" "" "" "" "" "" "" ];
+            format-icons = [ "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨" ];
             on-scroll-down = "brightnessctl s 5%-";
             on-scroll-up = "brightnessctl s +5%";
             tooltip = true;
@@ -77,8 +78,31 @@
                   echo ""
               fi'';
             format = "{}<sup> </sup>";
-            interval = 10;
+            interval = 5;
             on-click = "darkman toggle";
+            tooltip = false;
+          };
+          "custom/powerprofiles" = {
+            exec = ''
+              state=$(powerprofilesctl get)
+              if [[ $state == "power-saver" ]]; then
+                  echo ""
+              elif [[ $state == "balanced" ]]; then
+                  echo "󰗑"
+              else
+                  echo "󰓅"
+              fi'';
+            format = "{}<sup> </sup>";
+            interval = 5;
+            on-click = ''
+              state=$(powerprofilesctl get)
+              if [[ $state == "power-saver" ]]; then
+                  powerprofilesctl set balanced
+              elif [[ $state == "balanced" ]]; then
+                  powerprofilesctl set performance
+              else
+                  powerprofilesctl set power-saver
+              fi'';
             tooltip = false;
           };
           "custom/notification" = {
@@ -136,15 +160,16 @@
             };
           };
           network = {
-            format-disconnected = "睊";
+            format-disconnected = "󰤮";
+            format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
             format-ethernet = "  {bandwidthUpBytes}   {bandwidthDownBytes}";
-            format-wifi = " {signalStrength}%  {bandwidthUpBytes}  {bandwidthDownBytes}";
+            format-wifi = "{icon} {signalStrength}%  {bandwidthUpBytes}  {bandwidthDownBytes}";
             interval = 5;
             max-length = 50;
-            on-click = "pkill nm-connection-editor || nm-connection-editor --class='pavuctl popup' --name='pavuctl popup'";
+            on-click-right = "pkill nm-connection-editor || nm-connection-editor --class='pavuctl popup' --name='pavuctl popup'";
             tooltip-format-disconnected = "Disconnected";
             tooltip-format-ethernet = " {ifname}  爵 {ipaddr}\n {bandwidthUpBytes}   {bandwidthDownBytes}";
-            tooltip-format-wifi = " {essid}\n爵 {ipaddr}  鷺 {signaldBm}dBm\n {bandwidthUpBytes}   {bandwidthDownBytes}";
+            tooltip-format-wifi = "{icon} {essid}\n爵 {ipaddr}  鷺 {signaldBm}dBm\n {bandwidthUpBytes}   {bandwidthDownBytes}";
           };
           "network#vpn" = {
             format = "󱇱<sup> </sup>";
@@ -154,9 +179,9 @@
             on-click = ''
               if [[ $(nmcli device status | grep wg0 | grep connected) == "" ]]
               then
-              	nmcli connection up wg0
+              nmcli connection up wg0
               else
-              	nmcli connection down wg0
+              nmcli connection down wg0
               fi'';
           };
           pulseaudio = {
@@ -164,14 +189,14 @@
             format-bluetooth = "{icon} {volume}%";
             format-icons = {
               car = "";
-              default = [ "奄" "奔" "墳" ];
+              default = [ "󰕿" "󰖀" "󰕾" ];
+              format-muted = "󰝟";
               handsfree = "";
               headphones = "";
               headset = "";
               phone = "";
               portable = "";
             };
-            format-muted = "ﱝ";
             on-click = "pkill pavucontrol || pavucontrol --class='pavuctl popup' --name='pavuctl popup' -t 3";
           };
           tray = {
@@ -181,8 +206,8 @@
           };
           wireplumber = {
             format = "{icon} {volume}%";
-            format-icons = [ "奄" "奔" "墳" ];
-            format-muted = "ﱝ";
+            format-icons = [ "󰕿" "󰖀" "󰕾" ];
+            format-muted = "󰝟";
             on-click = "pavucontrol &";
           };
           "wlr/taskbar" = {
@@ -279,6 +304,7 @@
         #network,
         #custom-notification,
         #custom-darkman,
+        #custom-powerprofiles,
         #mpris,
         #idle_inhibitor,
         #tray {
@@ -355,7 +381,7 @@
         }
 
         #network.disconnected {
-          background-color: @theme_base_color;
+          background-color: @theme_bg_color;
           color: @theme_text_color;
         }
 
