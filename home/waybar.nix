@@ -4,10 +4,10 @@
       enable = true;
       package = inputs.hyprland.packages.${pkgs.hostPlatform.system
       }.waybar-hyprland;
-      # systemd = {
-      #   enable = true;
-      #   target = "hyprland-session.target";
-      # };
+      systemd = {
+        enable = true;
+        target = "hyprland-session.target";
+      };
       settings = {
         bar = {
           layer = "top";
@@ -17,7 +17,7 @@
             "cpu"
             "memory"
             "wlr/workspaces"
-            "wlr/taskbar"
+            # "wlr/taskbar"
             "mpris"
           ];
           modules-center = [
@@ -26,6 +26,7 @@
           modules-right = [
             "battery"
             "network"
+            # "wireplumber"
             "pulseaudio"
             "backlight"
             "tray"
@@ -54,7 +55,7 @@
             tooltip-format = " {timeTo}\n {power} W";
           };
           clock = {
-            format = " {:%H:%M|%e %b}  ";
+            format = "{:%H:%M 󰥔<b></b> 󰃭 %e %b}";
             format-calendar = "<span color='#b4befe' font='FiraCode Nerd Font'><b>{}</b></span>";
             format-calendar-weekdays = "<span color='#f38ba8'font='FiraCode Nerd Font'><b>{}</b></span>";
             interval = 1;
@@ -70,7 +71,7 @@
           };
           "custom/darkman" = {
             exec = ''
-              state=$(darkman get)
+              state=$(${pkgs.darkman}/bin/darkman get)
               if [[ $state == "light" ]];
               then
                   echo ""
@@ -79,12 +80,12 @@
               fi'';
             format = "{}<sup> </sup>";
             interval = 5;
-            on-click = "darkman toggle";
+            on-click = "${pkgs.darkman}/bin/darkman toggle";
             tooltip = false;
           };
           "custom/powerprofiles" = {
             exec = ''
-              state=$(powerprofilesctl get)
+              state=$(${pkgs.power-profiles-daemon}/bin/powerprofilesctl get)
               if [[ $state == "power-saver" ]]; then
                   echo ""
               elif [[ $state == "balanced" ]]; then
@@ -95,20 +96,20 @@
             format = "{}<sup> </sup>";
             interval = 5;
             on-click = ''
-              state=$(powerprofilesctl get)
+              state=$(${pkgs.power-profiles-daemon}/bin/powerprofilesctl get)
               if [[ $state == "power-saver" ]]; then
-                  powerprofilesctl set balanced
+                  ${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced
               elif [[ $state == "balanced" ]]; then
-                  powerprofilesctl set performance
+                  ${pkgs.power-profiles-daemon}/bin/powerprofilesctl set performance
               else
-                  powerprofilesctl set power-saver
+                  ${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver
               fi'';
             tooltip = false;
           };
           "custom/notification" = {
             escape = true;
-            exec = "swaync-client -swb";
-            exec-if = "which swaync-client";
+            exec = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
+            exec-if = "which ${pkgs.swaynotificationcenter}/bin/swaync-client";
             format = "{icon}<span foreground='red'><sup><b> {}</b></sup></span>";
             format-icons = {
               none = "";
@@ -116,8 +117,8 @@
               notification = "";
               dnd-notification = "<sup> </sup>";
             };
-            on-click = "swaync-client -t -sw";
-            on-click-right = "swaync-client -d -sw";
+            on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
+            on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
             return-type = "json";
             tooltip = false;
           };
@@ -143,11 +144,12 @@
           memory = {
             format = " {}%";
             interval = 5;
-            on-click = "kitty htop &";
+            on-click = "kitty btop &";
             states = { critical = 75; warning = 50; };
           };
           mpris = {
-            format = "{player_icon} {title}";
+            format = "{player_icon} {dynamic}";
+            ignored-players = [ "firefox" ];
             player-icons = {
               default = "";
               firefox = "󰈹 ";
@@ -160,12 +162,13 @@
             };
           };
           network = {
-            format-disconnected = "󰤮";
-            format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
-            format-ethernet = "  {bandwidthUpBytes}   {bandwidthDownBytes}";
-            format-wifi = "{icon} {signalStrength}%  {bandwidthUpBytes}  {bandwidthDownBytes}";
-            interval = 5;
-            max-length = 50;
+            format = "{icon} {signalStrength}%";
+            format-alt = "{icon} {signalStrength}%  {bandwidthUpBytes}  {bandwidthDownBytes}";
+            format-disconnected = "󰤮<sup> </sup>";
+            format-icons = {
+              default = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
+              ethernet = "󰈀";
+            };
             on-click-right = "pkill nm-connection-editor || nm-connection-editor --class='pavuctl popup' --name='pavuctl popup'";
             tooltip-format-disconnected = "Disconnected";
             tooltip-format-ethernet = " {ifname}  爵 {ipaddr}\n {bandwidthUpBytes}   {bandwidthDownBytes}";
@@ -186,16 +189,12 @@
           };
           pulseaudio = {
             format = "{icon} {volume}%";
-            format-bluetooth = "{icon} {volume}%";
+            format-bluetooth = "{icon} {volume}%";
+            format-muted = "󰝟";
             format-icons = {
-              car = "";
               default = [ "󰕿" "󰖀" "󰕾" ];
-              format-muted = "󰝟";
-              handsfree = "";
               headphones = "";
-              headset = "";
               phone = "";
-              portable = "";
             };
             on-click = "pkill pavucontrol || pavucontrol --class='pavuctl popup' --name='pavuctl popup' -t 3";
           };
@@ -208,7 +207,9 @@
             format = "{icon} {volume}%";
             format-icons = [ "󰕿" "󰖀" "󰕾" ];
             format-muted = "󰝟";
-            on-click = "pavucontrol &";
+            on-scroll-up = "${pkgs.wireplumber}/bin/wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 1%+";
+            on-scroll-down = "${pkgs.wireplumber}/bin/wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 1%-";
+            on-click = "pkill ${pkgs.pavucontrol}/bin/pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol --class='pavuctl popup' --name='pavuctl popup' -t 3";
           };
           "wlr/taskbar" = {
             format = "{icon}";
@@ -272,6 +273,7 @@
           background-color: @theme_bg_color;
           border: @borders solid 1px;
           border-radius: 12px;
+          text-shadow: none;
         }
 
         tooltip label {
@@ -388,7 +390,7 @@
         #wireplumber.muted,
         #pulseaudio.muted {
           background-color: @error_color;
-          color: #1e1e2e;
+          color: @theme_bg_color;
         }
 
         #temperature.critical {
