@@ -4,7 +4,6 @@
 
 { pkgs, ... }: {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware.nix
     ./greetd.nix
   ];
@@ -95,6 +94,7 @@
     kdeconnect.enable = true;
     dconf.enable = true;
     seahorse.enable = true;
+    zsh.enable = true;
   };
 
   qt.platformTheme = "qt5ct";
@@ -145,7 +145,7 @@
     pathsToLink = [ "/share/zsh" ];
     shells = [ pkgs.zsh ];
   };
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "22.11"; 
 }
 
 
