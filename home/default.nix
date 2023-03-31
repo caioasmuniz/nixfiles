@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ inputs, pkgs, ... }: {
 
   imports = [
     ./zsh.nix
@@ -34,7 +34,6 @@
       pavucontrol
       obs-studio
       wl-clipboard
-      spotifywm
       libsForQt5.kdeconnect-kde
       fx_cast_bridge
       darkman
@@ -44,6 +43,15 @@
       bottles
       libsecret
       vulkan-tools
+      mpv
+      imv
+      shotman
+      lutris
+      networkmanagerapplet
+      gnome.gnome-control-center
+      libreoffice-fresh
+      inputs.fufexan.packages.${pkgs.hostPlatform.system
+      }.spotify
     ];
   };
 
