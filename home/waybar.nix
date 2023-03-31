@@ -16,6 +16,7 @@
           modules-left = [
             "cpu"
             "memory"
+            "temperature"
             "wlr/workspaces"
             # "wlr/taskbar"
             "mpris"
@@ -40,31 +41,33 @@
             device = "intel_backlight";
             format = "{icon} {percent}%";
             format-icons = [ "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨" ];
-            on-scroll-down = "brightnessctl s 5%-";
-            on-scroll-up = "brightnessctl s +5%";
+            on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl s 5%-";
+            on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl s +5%";
             tooltip = true;
           };
           battery = {
             bat = "BAT0";
-            format = "{icon} {capacity}%";
-            format-discharging = "{icon} {capacity}%";
-            format-icons = [ "" "" "" "" "" "" "" "" "" "" "" ];
+            format = "{icon}<sup> </sup>{capacity}%";
+            format-icons = {
+              charging = [ "󰢟" "󰢜" "󰂆" "󰂇" "󰂈" "󰢝" "󰂉" "󰢞" "󰂊" "󰂋" "󰂅" ];
+              discharging = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+            };
             interval = 5;
-            states = { critical = 15; good = 100; normal = 99; warning = 30; };
+            states = { critical = 10; warning = 25; good = 90; };
             tooltip = true;
             tooltip-format = " {timeTo}\n {power} W";
           };
           clock = {
-            format = "{:%H:%M 󰥔<b></b> 󰃭 %e %b}";
-            format-calendar = "<span color='#b4befe' font='FiraCode Nerd Font'><b>{}</b></span>";
+            format = "{:%H:%M 󰥔<sup> </sup>󰿟󰃭 %e %b}";
+            format-calendar = "<span color='#f38ba8' font='FiraCode Nerd Font'><b>{}</b></span>";
             format-calendar-weekdays = "<span color='#f38ba8'font='FiraCode Nerd Font'><b>{}</b></span>";
             interval = 1;
             on-click = "gnome-calendar &";
             today-format = "<span color='#a6e3a1'><b><u>{}</u></b></span>";
-            tooltip-format = "<big><b>  {:%H:%M:%S     %B %Y}</b></big>\n<tt><big>{calendar}</big></tt>";
+            tooltip-format = "<big><b>󰥔 {:%H:%M:%S 󰃭 %B %Y}</b></big>\n<tt><big>{calendar}</big></tt>";
           };
           cpu = {
-            format = " {usage}%";
+            format = "󰻠<sup> </sup>{usage}%";
             interval = 5;
             states = { critical = 75; warning = 50; };
             tooltip-format = "{avg_frequency}";
@@ -142,7 +145,7 @@
             };
           };
           memory = {
-            format = " {}%";
+            format = "󰍛<sup> </sup>{}%";
             interval = 5;
             on-click = "kitty btop &";
             states = { critical = 75; warning = 50; };
@@ -180,15 +183,15 @@
             interval = 5;
             tooltip-format = "VPN Connected: {ipaddr}";
             on-click = ''
-              if [[ $(nmcli device status | grep wg0 | grep connected) == "" ]]
+              if [[ $(${pkgs.networkmanager}/bin/nmcli device status | ${pkgs.gnugrep}/bin/grep wg0 | ${pkgs.gnugrep}/bin/grep connected) == "" ]]
               then
-              nmcli connection up wg0
+              ${pkgs.networkmanager}/bin/nmcli connection up wg0
               else
-              nmcli connection down wg0
+              ${pkgs.networkmanager}/bin/nmcli connection down wg0
               fi'';
           };
           pulseaudio = {
-            format = "{icon} {volume}%";
+            format = "{icon}<sup> </sup>{volume}%";
             format-bluetooth = "{icon} {volume}%";
             format-muted = "󰝟";
             format-icons = {
@@ -198,13 +201,20 @@
             };
             on-click = "pkill pavucontrol || pavucontrol --class='pavuctl popup' --name='pavuctl popup' -t 3";
           };
+          temperature = {
+            thermal-zone = 1;
+            # hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
+            format = "{icon}<sup> </sup>{temperatureC}°C";
+            format-icons = [ "" "" "" "" "" ];
+            critical-threshold = 75;
+          };
           tray = {
             icon-size = 20;
             show-passive-items = true;
             spacing = 5;
           };
           wireplumber = {
-            format = "{icon} {volume}%";
+            format = "{icon}<sup> </sup>{volume}%";
             format-icons = [ "󰕿" "󰖀" "󰕾" ];
             format-muted = "󰝟";
             on-scroll-up = "${pkgs.wireplumber}/bin/wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 1%+";
@@ -233,33 +243,6 @@
         };
       };
       style = ''
-        @keyframes blink-warning {
-          from {
-            color: @warning_color;
-            background-color: @theme_base_color;
-            border: 1px solid @warning_color;
-          }
-
-          to {
-            color: @theme_base_color;
-            background-color: @warning_color;
-            border: 1px solid @borders;
-          }
-        }
-
-        @keyframes blink-critical {
-          from {
-            color: @error_color;
-            background-color: @theme_base_color;
-            border: 1px solid @error_color;
-          }
-
-          to {
-            color: @theme_base_color;
-            background-color: @error_color;
-            border: 1px solid @borders;
-          }
-        }
         /* Reset all styles */
         * {
           border: none;
@@ -292,7 +275,6 @@
           /* border: 2px solid #abe9b3; */
         }
 
-        /* #custom-ddcutil, */
         #battery,
         #backlight,
         #clock,
@@ -304,12 +286,15 @@
         #wireplumber,
         #workspaces button,
         #network,
+        #network.disconnected.vpn,
         #custom-notification,
         #custom-darkman,
         #custom-powerprofiles,
         #mpris,
+        #temperature,
         #idle_inhibitor,
         #tray {
+          transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
           border-radius: 12px;
           border: 1px solid @borders;
           padding: 0px 8px;
@@ -320,81 +305,37 @@
           font-weight: bold;
           min-height: 24px;
         }
-        
-        #battery {
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          animation-direction: alternate;
-          margin-right: 0px;
-        }
-
-        #battery.good {
-          background-color: @success_color;
-          color: @theme_base_color;
-        }
-
-        #battery.warning.discharging {
-          animation-name: blink-warning;
-          animation-duration: 3s;
-        }
-
-        #battery.critical.discharging {
-          animation-name: blink-critical;
-          animation-duration: 2s;
-        }
-
-        #clock {
-          font-weight: bold;
-        }
 
         #cpu {
           margin-left: 4px;
-          color: @theme_base_color;
-          background-color: @success_color;
         }
 
-        #cpu.warning {
+        #cpu.warning,
+        #memory.warning,
+        #battery.warning.discharging {
           background-color: @warning_color;
+          color: @theme_bg_color;
         }
 
-        #cpu.critical {
-          background-color: @error_color;
-        }
-
-        #memory {
-          color: @theme_base_color;
-          background-color: @success_color;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          animation-direction: alternate;
-        }
-
-        #memory.warning {
-          background-color: @warning_color;
-        }
-
-        #memory.critical {
-          background-color: @error_color;
-        }
-
-        #network.vpn {
-          background-color: @success_color;
-          color: @theme_base_color;
-        }
-
-        #network.disconnected {
-          background-color: @theme_bg_color;
-          color: @theme_text_color;
-        }
-
+        #cpu.critical,
+        #memory.critical,
+        #pulseaudio.muted,
         #wireplumber.muted,
-        #pulseaudio.muted {
+        #temperature.critical,
+        #workspaces button.urgent,
+        #battery.critical.discharging {
           background-color: @error_color;
           color: @theme_bg_color;
         }
 
-        #temperature.critical {
-          background-color: @error_color;
+        #cpu.good,
+        #memory.good,
+        #network.vpn,
+        #battery.good,
+        #taskbar button.active,
+        #workspaces button.active {
+          background-color: @success_color;
+          color: @theme_bg_color;
         }
 
         #custom-notification {
@@ -412,8 +353,6 @@
 
         #taskbar button.active {
           border-radius: 11px;
-          background-color: @success_color;
-          transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
         }
 
         #taskbar button:hover {
@@ -431,26 +370,13 @@
         }
 
         #workspaces button {
-          padding: 0px 5px;
-          color: @theme_unfocused_fg_color;
-          transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
+          padding: 0px 4px;
           margin-right: 4px;
         }
 
-        #workspaces button.active {
-          background-color: @success_color;
-          color: @theme_base_color;
-          transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
-        }
-
-        #workspaces button.urgent {
-          color: @theme_base_color;
-          background-color: @warning_color;
-          border-radius: 12px;
-        }
-
         #workspaces button:hover {
-          color: @success_color;
+          background-color: @theme_selected_bg_color;
+          color: @theme_text_color;
           border-radius: 12px;
         }
       '';
