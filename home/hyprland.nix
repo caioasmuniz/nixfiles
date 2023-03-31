@@ -101,15 +101,15 @@
       bind=SUPER,Space,exec, wofi -n -s ~/.config/wofi/style.css
       bind=SUPERSHIFT,P,exec,wlogout -p layer-shell
       bind=SUPER,W,exec,pkill -USR1 waybar
-      bind=SUPER,C,exec, kitty -e micro ~/.config/hypr/hyprland.conf
+      bind=SUPER,C,exec, code ~/Documents/nixfiles
       bind=SUPER,Return,exec,kitty
       bind=SUPER,B,exec,firefox
       bind=SUPER,V,exec,pavucontrol
       bind=SUPER,E,exec,nautilus
       bind=SUPERSHIFT,Q,exec,pkill Hyprland
       bind=SUPERSHIFT,R,exec, hyprctl reload;notify-send "Hyprland had just reloaded!"
-      bind=,Print,exec,~/.config/hypr/scripts/screenshot.sh
-      bind=SUPERCONTROL,S,exec,~/.config/hypr/scripts/screenshot-area.sh
+      bind=,Print,exec,shotman -c target
+      bind=SUPERCONTROL,S,exec,shotman -c region
 
       bind=SUPERSHIFT,F,togglefloating,active
       bind=SUPERSHIFT,G,togglegroup
@@ -123,9 +123,9 @@
       bind=SUPER,S,togglesplit
       bind=SUPERSHIFT,S,swapactiveworkspaces,eDP-1 DP-1
 
-      bind=,XF86AudioRaiseVolume,exec,volumectl -u up
-      bind=,XF86AudioLowerVolume,exec,volumectl -u down
-      bind=,XF86AudioMute,exec,volumectl toggle-mute
+      bind=,XF86AudioRaiseVolume,exec,wpctl set-volume -l "1.0" @DEFAULT_AUDIO_SINK@ 5%+
+      bind=,XF86AudioLowerVolume,exec,wpctl set-volume -l "1.0" @DEFAULT_AUDIO_SINK@ 5%-
+      bind=,XF86AudioMute,exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
       bind=,XF86MonBrightnessUp,exec,brightnessctl s +5%
       bind=,XF86MonBrightnessDown,exec,brightnessctl s 5%-
       bind=,XF86AudioMedia,exec,playerctl play-pause
@@ -181,13 +181,9 @@
       exec=dconf write /org/gnome/desktop/interface/font-name '"Fira Sans Regular 10"'
       exec=dconf write /org/gnome/desktop/wm/preferences/button-layout '":"'
  
-
       exec=hyprctl setcursor Adwaita 24
       exec-once=wlsunset -l -23.1 -L -50.6 -t 4000 -T 6500 &
       exec-once=darkman run &
-      # exec-once=swaync &
-      exec-once=waybar &
-      exec-once=nm-applet --indicator &
       exec-once=kdeconnect-indicator &
       exec-once = sleep 10 && nextcloud --background &
     '';
