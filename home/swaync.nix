@@ -1,5 +1,22 @@
 { pkgs, ... }: {
   home.packages = [ pkgs.swaynotificationcenter ];
+  systemd.user.services.swaync = {
+    Unit = {
+      Description = "Swaync notification daemon";
+      Documentation = "https://github.com/ErikReider/SwayNotificationCenter";
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "dbus";
+      BusName = "org.freedesktop.Notifications";
+      ExecStart = "${pkgs.swaynotificationcenter}/bin/swaync";
+      ExecReload = "${pkgs.swaynotificationcenter}/bin/swaync-client --reload-config;${pkgs.swaynotificationcenter}/bin/swaync-client --reload-css";
+      Restart = "on-failure";
+    };
+    Install.WantedBy = [ "hyprland-session.target" ];
+  };
+
   xdg.configFile."swaync/config.json".text = ''
     {
       "$schema": "/etc/xdg/swaync/configSchema.json",
