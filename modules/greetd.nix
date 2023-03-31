@@ -15,8 +15,6 @@ let
   '';
 in
 {
-  imports = [ ./regreet.nix ];
-
   security.pam.services.greetd.enableGnomeKeyring = true;
 
   services.greetd = {
