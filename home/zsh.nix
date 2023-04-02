@@ -1,26 +1,25 @@
 { config, pkgs, ... }: {
-  home = {
-    packages = with pkgs; [
-      zplug
-      neofetch
-      fzf
-      exa
-      bat
-      btop
-      micro
-      git
-    ];
-  };
+  home.packages = with pkgs; [
+    btop
+    micro
+    git
+  ];
 
   programs = {
-    direnv.enable = true;
-    starship = {
+    exa.enable = true;
+    bat.enable = true;
+    direnv = {
       enable = true;
-      settings = { };
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
     };
     fzf = {
       enable = true;
       enableZshIntegration = true;
+    };
+    starship = {
+      enable = true;
+      settings = { };
     };
     zsh = {
       enable = true;
@@ -30,7 +29,8 @@
       enableVteIntegration = true;
       historySubstringSearch.enable = true;
       shellAliases = {
-        update = "sudo nix flake update ~/Documents/nixfiles;sudo nixos-rebuild switch --upgrade --flake ~/Documents/nixfiles";
+        update = "sudo nixos-rebuild switch --upgrade --flake ~/Documents/nixfiles";
+        flake-update = "sudo nix flake update ~/Documents/nixfiles;";
         ls = "exa --color=always --icons";
         cat = "bat";
       };
@@ -44,9 +44,8 @@
           { name = "Aloxaf/fzf-tab"; }
         ];
       };
-
       initExtra = ''
-        neofetch
+        ${pkgs.neofetch}/bin/neofetch
       '';
     };
   };
