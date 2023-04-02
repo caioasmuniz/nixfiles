@@ -41,6 +41,7 @@
           col.inactive_border=0xFF313244
           col.group_border=0xff1e1e2e
           col.group_border_active=0xffcba6f7
+          resize_on_border=true
       }
 
       gestures {
@@ -77,11 +78,13 @@
           enable_swallow=true
           swallow_regex=kitty
           layers_hog_keyboard_focus=true
+          focus_on_activate=true
       }
 
       dwindle {
-          pseudotile=0 # enable pseudotiling on dwindle
+          pseudotile=1 # enable pseudotiling on dwindle
           preserve_split=true
+          no_gaps_when_only=false
       }
 
       windowrulev2=float,class:^(pavuctl popup)$
