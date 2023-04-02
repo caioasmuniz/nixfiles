@@ -123,11 +123,11 @@
       bind=SUPER,S,togglesplit
       bind=SUPERSHIFT,S,swapactiveworkspaces,eDP-1 DP-1
 
-      bind=,XF86AudioRaiseVolume,exec,wpctl set-volume -l "1.0" @DEFAULT_AUDIO_SINK@ 5%+
-      bind=,XF86AudioLowerVolume,exec,wpctl set-volume -l "1.0" @DEFAULT_AUDIO_SINK@ 5%-
-      bind=,XF86AudioMute,exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-      bind=,XF86MonBrightnessUp,exec,brightnessctl s +5%
-      bind=,XF86MonBrightnessDown,exec,brightnessctl s 5%-
+      # bind=,XF86AudioRaiseVolume,exec,wpctl set-volume -l "1.0" @DEFAULT_AUDIO_SINK@ 5%+
+      # bind=,XF86AudioLowerVolume,exec,wpctl set-volume -l "1.0" @DEFAULT_AUDIO_SINK@ 5%-
+      # bind=,XF86AudioMute,exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+      # bind=,XF86MonBrightnessUp,exec,brightnessctl s +5%
+      # bind=,XF86MonBrightnessDown,exec,brightnessctl s 5%-
       bind=,XF86AudioMedia,exec,playerctl play-pause
       bind=,XF86AudioPlay,exec,playerctl play-pause
       bind=,XF86AudioStop,exec,playerctl stop

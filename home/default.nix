@@ -9,6 +9,7 @@
     ./firefox.nix
     ./hyprland.nix
     ./swayidle.nix
+    ./swayosd.nix
     ./polkit-agent.nix
   ];
 
