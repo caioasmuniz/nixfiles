@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, lib, inputs, ... }: {
   programs = {
     waybar = {
       enable = true;
@@ -39,7 +39,8 @@
 
           backlight = {
             device = "intel_backlight";
-            format = "{icon} {percent}%";
+            format = "{icon}<sup> </sup>";
+            format-alt = "{icon} {percent}%";
             format-icons = [ "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨" ];
             on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl s 5%-";
             on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl s +5%";
@@ -47,15 +48,16 @@
           };
           battery = {
             bat = "BAT0";
-            format = "{icon}<sup> </sup>{capacity}%";
+            format-alt = "{icon}<sup> </sup>{capacity}%";
+            format = "{icon}";
             format-icons = {
               charging = [ "󰢟" "󰢜" "󰂆" "󰂇" "󰂈" "󰢝" "󰂉" "󰢞" "󰂊" "󰂋" "󰂅" ];
               discharging = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
             };
             interval = 5;
-            states = { critical = 10; warning = 25; good = 90; };
+            states = { critical = 10; warning = 25; normal = 26; good = 90; };
             tooltip = true;
-            tooltip-format = " {timeTo}\n {power} W";
+            tooltip-format = " {timeTo}\n {power} W  󰂎 {capacity}%";
           };
           clock = {
             format = "{:%H:%M 󰥔<sup> </sup>󰿟󰃭 %e %b}";
@@ -147,7 +149,7 @@
           memory = {
             format = "󰍛<sup> </sup>{}%";
             interval = 5;
-            on-click = "kitty btop &";
+            on-click = "${pkgs.kitty}/bin/kitty ${pkgs.btop}/bin/btop &";
             states = { critical = 75; warning = 50; };
           };
           mpris = {
@@ -165,7 +167,7 @@
             };
           };
           network = {
-            format = "{icon} {signalStrength}%";
+            format = "{icon}<sup> </sup>";
             format-alt = "{icon} {signalStrength}%  {bandwidthUpBytes}  {bandwidthDownBytes}";
             format-disconnected = "󰤮<sup> </sup>";
             format-icons = {
@@ -191,7 +193,8 @@
               fi'';
           };
           pulseaudio = {
-            format = "{icon}<sup> </sup>{volume}%";
+            format = "{icon}";
+            format-alt = "{icon}<sup> </sup>{volume}%";
             format-bluetooth = "{icon} {volume}%";
             format-muted = "󰝟";
             format-icons = {
@@ -199,7 +202,7 @@
               headphones = "";
               phone = "";
             };
-            on-click = "pkill pavucontrol || pavucontrol --class='pavuctl popup' --name='pavuctl popup' -t 3";
+            on-right-click = "pkill ${pkgs.pavucontrol}/bin/pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol --class='pavuctl popup' --name='pavuctl popup' -t 3";
           };
           temperature = {
             thermal-zone = 1;
@@ -211,7 +214,7 @@
           tray = {
             icon-size = 20;
             show-passive-items = true;
-            spacing = 5;
+            spacing = 4;
           };
           wireplumber = {
             format = "{icon}<sup> </sup>{volume}%";
