@@ -1,4 +1,4 @@
-{ pkgs, lib, inputs, ... }: {
+{ pkgs, inputs, ... }: {
   programs = {
     waybar = {
       enable = true;
