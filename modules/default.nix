@@ -4,8 +4,10 @@
 
 { pkgs, ... }: {
   imports = [
-    ./hardware.nix
+    ./locale.nix
     ./greetd.nix
+    ./hardware.nix
+    ./pipewire.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -33,28 +35,7 @@
     networkmanager.enable = true;
   };
 
-  time.timeZone = "America/Sao_Paulo";
-
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    # console.keyMap = "br-abnt2";
-    extraLocaleSettings = {
-      LC_ADDRESS = "pt_BR.UTF-8";
-      LC_IDENTIFICATION = "pt_BR.UTF-8";
-      LC_MEASUREMENT = "pt_BR.UTF-8";
-      LC_MONETARY = "pt_BR.UTF-8";
-      LC_NAME = "pt_BR.UTF-8";
-      LC_NUMERIC = "pt_BR.UTF-8";
-      LC_PAPER = "pt_BR.UTF-8";
-      LC_TELEPHONE = "pt_BR.UTF-8";
-      LC_TIME = "pt_BR.UTF-8";
-    };
-  };
-
-  sound.enable = true;
-
   hardware = {
-    pulseaudio.enable = false;
     opengl = {
       enable = true;
       extraPackages = with pkgs; [
@@ -68,7 +49,6 @@
 
   security = {
     polkit.enable = true;
-    rtkit.enable = true;
     pam.services.gtklock = { };
   };
 
@@ -81,12 +61,6 @@
       gnome-keyring.enable = true;
       at-spi2-core.enable = true;
     };
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-    };
   };
 
   programs = {
@@ -97,7 +71,7 @@
     zsh.enable = true;
   };
 
-  qt.platformTheme = "qt5ct";
+  # qt.platformTheme = "qt5ct";
 
   users = {
     defaultUserShell = pkgs.zsh;
@@ -137,10 +111,7 @@
       XDG_CURRENT_DESKTOP = "hyprland";
     };
     systemPackages = with pkgs; [
-      zsh
-      qt5ct
       glib
-      plymouth
     ];
     pathsToLink = [ "/share/zsh" ];
     shells = [ pkgs.zsh ];
