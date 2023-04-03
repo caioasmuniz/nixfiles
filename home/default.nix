@@ -23,6 +23,7 @@
       gnome.adwaita-icon-theme
       gnome.nautilus
       gnome.geary
+      qalculate-gtk
       gcr
       gsettings-desktop-schemas
       qbittorrent
