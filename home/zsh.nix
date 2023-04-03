@@ -30,8 +30,8 @@
       historySubstringSearch.enable = true;
       shellAliases = {
         update = "sudo nixos-rebuild switch --upgrade --flake github:caioasmuniz/nixfiles";
-        local-update = "sudo nixos-rebuild switch --upgrade --flake ~/Documents/nixfiles";
-        flake-update = "sudo nix flake update ~/Documents/nixfiles;";
+        update-local = "sudo nixos-rebuild switch --upgrade --flake ~/Documents/nixfiles";
+        update-flake = "sudo nix flake update ~/Documents/nixfiles;";
         ls = "exa --color=always --icons";
         cat = "bat";
       };

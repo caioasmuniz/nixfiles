@@ -55,7 +55,7 @@
               discharging = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
             };
             interval = 5;
-            states = { critical = 10; warning = 25; normal = 26; good = 90; };
+            states = { critical = 10; warning = 25; normal = 26; normal2 = 89; good = 90; };
             tooltip = true;
             tooltip-format = " {timeTo}\n {power} W  󰂎 {capacity}%";
           };
