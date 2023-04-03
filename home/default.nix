@@ -8,9 +8,9 @@
     ./waybar.nix
     ./swaync.nix
     ./firefox.nix
+    ./swayosd.nix
     ./hyprland.nix
     ./swayidle.nix
-    ./swayosd.nix
     ./polkit-agent.nix
   ];
 
@@ -27,25 +27,18 @@
       qalculate-gtk
       gcr
       gsettings-desktop-schemas
-      qbittorrent
       wdisplays
       libnotify
       swaybg
       wlsunset
       brightnessctl
-      playerctl
       pavucontrol
       obs-studio
       wl-clipboard
       libsForQt5.kdeconnect-kde
-      fx_cast_bridge
       darkman
-      wallutils
-      kitty
       osu-lazer-bin
-      bottles
       libsecret
-      vulkan-tools
       mpv
       imv
       shotman
