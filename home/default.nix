@@ -4,6 +4,7 @@
     ./zsh.nix
     ./xdg.nix
     ./wofi.nix
+    ./kitty.nix
     ./waybar.nix
     ./swaync.nix
     ./firefox.nix
