@@ -30,7 +30,6 @@
       wdisplays
       libnotify
       swaybg
-      wlsunset
       brightnessctl
       pavucontrol
       obs-studio
@@ -41,7 +40,6 @@
       libsecret
       mpv
       imv
-      shotman
       lutris
       networkmanagerapplet
       gnome.gnome-control-center

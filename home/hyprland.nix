@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
     systemdIntegration = true;
@@ -101,18 +101,18 @@
 
       # blurls=gtk-layer-shell
 
-      bind=SUPER,Space,exec, wofi -n -s ~/.config/wofi/style.css
+      bind=SUPER,Space,exec, ${pkgs.wofi}/bin/wofi -n -s ~/.config/wofi/style.css
       bind=SUPERSHIFT,P,exec,wlogout -p layer-shell
       bind=SUPER,W,exec,pkill -USR1 waybar
-      bind=SUPER,C,exec, code ~/Documents/nixfiles
-      bind=SUPER,Return,exec,kitty
+      bind=SUPER,C,exec, ${pkgs.vscode}/bin/code ~/Documents/nixfiles
+      bind=SUPER,Return,exec,${pkgs.kitty}/bin/kitty
       bind=SUPER,B,exec,firefox
-      bind=SUPER,V,exec,pavucontrol
-      bind=SUPER,E,exec,nautilus
+      bind=SUPER,V,exec,${pkgs.pavucontrol}/bin/pavucontrol
+      bind=SUPER,E,exec,${pkgs.gnome.nautilus}/bin/nautilus
       bind=SUPERSHIFT,Q,exec,pkill Hyprland
-      bind=SUPERSHIFT,R,exec, hyprctl reload;notify-send "Hyprland had just reloaded!"
-      bind=,Print,exec,shotman -c target
-      bind=SUPERCONTROL,S,exec,shotman -c region
+      bind=SUPERSHIFT,R,exec, hyprctl reload;${pkgs.libnotify}/bin/notify-send "Hyprland had just reloaded!"
+      bind=,Print,exec,${pkgs.shotman}/bin/shotman -c target
+      bind=SUPERCONTROL,S,exec,${pkgs.shotman}/bin/shotman -c region
 
       bind=SUPERSHIFT,F,togglefloating,active
       bind=SUPERSHIFT,G,togglegroup
@@ -129,13 +129,13 @@
       # bind=,XF86AudioRaiseVolume,exec,wpctl set-volume -l "1.0" @DEFAULT_AUDIO_SINK@ 5%+
       # bind=,XF86AudioLowerVolume,exec,wpctl set-volume -l "1.0" @DEFAULT_AUDIO_SINK@ 5%-
       # bind=,XF86AudioMute,exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-      # bind=,XF86MonBrightnessUp,exec,brightnessctl s +5%
-      # bind=,XF86MonBrightnessDown,exec,brightnessctl s 5%-
-      bind=,XF86AudioMedia,exec,playerctl play-pause
-      bind=,XF86AudioPlay,exec,playerctl play-pause
-      bind=,XF86AudioStop,exec,playerctl stop
-      bind=,XF86AudioPrev,exec,playerctl previous
-      bind=,XF86AudioNext,exec,playerctl next
+      bind=,XF86MonBrightnessUp,exec,${pkgs.brightnessctl}/bin/brightnessctl s +5%
+      bind=,XF86MonBrightnessDown,exec,${pkgs.brightnessctl}/bin/brightnessctl s 5%-
+      bind=,XF86AudioMedia,exec,${pkgs.playerctl}/bin/playerctl play-pause
+      bind=,XF86AudioPlay,exec,${pkgs.playerctl}/bin/playerctl play-pause
+      bind=,XF86AudioStop,exec,${pkgs.playerctl}/bin/playerctl stop
+      bind=,XF86AudioPrev,exec,${pkgs.playerctl}/bin/playerctl previous
+      bind=,XF86AudioNext,exec,${pkgs.playerctl}/bin/playerctl next
 
       bindm=SUPER,mouse:272,movewindow
       bindm=SUPER,mouse:273,resizewindow
@@ -181,12 +181,12 @@
       # exec-once=dbus-update-activation-environment --all
       # exec-once=gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
       # exec-once=gsettings set org.gnome.desktop.interface cursor-size 24
-      exec=dconf write /org/gnome/desktop/interface/font-name '"Fira Sans Regular 10"'
-      exec=dconf write /org/gnome/desktop/wm/preferences/button-layout '":"'
+      exec=${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/font-name '"Fira Sans Regular 10"'
+      exec=${pkgs.dconf}/bin/dconf write /org/gnome/desktop/wm/preferences/button-layout '":"'
  
       exec=hyprctl setcursor Adwaita 24
-      exec-once=wlsunset -l -23.1 -L -50.6 -t 4000 -T 6500 &
-      exec-once=darkman run &
+      exec-once=${pkgs.wlsunset}/bin/wlsunset -l -23.1 -L -50.6 -t 4000 -T 6500 &
+      exec-once=${pkgs.darkman}/bin/darkman run &
       exec-once=kdeconnect-indicator &
       exec-once = sleep 10 && nextcloud --background &
     '';
