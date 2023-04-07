@@ -5,6 +5,7 @@
       size = 10;
       name = "Fira Code Medium";
     };
+    extraConfig="include current-theme.conf";
     settings = {
       cursor_shape = "beam";
       cursor_beam_thickness = "1.5";
