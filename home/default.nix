@@ -1,5 +1,4 @@
 { inputs, pkgs, ... }: {
-
   imports = [
     ./zsh.nix
     ./xdg.nix
@@ -8,6 +7,7 @@
     ./waybar.nix
     ./swaync.nix
     ./firefox.nix
+    ./darkman.nix
     ./swayosd.nix
     ./hyprland.nix
     ./swayidle.nix
@@ -35,7 +35,6 @@
       obs-studio
       wl-clipboard
       libsForQt5.kdeconnect-kde
-      darkman
       osu-lazer-bin
       libsecret
       mpv

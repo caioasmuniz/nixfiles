@@ -2,6 +2,7 @@
 let
   swayConfig = pkgs.writeText "greetd-sway-config" ''
     exec "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP"
+    exec "${pkgs.darkman}/bin/darkman run &"
     input "type:touchpad" {
       tap enabled
     }
@@ -42,7 +43,6 @@ in
         cursor_theme_name = "Adwaita";
         font_name = "Fira Sans 12";
         icon_theme_name = "Adwaita";
-        theme_name = "Adwaita-dark";
       };
     };
   };

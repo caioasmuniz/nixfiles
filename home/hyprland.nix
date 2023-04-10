@@ -186,7 +186,6 @@
  
       exec=hyprctl setcursor Adwaita 24
       exec-once=${pkgs.wlsunset}/bin/wlsunset -l -23.1 -L -50.6 -t 4000 -T 6500 &
-      exec-once=${pkgs.darkman}/bin/darkman run &
       exec-once=kdeconnect-indicator &
       exec-once = sleep 10 && nextcloud --background &
     '';
