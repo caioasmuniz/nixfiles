@@ -55,6 +55,11 @@
   programs = {
     vscode.enable = true;
     home-manager.enable = true;
+    git = { 
+      enable = true;
+      userName = "caioasmuniz";
+      userEmail = "caiomuniz888@gmail.com";
+    };
   };
 }
 

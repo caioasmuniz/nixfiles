@@ -118,7 +118,7 @@
       bind=SUPERSHIFT,G,togglegroup
       bind=SUPER,G,changegroupactive,f
       bind=SUPER,Q,killactive
-      bind=SUPER,P,pseudo
+      bind=SUPER,P,exec, hyprctl --batch "dispatch togglefloating;dispatch resizeactive exact 1280 720;dispatch pseudo"
       bind=SUPER,F,fullscreen
       bind=,Pause,togglespecialworkspace
       bind=,Insert,togglespecialworkspace
@@ -178,9 +178,7 @@
 
       bindl=,switch:Lid Switch,exec,systemctl suspend
 
-      # exec-once=dbus-update-activation-environment --all
-      # exec-once=gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
-      # exec-once=gsettings set org.gnome.desktop.interface cursor-size 24
+      # exec-once=${pkgs.dbus}/bin/dbus-update-activation-environment --all
       exec=${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/font-name '"Fira Sans Regular 10"'
       exec=${pkgs.dconf}/bin/dconf write /org/gnome/desktop/wm/preferences/button-layout '":"'
  

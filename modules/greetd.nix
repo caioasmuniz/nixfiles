@@ -7,12 +7,7 @@ let
       tap enabled
     }
     xwayland disable
-    bindsym Mod4+shift+e exec swaynag \
-      -t warning \
-      -m 'What do you want to do?' \
-      -b 'Poweroff' 'systemctl poweroff' \
-      -b 'Reboot' 'systemctl reboot'
-    exec "regreet; swaymsg exit"
+    exec "${pkgs.greetd.regreet}/bin/regreet; swaymsg exit"
   '';
 in
 {
@@ -29,15 +24,10 @@ in
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    gnome.adwaita-icon-theme
-    greetd.regreet
-    sway
-  ];
+  environment.systemPackages = [ pkgs.gnome.adwaita-icon-theme ];
 
   programs.regreet = {
     enable = true;
-    package = pkgs.greetd.regreet;
     settings = {
       GTK = {
         cursor_theme_name = "Adwaita";

@@ -4,8 +4,9 @@
     Unit = {
       Description = "Swaync notification daemon";
       Documentation = "https://github.com/ErikReider/SwayNotificationCenter";
-      After = [ "graphical-session-pre.target" ];
       PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+      ConditionEnvironment = "WAYLAND_DISPLAY";
     };
     Service = {
       Type = "dbus";
@@ -46,8 +47,9 @@
         "dnd",
         "menubar",
         "buttons-grid",
-        "volume",
-        "backlight",
+        "volume",''+
+        # "backlight",
+        ''
         "mpris",
         "notifications"
       ],
