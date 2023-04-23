@@ -40,7 +40,7 @@
     binde=, XF86MonBrightnessUp, exec, light -A 10
     binde=, XF86MonBrightnessDown, exec, light -U 10
 
-    bind=, Caps_Lock, exec, swayosd --caps-lock
+    bindl=, Caps_Lock, exec, swayosd --caps-lock-led input0::capslock
     binde=, XF86MonBrightnessUp, exec, swayosd --brightness raise
     binde=, XF86MonBrightnessDown, exec, swayosd --brightness lower
   '';

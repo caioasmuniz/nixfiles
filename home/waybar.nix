@@ -51,6 +51,7 @@
             format-alt = "{icon}<sup> </sup>{capacity}%";
             format = "{icon}";
             format-icons = {
+              full = "󰂅";
               charging = [ "󰢟" "󰢜" "󰂆" "󰂇" "󰂈" "󰢝" "󰂉" "󰢞" "󰂊" "󰂋" "󰂅" ];
               discharging = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
             };
@@ -335,6 +336,7 @@
         #memory.good,
         #network.vpn,
         #battery.good,
+        #battery.full,
         #taskbar button.active,
         #workspaces button.active {
           background-color: @success_color;

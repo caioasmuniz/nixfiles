@@ -45,6 +45,7 @@
       libreoffice-fresh
       inputs.fufexan.packages.${pkgs.hostPlatform.system
       }.spotify
+      chromium
     ];
   };
 

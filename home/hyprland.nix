@@ -118,7 +118,7 @@
       bind=SUPERSHIFT,G,togglegroup
       bind=SUPER,G,changegroupactive,f
       bind=SUPER,Q,killactive
-      bind=SUPER,P,exec, hyprctl --batch "dispatch togglefloating;dispatch resizeactive exact 1280 720;dispatch pseudo"
+      bind=SUPER,P,exec, hyprctl --batch "dispatch togglefloating 1;dispatch resizeactive exact 1920 1080;dispatch togglefloating 0;dispatch pseudo"
       bind=SUPER,F,fullscreen
       bind=,Pause,togglespecialworkspace
       bind=,Insert,togglespecialworkspace
