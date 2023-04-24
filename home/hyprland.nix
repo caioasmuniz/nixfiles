@@ -1,4 +1,15 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let
+  scratchpad = pkgs.writeScript "scratchpad" ''
+    if [[ $(hyprctl workspaces -j |${pkgs.jq}/bin/jq '.[-1]|.id') != "-99" ]];
+    then
+      hyprctl dispatch exec [workspace special:scratchpad] kitty
+      sleep 1
+    fi
+      hyprctl dispatch togglespecialworkspace scratchpad
+  '';
+in
+{
   wayland.windowManager.hyprland = {
     enable = true;
     systemdIntegration = true;
@@ -119,9 +130,10 @@
       bind=SUPER,Q,killactive
       bind=SUPER,P,exec, hyprctl --batch "dispatch togglefloating 1;dispatch resizeactive exact 1920 1080;dispatch togglefloating 0;dispatch pseudo"
       bind=SUPER,F,fullscreen
-      bind=,Pause,togglespecialworkspace
-      bind=,Insert,togglespecialworkspace
-      bind=SUPER,A,movetoworkspace,special
+      bind=,Pause,exec, ${scratchpad}
+      bind=,Insert,exec, ${scratchpad}
+      bind=SUPER,Insert,movetoworkspace,special:scratchpad
+      bind=SUPER,Pause,movetoworkspace,special:scratchpad
       bind=SUPER,S,togglesplit
       bind=SUPERSHIFT,S,swapactiveworkspaces,eDP-1 DP-1
 
