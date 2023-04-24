@@ -39,7 +39,7 @@
       ln -sf ~/.config/kitty/themes/adwaita.conf ~/.config/kitty/current-theme.conf
       pkill -USR1 kitty
 
-      ${pkgs.libnotify}/bin/notify-send --app-name="darkman" --urgency=low --icon=weather-clear "switching to light mode"
+      ${pkgs.libnotify}/bin/notify-send --app-name="darkman" --urgency=low --icon=weather-clear-symbolic "switching to light mode"
     '';
   };
   xdg.dataFile."dark-mode.d/dark.sh" = {
@@ -53,7 +53,7 @@
       ln -sf ~/.config/kitty/themes/adwaita-dark.conf ~/.config/kitty/current-theme.conf
       pkill -USR1 kitty
 
-      ${pkgs.libnotify}/bin/notify-send --app-name="darkman" --urgency=low --icon=weather-clear-night "switching to dark mode"
+      ${pkgs.libnotify}/bin/notify-send --app-name="darkman" --urgency=low --icon=weather-clear-symbolic-night "switching to dark mode"
     '';
   };
 }

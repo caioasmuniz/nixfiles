@@ -101,7 +101,6 @@
 
       # blurls=gtk-layer-shell
 
-      bind=SUPER,Space,exec, ${pkgs.wofi}/bin/wofi -n -s ~/.config/wofi/style.css
       bind=SUPERSHIFT,P,exec,wlogout -p layer-shell
       bind=SUPER,W,exec,pkill -USR1 waybar
       bind=SUPER,C,exec, ${pkgs.vscode}/bin/code ~/Documents/nixfiles

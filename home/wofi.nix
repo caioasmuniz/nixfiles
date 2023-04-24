@@ -1,5 +1,8 @@
 { pkgs, ... }: {
   home.packages = [ pkgs.wofi ];
+  wayland.windowManager.hyprland.extraConfig = ''
+    bind=SUPER,Space,exec, ${pkgs.wofi}/bin/wofi -n -s ~/.config/wofi/style.css
+  '';
   xdg.configFile."wofi/config".text = ''
     width=300
     height=500
