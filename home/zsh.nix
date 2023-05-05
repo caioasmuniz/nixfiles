@@ -1,13 +1,41 @@
 { config, lib, pkgs, ... }: {
-  home.packages = with pkgs; [
-    btop
-    micro
-    git
-  ];
-
+  home = {
+    packages = with pkgs;[ ripgrep ];
+    sessionVariables = { EDITOR = "micro"; };
+  };
   programs = {
-    exa.enable = true;
-    bat.enable = true;
+    exa = {
+      enable = true;
+      icons = true;
+      extraOptions = [ "--color=always" ];
+    };
+    bat = {
+      enable = true;
+      config = {
+        theme = "base16";
+      };
+      extraPackages = with pkgs.bat-extras;[ prettybat batman ];
+    };
+    btop = {
+      enable = true;
+      settings = {
+        proc_gradient = false;
+        theme_background = false;
+        color_theme = "TTY";
+        truecolor = true;
+        update_ms = 1000;
+      };
+    };
+    micro = {
+      enable = true;
+      settings = {
+        autosu = true;
+        clipboard = "external";
+        mkparents = true;
+        saveundo = true;
+        colorscheme = "simple";
+      };
+    };
     direnv = {
       enable = true;
       enableZshIntegration = true;
@@ -40,7 +68,7 @@
           "[](fg:purple bg:blue)"
           "$nix_shell"
           "[](fg:blue bg:green)"
-          "$time"
+          "$cmd_duration"
           "[ ](fg:green)\n"
           "$character"
         ];
@@ -51,8 +79,8 @@
         # and use the os module below
         username = {
           show_always = true;
-          style_user = "bg:blue";
-          style_root = "bg:blue";
+          style_user = "fg:white bg:blue";
+          style_root = "fg:white bg:blue";
           format = "[$user ]($style)";
           disabled = false;
         };
@@ -60,28 +88,28 @@
         # An alternative to the username module which displays a symbol that
         # represents the current operating system
         os = {
-          style = "bg:blue bold";
+          style = "fg:white bg:blue bold";
           disabled = false; # Disabled by default
           symbols.NixOS = " ";
         };
         nix_shell = {
-          format = "[ $symbol$state( \($name\))]($style)";
-          style = "bg:blue bold";
+          format = "[ $symbol $state( \($name\))]($style)";
+          style = "fg:white bg:blue bold";
           disabled = false; # Disabled by default
           heuristic = true;
-          symbol = " ";
+          symbol = "";
         };
         git_branch = {
           symbol = "";
-          style = "bg:yellow";
+          style = "fg:black bg:yellow";
           format = "[ $symbol $branch ]($style)";
         };
         git_status = {
-          style = "bg:yellow";
+          style = "fg:black bg:yellow";
           format = "[$all_status$ahead_behind ]($style)";
         };
         directory = {
-          style = "bg:red";
+          style = "fg:white bg:red";
           format = "[ $path ]($style)";
           truncation_length = 3;
           truncation_symbol = "…/";
@@ -90,14 +118,40 @@
             "Downloads" = " ";
             "Music" = " ";
             "Pictures" = " ";
-            "nixfiles" = " ";
+            "nixfiles" = " files";
           };
         };
-        time = {
+
+        rust = {
+          symbol = "󱘗";
+          style = "fg:white bg:purple";
+          format = "[ using $symbol ($version)]($style)";
+        };
+
+        c = {
+          symbol = "󰙱";
+          style = "fg:white bg:purple";
+          format = "[ using $symbol ($version)]($style)";
+        };
+
+        java = {
+          symbol = "󰬷";
+          style = "fg:white bg:purple";
+          format = "[ using $symbol ($version)]($style)";
+        };
+
+        python = {
+          symbol = "󰌠";
+          style = "fg:white bg:purple";
+          format = "[ using $symbol ($version)]($style)";
+        };
+
+        cmd_duration = {
           disabled = false;
-          time_format = "%R"; # Hour:Minute Format
-          style = "bg:green";
-          format = "[ ♥ $time ]($style)";
+          style = "fg:black bg:green";
+          format = "[ 󱫌 took $duration]($style)";
+          show_notifications = true;
+          min_time_to_notify = 30000;
         };
       };
     };
@@ -110,9 +164,9 @@
       historySubstringSearch.enable = true;
       shellAliases = {
         update = "sudo nixos-rebuild switch --upgrade --flake github:caioasmuniz/nixfiles";
-        update-local = "sudo nixos-rebuild switch --upgrade --flake ~/Documents/nixfiles";
+        update-local = "sudo nixos-rebuild switch --flake ~/Documents/nixfiles";
         update-flake = "sudo nix flake update ~/Documents/nixfiles;";
-        ls = "exa --color=always --icons";
+        ls = "exa";
         cat = "bat";
       };
       history = {
