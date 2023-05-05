@@ -11,6 +11,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.initrd.systemd.enable = true;
+  boot.initrd.postDeviceCommands = "sleep 3";
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
@@ -37,7 +38,7 @@
   };
 
   swapDevices = [{
-    device = "/dev/disk/by-uuid/95cc1e6c-c781-4a6e-ba45-0924394142a4";
+    device = "/dev/disk/by-uuid/84513243-be80-40ad-9b3e-2529272794ab";
     priority = 0;
     discardPolicy = "pages";
   }];
