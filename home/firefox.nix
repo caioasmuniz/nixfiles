@@ -3,7 +3,7 @@
     target = ".mozilla/firefox/default/chrome/firefox-gnome-theme";
     source = fetchTarball {
       url = "https://github.com/rafaelmardojai/firefox-gnome-theme/archive/master.tar.gz";
-      sha256 = "0dh6zif8s7wyx0nw6h27d32w49qbkrl5caymaafakvahylf050dc";
+      sha256 = "0h74psdrf7ra23697sph00srgsznvrzbjy73cx84ns78m3n0n0rc";
     };
   };
   programs.firefox = {
