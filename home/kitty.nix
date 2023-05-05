@@ -1,11 +1,12 @@
-{ ... }: {
+{ pkgs, ... }: {
   programs.kitty = {
     enable = true;
     font = {
       size = 10;
-      name = "Fira Code Medium";
+      name = "FiraCode Nerd Font";
+      package = pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; };
     };
-    extraConfig="include current-theme.conf";
+    extraConfig = "include current-theme.conf";
     settings = {
       cursor_shape = "beam";
       cursor_beam_thickness = "1.5";
@@ -41,14 +42,15 @@
       background_opacity = "0.75";
       dynamic_background_opacity = "yes";
 
+      enable_audio_bell = "no";
       allow_remote_control = "yes";
       shell_integration = "enabled";
       linux_display_server = "wayland";
     };
   };
   xdg.configFile."kitty/themes/adwaita.conf".text = ''
-    selection_background #000000
-    selection_foreground #FFFFFF
+    selection_background #FFFFFF
+    selection_foreground #000000
     background #FFFFFF
     foreground #171421
     cursor #000000
