@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ pkgs, ... }: {
   imports = [
     ./zsh.nix
     ./xdg.nix
@@ -43,8 +43,6 @@
       networkmanagerapplet
       gnome.gnome-control-center
       libreoffice-fresh
-      inputs.fufexan.packages.${pkgs.hostPlatform.system
-      }.spotify
       chromium
     ];
   };
