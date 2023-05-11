@@ -58,7 +58,7 @@
             interval = 5;
             states = { critical = 10; warning = 25; normal = 26; normal2 = 89; good = 90; };
             tooltip = true;
-            tooltip-format = " {timeTo}\n {power} W  󰂎 {capacity}%";
+            tooltip-format = "󰥔 {timeTo}\n {power} W  󰂎 {capacity}%";
           };
           clock = {
             format = "{:%H:%M 󰥔<sup> </sup>󰿟󰃭 %e %b}";
@@ -93,7 +93,7 @@
             exec = ''
               state=$(${pkgs.power-profiles-daemon}/bin/powerprofilesctl get)
               if [[ $state == "power-saver" ]]; then
-                  echo ""
+                  echo "󰌪"
               elif [[ $state == "balanced" ]]; then
                   echo "󰗑"
               else
@@ -177,7 +177,7 @@
             };
             on-click-right = "pkill nm-connection-editor || nm-connection-editor --class='pavuctl popup' --name='pavuctl popup'";
             tooltip-format-disconnected = "Disconnected";
-            tooltip-format-ethernet = " {ifname}  爵 {ipaddr}\n {bandwidthUpBytes}   {bandwidthDownBytes}";
+            tooltip-format-ethernet = "󰈀 {ifname}  爵 {ipaddr}\n {bandwidthUpBytes}   {bandwidthDownBytes}";
             tooltip-format-wifi = "{icon} {essid}\n爵 {ipaddr}  鷺 {signaldBm}dBm\n {bandwidthUpBytes}   {bandwidthDownBytes}";
           };
           "network#vpn" = {

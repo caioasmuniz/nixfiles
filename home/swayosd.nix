@@ -1,5 +1,4 @@
-{ pkgs, lib, ... }:
-{
+{ pkgs, lib, ... }: {
   home.packages = [
     (pkgs.rustPlatform.buildRustPackage
       rec {
