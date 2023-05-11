@@ -8,6 +8,7 @@
     ./greetd.nix
     ./hardware.nix
     ./pipewire.nix
+    ./virtualisation.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
