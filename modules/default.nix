@@ -4,8 +4,10 @@
 
 { pkgs, ... }: {
   imports = [
+    ./nix.nix
     ./locale.nix
     ./greetd.nix
+    ./android.nix
     ./hardware.nix
     ./pipewire.nix
     ./virtualisation.nix
@@ -27,6 +29,7 @@
       systemd-boot = {
         enable = true;
         configurationLimit = 10;
+        consoleMode = "max";
       };
     };
   };
@@ -65,8 +68,6 @@
   };
 
   programs = {
-    adb.enable = true;
-    kdeconnect.enable = true;
     dconf.enable = true;
     seahorse.enable = true;
     zsh.enable = true;
@@ -81,7 +82,7 @@
       hashedPassword = "$y$j9T$LWmQJtK.SNsnZPz3Ou15N1$3iRtBCYmnRq/zazbnPCpp63WMYDpywJ6emx43d9SUF0";
       isNormalUser = true;
       description = "Caio Muniz";
-      extraGroups = [ "networkmanager" "wheel" "audio" "adbusers" ];
+      extraGroups = [ "networkmanager" "wheel" ];
       shell = pkgs.zsh;
     };
   };
@@ -90,21 +91,6 @@
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
     fira
   ];
-
-  nixpkgs = {
-    config.allowUnfree = true;
-    config.packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-    };
-  };
-
-  nix.settings = {
-    keep-outputs = true;
-    keep-derivations = true;
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-    experimental-features = [ "nix-command" "flakes" ];
-  };
 
   environment = {
     sessionVariables = {
