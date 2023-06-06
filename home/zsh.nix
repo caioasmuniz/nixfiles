@@ -161,7 +161,11 @@
       enableCompletion = true;
       enableSyntaxHighlighting = true;
       enableVteIntegration = true;
-      historySubstringSearch.enable = true;
+      historySubstringSearch = {
+        enable = true;
+        searchUpKey = "^[OA";
+        searchDownKey = "^[OB";
+      };
       shellAliases = {
         update = "sudo nixos-rebuild switch --upgrade --flake github:caioasmuniz/nixfiles";
         update-local = "sudo nixos-rebuild switch --flake ~/Documents/nixfiles";

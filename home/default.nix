@@ -44,6 +44,7 @@
       gnome.gnome-control-center
       libreoffice-fresh
       chromium
+      deluge
     ];
   };
 

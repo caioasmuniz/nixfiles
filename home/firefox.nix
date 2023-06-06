@@ -1,10 +1,12 @@
-{ ... }: {
+{ pkgs, ... }: {
   home.file."firefox-gnome-theme" = {
     target = ".mozilla/firefox/default/chrome/firefox-gnome-theme";
-    source = fetchTarball {
-      url = "https://github.com/rafaelmardojai/firefox-gnome-theme/archive/master.tar.gz";
-      sha256 = "0h74psdrf7ra23697sph00srgsznvrzbjy73cx84ns78m3n0n0rc";
-    };
+    source = pkgs.fetchFromGitHub {
+          owner = "rafaelmardojai";
+          repo = "firefox-gnome-theme";
+          rev = "v113";
+          sha256 = "c1TTeZUVI4FPSTGJPBucELnzYr96IF+g++9js3eJvm8=";
+        };
   };
   programs.firefox = {
     enable = true;

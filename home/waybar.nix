@@ -172,8 +172,8 @@
             format-alt = "{icon} {signalStrength}%  {bandwidthUpBytes}  {bandwidthDownBytes}";
             format-disconnected = "󰤮<sup> </sup>";
             format-icons = {
-              default = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
               ethernet = "󰈀";
+              wifi = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
             };
             on-click-right = "pkill nm-connection-editor || nm-connection-editor --class='pavuctl popup' --name='pavuctl popup'";
             tooltip-format-disconnected = "Disconnected";
