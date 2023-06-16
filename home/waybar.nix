@@ -1,4 +1,5 @@
 { pkgs, inputs, ... }: {
+  imports = [ ./autoname-ws.nix ];
   programs = {
     waybar = {
       enable = true;
@@ -19,7 +20,7 @@
             "temperature"
             "wlr/workspaces"
             # "wlr/taskbar"
-            "mpris"
+            # "mpris"
           ];
           modules-center = [
             "clock"
@@ -210,7 +211,7 @@
             # hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
             format = "{icon}<sup> </sup>{temperatureC}°C";
             format-icons = [ "" "" "" "" "" ];
-            critical-threshold = 75;
+            critical-threshold = 45;
           };
           tray = {
             icon-size = 20;
@@ -340,7 +341,7 @@
         #taskbar button.active,
         #workspaces button.active {
           background-color: @success_color;
-          color: @theme_bg_color;
+          color: @theme_text_color;
         }
 
         #custom-notification {
