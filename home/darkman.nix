@@ -18,7 +18,7 @@
       SystemCallFilter = "@system-service @timer";
       MemoryDenyWriteExecute = "yes";
     };
-    Install.WantedBy = [ "hyprland-session.target" ];
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 
   xdg.configFile."darkman/config.yaml".text = ''
@@ -32,8 +32,11 @@
     executable = true;
     text = ''
       ${pkgs.swaybg}/bin/swaybg -m fill -i ~/Pictures/bigsur-day.jpg &
-
-      ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/gtk-theme '"Adwaita-dark"'
+      
+      rm ~/.config/gtklock/config.ini; echo -e "[main]\ngtk-theme=Adwaita-dark" >>.config/gtklock/config.ini
+      
+      ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/gtk-theme '"Adwaita"'
+      
       ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme '"prefer-light"'
 
       ln -sf ~/.config/kitty/themes/adwaita.conf ~/.config/kitty/current-theme.conf
@@ -46,8 +49,11 @@
     executable = true;
     text = ''
       ${pkgs.swaybg}/bin/swaybg -m fill -i ~/Pictures/bigsur-night.jpg &
-
-      ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/gtk-theme '"Adwaita"'
+      
+      rm ~/.config/gtklock/config.ini; echo -e "[main]\ngtk-theme=Adwaita" >>.config/gtklock/config.ini
+      
+      ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/gtk-theme '"Adwaita-dark"'
+      
       ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'
 
       ln -sf ~/.config/kitty/themes/adwaita-dark.conf ~/.config/kitty/current-theme.conf

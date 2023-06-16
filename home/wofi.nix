@@ -18,7 +18,6 @@
     content_halign=fill
     insensitive=true
     allow_images=true
-    gtk_dark=true
   '';
   xdg.configFile."wofi/style.css".text = ''
       window {

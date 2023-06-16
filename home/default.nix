@@ -2,6 +2,7 @@
   imports = [
     ./zsh.nix
     ./xdg.nix
+    ./gtk.nix
     ./wofi.nix
     ./kitty.nix
     ./waybar.nix
@@ -29,7 +30,6 @@
       gsettings-desktop-schemas
       wdisplays
       libnotify
-      swaybg
       brightnessctl
       pavucontrol
       obs-studio
@@ -55,7 +55,7 @@
   programs = {
     vscode.enable = true;
     home-manager.enable = true;
-    git = { 
+    git = {
       enable = true;
       userName = "caioasmuniz";
       userEmail = "caiomuniz888@gmail.com";
