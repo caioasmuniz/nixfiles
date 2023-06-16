@@ -101,7 +101,10 @@ in
       windowrulev2=float,class:^(pavuctl popup)$
       windowrulev2=size 25% 75%,class:^(pavuctl popup)$
       windowrulev2=move 74% 5%,class:^(pavuctl popup)$
-
+      
+      windowrulev2=float, class:^(swaync)$
+      windowrulev2=move 100%-512 42, class:^(swaync)$
+      windowrulev2=animation slide, class:^(swaync)$
 
       windowrulev2=float,class:^(com.nextcloud.desktopclient.nextcloud)$
       windowrulev2=size 25% 75%,class:^(com.nextcloud.desktopclient.nextcloud)$

@@ -23,8 +23,9 @@
       "$schema": "/etc/xdg/swaync/configSchema.json",
       "positionX": "right",
       "positionY": "top",
-      "control-center-margin-top": 12,
-      "control-center-margin-bottom": 12,
+      "layer-shell": false,
+      "control-center-margin-top": 0,
+      "control-center-margin-bottom": 0,
       "control-center-margin-right": 0,
       "control-center-margin-left": 0,
       "notification-icon-size": 64,
@@ -35,7 +36,7 @@
       "timeout-critical": 0,
       "fit-to-screen": true,
       "control-center-width": 500,
-      "control-center-height": 600,
+      "control-center-height": 1000,
       "notification-window-width": 350,
       "keyboard-shortcuts": true,
       "image-visibility": "when-available",
@@ -47,9 +48,8 @@
         "dnd",
         "menubar",
         "buttons-grid",
-        "volume",''+
-        # "backlight",
-        ''
+        "volume",
+        "backlight",
         "mpris",
         "notifications"
       ],
@@ -66,11 +66,14 @@
           "image-size": 128,
           "image-radius": 12
         },
-        "volume": {
-          "label": ""
-        },
         "backlight": {
-          "label": ""
+          "label": "󰃠"
+        },
+        "volume": {
+          "label": "",
+          "show-per-app": true,
+          "expand-button-label": "",
+          "collapse-button-label": ""
         },
         "menubar": {
           "menu#power": {
@@ -173,10 +176,10 @@
 
     .notification {
       border-radius: 12px;
-      margin: 4px 12px 4px 4px;
+      margin: 0;
       padding: 0;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 0px 3px 1px rgba(0, 0, 0, 0.7),
-        0 0px 4px 3px rgba(0, 0, 0, 0.3);
+      box-shadow: none;
+
     }
 
     /* Uncomment to enable specific urgency colors
@@ -206,8 +209,8 @@
     }
 
     .close-button {
-      background: @theme_fg_color;
-      color: @theme_text_color;
+      background: @theme_unfocused_bg_color;
+      color: @theme_unfocused_fg_color;
       text-shadow: none;
       padding: 0;
       border-radius: 100%;
@@ -315,7 +318,7 @@
     .control-center-list {
       background: transparent;
       margin: 0;
-      padding: 0;
+      padding: 4px;
     }
 
     .floating-notifications {
@@ -333,7 +336,7 @@
 
     /* Title widget */
     .widget-title {
-      margin: 0px 12px 0px 4px;
+      margin: 4px 4px 0px 4px;
       padding: 8px;
       /* background: @theme_bg_color; */
       background: @theme_bg_color;
@@ -341,8 +344,6 @@
       border: 1px solid @noti-border-color;
       border-bottom: none;
       font-size: 1.5rem;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.7),
-        0 2px 4px 2px rgba(0, 0, 0, 0.3);
     }
     .widget-title > button {
       font-size: initial;
@@ -359,15 +360,13 @@
 
     /* DND widget */
     .widget-dnd {
-      margin: 0px 12px 0px 4px;
+      margin: 0px 4px 2px 4px;
       padding: 8px;
       background: @theme_bg_color;
       border-radius: 0px 0px 12px 12px;
       border: 1px solid @noti-border-color;
       border-top: none;
       font-size: 1.1rem;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.7),
-        0 2px 4px 2px rgba(0, 0, 0, 0.3);
     }
 
     .widget-dnd > switch {
@@ -395,12 +394,10 @@
 
     /* Mpris widget */
     .widget-mpris {
-      margin: 4px 12px 0px 4px;
+      margin: 2px 4px;
       background: @theme_bg_color;
       border-radius: 12px;
       border: 1px solid @noti-border-color;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.7),
-        0 2px 4px 2px rgba(0, 0, 0, 0.3);
     }
 
     /* The parent to all players */
@@ -418,30 +415,24 @@
     .widget-volume,
     .widget-backlight {
       font-size: 20px;
-      margin: 4px 12px 0px 4px;
+      margin: 2px 4px;
       background: @theme_bg_color;
       border-radius: 12px;
       border: 1px solid @noti-border-color;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.7),
-        0 2px 4px 2px rgba(0, 0, 0, 0.3);
     }
     .widget-menubar {
       font-size: 20px;
-      margin: 4px 12px 0px 4px;
+      margin: 2px 4px;
       background: @theme_bg_color;
       border-radius: 12px;
       border: 1px solid @noti-border-color;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.7),
-        0 2px 4px 2px rgba(0, 0, 0, 0.3);
     }
     .widget-buttons-grid {
       font-size: 20px;
-      margin: 4px 12px 0px 4px;
+      margin: 2px 4px;
       background: @theme_bg_color;
       border-radius: 12px;
       border: 1px solid @noti-border-color;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.7),
-        0 2px 4px 2px rgba(0, 0, 0, 0.3);
     }
   '';
 }
