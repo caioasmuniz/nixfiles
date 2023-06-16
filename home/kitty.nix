@@ -48,50 +48,53 @@
       linux_display_server = "wayland";
     };
   };
-  xdg.configFile."kitty/themes/adwaita.conf".text = ''
-    selection_background #FFFFFF
-    selection_foreground #000000
-    background #FFFFFF
-    foreground #171421
-    cursor #000000
-    color0 #171421
-    color8 #5E5C64
-    color1 #C01C28
-    color9 #F66151
-    color2 #26A269
-    color10 #33D17A
-    color3 #A2734C
-    color11 #E9AD0C
-    color4 #12488B
-    color12 #2A7BDE
-    color5 #A347BA
-    color13 #C061CB
-    color6 #2AA1B3
-    color14 #33C7DE
-    color7 #D0CFCC
-    color15 #FFFFFF    
-  '';
-  xdg.configFile."kitty/themes/adwaita-dark.conf".text = ''
-    selection_background #000000
-    selection_foreground #FFFFFF
-    background #171421
-    foreground #D0CFCC
-    cursor #FFFFFF
-    color0 #171421
-    color8 #5E5C64
-    color1 #C01C28
-    color9 #F66151
-    color2 #26A269
-    color10 #33D17A
-    color3 #A2734C
-    color11 #E9AD0C
-    color4 #12488B
-    color12 #2A7BDE
-    color5 #A347BA
-    color13 #C061CB
-    color6 #2AA1B3
-    color14 #33C7DE
-    color7 #D0CFCC
-    color15 #FFFFFF
-  '';
+  xdg.configFile = {
+    "kitty/themes/adwaita.conf".text = ''
+      selection_background #FFFFFF
+      selection_foreground #000000
+      background #FFFFFF
+      foreground #171421
+      cursor #000000
+      color0 #171421
+      color8 #5E5C64
+      color1 #C01C28
+      color9 #F66151
+      color2 #26A269
+      color10 #33D17A
+      color3 #A2734C
+      color11 #E9AD0C
+      color4 #12488B
+      color12 #2A7BDE
+      color5 #A347BA
+      color13 #C061CB
+      color6 #2AA1B3
+      color14 #33C7DE
+      color7 #D0CFCC
+      color15 #FFFFFF    
+    '';
+    
+    "kitty/themes/adwaita-dark.conf".text = ''
+      selection_background #000000
+      selection_foreground #FFFFFF
+      background #171421
+      foreground #D0CFCC
+      cursor #FFFFFF
+      color0 #171421
+      color8 #5E5C64
+      color1 #C01C28
+      color9 #F66151
+      color2 #26A269
+      color10 #33D17A
+      color3 #A2734C
+      color11 #E9AD0C
+      color4 #12488B
+      color12 #2A7BDE
+      color5 #A347BA
+      color13 #C061CB
+      color6 #2AA1B3
+      color14 #33C7DE
+      color7 #D0CFCC
+      color15 #FFFFFF
+    '';
+  };
 }
