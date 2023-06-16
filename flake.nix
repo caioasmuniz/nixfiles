@@ -13,10 +13,10 @@
     };
   };
 
-  outputs = { nixpkgs, hyprland, home-manager, ... }@inputs:
+  outputs = inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
+      pkgs = import inputs.nixpkgs { inherit system; allowUnfree = true; };
     in
     {
       devShells.x86_64-linux.default = pkgs.mkShell {
@@ -25,13 +25,13 @@
           nil
         ];
       };
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.nixos = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
           ./modules
-          hyprland.nixosModules.default
-          home-manager.nixosModules.home-manager
+          inputs.hyprland.nixosModules.default
+          inputs.home-manager.nixosModules.home-manager
           {
             programs.hyprland.enable = true;
             home-manager = {
@@ -39,8 +39,8 @@
               useUserPackages = true;
               extraSpecialArgs.inputs = inputs;
               users.caio.imports = [
+                inputs.hyprland.homeManagerModules.default
                 ./home
-                hyprland.homeManagerModules.default
               ];
             };
           }
