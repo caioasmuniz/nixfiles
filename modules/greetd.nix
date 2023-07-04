@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 let
   swayConfig = pkgs.writeText "greetd-sway-config" ''
     exec "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP"
@@ -18,7 +18,7 @@ in
     settings = {
       default_session.command = "${pkgs.sway}/bin/sway --config ${swayConfig}";
       initial_session = {
-        command = "${inputs.hyprland.packages.${pkgs.hostPlatform.system}.default}/bin/Hyprland";
+        command = "${pkgs.hyprland}/bin/Hyprland";
         user = "caio";
       };
     };
