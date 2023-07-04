@@ -20,7 +20,6 @@
     homeDirectory = "/home/caio";
     stateVersion = "22.11";
     packages = with pkgs; [
-      gnome.seahorse
       gnome.dconf-editor
       gnome.adwaita-icon-theme
       gnome.nautilus
@@ -45,12 +44,15 @@
       libreoffice-fresh
       chromium
       deluge
+      bottles
     ];
   };
-
-  services.gnome-keyring = {
-    enable = true;
-    components = [ "pkcs11" "secrets" "ssh" ];
+  services = {
+    udiskie.enable = true;
+    gnome-keyring = {
+      enable = true;
+      components = [ "pkcs11" "secrets" "ssh" ];
+    };
   };
   programs = {
     vscode.enable = true;
