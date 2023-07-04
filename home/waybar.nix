@@ -196,7 +196,7 @@
         pulseaudio = {
           format = "{icon}";
           format-alt = "{icon}<sup> </sup>{volume}%";
-          format-bluetooth = "{icon} {volume}%";
+          format-bluetooth = "{icon} 󰂯";
           format-muted = "󰝟";
           format-icons = {
             default = [ "󰕿" "󰖀" "󰕾" ];

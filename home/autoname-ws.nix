@@ -60,6 +60,7 @@
     "[Ff]irefox" = "<span color='#D65126'>󰈹</span>"
     "code-url-handler" = "<span color='#0073B7'>󰨞</span>"
     "org.gnome.Nautilus" = "󰪶"
+    "com.usebottles.bottles" = "󱄮"
     "qalculate-gtk" = "󰃬"
     "osu!" = "󰊗"
     "com.obsproject.Studio" = "󱜠"

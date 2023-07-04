@@ -4,14 +4,17 @@
     source = pkgs.fetchFromGitHub {
       owner = "rafaelmardojai";
       repo = "firefox-gnome-theme";
-      rev = "v113";
-      sha256 = "c1TTeZUVI4FPSTGJPBucELnzYr96IF+g++9js3eJvm8=";
+      rev = "v114";
+      sha256 = "o53fws/jwhLfxiYfTyYpKSGi61d5LHzGgSCkt3DNGRI=";
     };
   };
   programs.firefox = {
     enable = true;
     profiles.default = {
-      search.default = "DuckDuckGo";
+      search = {
+        default = "DuckDuckGo";
+        force = true;
+      };
       settings = {
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         "svg.context-properties.content.enabled" = true;
