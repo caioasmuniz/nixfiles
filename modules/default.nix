@@ -11,6 +11,7 @@
     ./hardware.nix
     ./pipewire.nix
     ./virtualisation.nix
+    ./bluetooth.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
