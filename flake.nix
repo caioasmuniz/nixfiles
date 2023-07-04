@@ -30,7 +30,6 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./modules
-          inputs.hyprland.nixosModules.default
           inputs.home-manager.nixosModules.home-manager
           {
             programs.hyprland.enable = true;
