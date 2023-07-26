@@ -35,7 +35,7 @@
         text = ''
           ${pkgs.swaybg}/bin/swaybg -m fill -i ~/Pictures/bigsur-day.jpg &
       
-          rm ~/.config/gtklock/config.ini; echo -e "[main]\ngtk-theme=Adwaita-dark" >>.config/gtklock/config.ini
+          rm ~/.config/gtklock/config.ini; echo -e "[main]\ngtk-theme=Adwaita" >>.config/gtklock/config.ini
       
           ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/gtk-theme '"Adwaita"'
       
@@ -53,7 +53,7 @@
         text = ''
           ${pkgs.swaybg}/bin/swaybg -m fill -i ~/Pictures/bigsur-night.jpg &
       
-          rm ~/.config/gtklock/config.ini; echo -e "[main]\ngtk-theme=Adwaita" >>.config/gtklock/config.ini
+          rm ~/.config/gtklock/config.ini; echo -e "[main]\ngtk-theme=Adwaita-dark" >>.config/gtklock/config.ini
       
           ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/gtk-theme '"Adwaita-dark"'
       
