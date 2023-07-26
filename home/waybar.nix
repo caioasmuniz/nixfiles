@@ -2,8 +2,6 @@
   imports = [ ./autoname-ws.nix ];
   programs.waybar = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.hostPlatform.system
-    }.waybar-hyprland;
     systemd = {
       enable = true;
       target = "hyprland-session.target";
