@@ -3,16 +3,16 @@
     (pkgs.rustPlatform.buildRustPackage
       rec {
         pname = "hyprland-autoname-workspaces";
-        version = "1.0.0";
+        version = "1.1.5";
 
         src = pkgs.fetchFromGitHub {
           owner = "hyprland-community";
           repo = pname;
           rev = version;
-          sha256 = "+oJWPSN6VmUUpd5ZLrN5Sa9Yg6pqVlaQFSRnEkLpLt8=";
+          sha256 = "37IeWSQ24mrVI9u4jyIWCLYsPPqgD4Q50A/68suh3us=";
         };
 
-        cargoSha256 = "wXQVcTQ6up34ZqJP5hDttFEqtz+hmyd1aWFnPlFvazA=";
+        cargoSha256 = "adHPzYce72SR2C5ehJBS0Za01jFRFHaoUOvXp7j3qh0=";
 
         nativeBuildInputs = with pkgs; [ pkg-config ];
         buildInputs = with pkgs; [ gcc ];
@@ -24,7 +24,7 @@
         };
       })
   ];
-  wayland.windowManager.hyprland.extraConfig = ''      exec-once=hyprland-autoname-workspaces &
+  wayland.windowManager.hyprland.extraConfig = ''exec-once=hyprland-autoname-workspaces &
   '';
 
   xdg.configFile."hyprland-autoname-workspaces/config.toml".text = ''
