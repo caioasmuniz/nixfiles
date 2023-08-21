@@ -96,10 +96,6 @@ in
         "float,class:^(pavuctl popup)$"
         "size 25% 75%,class:^(pavuctl popup)$"
         "move 74% 5%,class:^(pavuctl popup)$"
-
-        "float,class:^(com.nextcloud.desktopclient.nextcloud)$"
-        "size 25% 75%,class:^(com.nextcloud.desktopclient.nextcloud)$"
-        "move 74% 4%,class:^(com.nextcloud.desktopclient.nextcloud)$"
       ];
       bind = [
         "SUPER,W,exec,pkill -USR1 waybar"
@@ -188,7 +184,6 @@ in
       exec-once = [
         "${pkgs.wlsunset}/bin/wlsunset - l - 23.1 - L - 50.6 - t 4000 - T 6500 &"
         "kdeconnect-indicator &"
-        "sleep 10 && nextcloud --background &"
       ];
     };
   };
