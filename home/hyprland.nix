@@ -104,8 +104,6 @@ in
         "float,class:^(com.nextcloud.desktopclient.nextcloud)$"
         "size 25% 75%,class:^(com.nextcloud.desktopclient.nextcloud)$"
         "move 74% 4%,class:^(com.nextcloud.desktopclient.nextcloud)$"
-        "float,class:^(wofi)$"
-        "animation popin ,class:^(wofi)$"
       ];
       bind = [
         "SUPER,W,exec,pkill -USR1 waybar"
