@@ -15,13 +15,7 @@ in
 
   services.greetd = {
     enable = true;
-    settings = {
-      default_session.command = "${pkgs.sway}/bin/sway --config ${swayConfig}";
-      initial_session = {
-        command = "${pkgs.hyprland}/bin/Hyprland";
-        user = "caio";
-      };
-    };
+    settings.default_session.command = "${pkgs.sway}/bin/sway --config ${swayConfig}";
   };
 
   environment.systemPackages = [ pkgs.gnome.adwaita-icon-theme ];
