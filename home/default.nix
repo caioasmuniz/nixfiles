@@ -29,7 +29,6 @@
       libnotify
       brightnessctl
       pavucontrol
-      obs-studio
       wl-clipboard
       osu-lazer-bin
       libsecret
@@ -38,7 +37,6 @@
       lutris
       networkmanagerapplet
       libreoffice-fresh
-      chromium
       deluge
       bottles
     ];
@@ -60,7 +58,9 @@
     };
   };
   programs = {
+    obs-studio.enable = true;
     vscode.enable = true;
+    chromium.enable = true;
     home-manager.enable = true;
     git = {
       enable = true;
