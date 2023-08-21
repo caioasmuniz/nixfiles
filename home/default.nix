@@ -22,13 +22,9 @@
     homeDirectory = "/home/caio";
     stateVersion = "22.11";
     packages = with pkgs; [
-      gnome.dconf-editor
-      gnome.adwaita-icon-theme
       gnome.nautilus
       gnome.geary
       qalculate-gtk
-      gcr
-      gsettings-desktop-schemas
       wdisplays
       libnotify
       brightnessctl
@@ -42,7 +38,6 @@
       imv
       lutris
       networkmanagerapplet
-      gnome.gnome-control-center
       libreoffice-fresh
       chromium
       deluge

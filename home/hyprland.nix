@@ -177,8 +177,6 @@ in
       ];
       bindl = ",switch:Lid Switch,exec,systemctl suspend";
       exec = [
-        "${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/font-name 'Fira Sans Regular 10'"
-        "${pkgs.dconf}/bin/dconf write /org/gnome/desktop/wm/preferences/button-layout ':'"
         "hyprctl setcursor Adwaita 24"
       ];
       exec-once = [
