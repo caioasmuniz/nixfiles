@@ -56,10 +56,11 @@ in
 
       decoration = {
         rounding = 12;
-        blur = 1;
-        blur_size = 5;
-        blur_passes = 2;
-        blur_new_optimizations = true;
+        blur = {
+          enabled = true;
+          passes = 2;
+          new_optimizations = true;
+        };
         drop_shadow = true;
         shadow_range = 4;
         shadow_render_power = 1;
