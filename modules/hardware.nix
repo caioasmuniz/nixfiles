@@ -7,34 +7,36 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
-
-  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.initrd.systemd.enable = true;
-  boot.initrd.postDeviceCommands = "sleep 3";
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
-
-  boot.initrd.luks.devices."swap".device = "/dev/disk/by-uuid/b0c42ef5-fd7f-4a08-9d50-43316223aac1";
-
-  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/b0aa153c-333d-4e61-8533-a0faba2604e4";
-
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/a316f638-c48c-4a91-9057-3c137b2d6dea";
-    fsType = "btrfs";
-    options = [ "subvol=@nixos" "compress=zstd" "autodefrag" "noatime" ];
+  boot = {
+    initrd = {
+      availableKernelModules = [ "xhci_pci" "thunderbolt" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+      kernelModules = [ ];
+      postDeviceCommands = "sleep 3";
+      systemd.enable = true;
+      luks.devices = {
+        "swap".device = "/dev/disk/by-uuid/b0c42ef5-fd7f-4a08-9d50-43316223aac1";
+        "cryptroot".device = "/dev/disk/by-uuid/b0aa153c-333d-4e61-8533-a0faba2604e4";
+      };
+    };
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
   };
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/a316f638-c48c-4a91-9057-3c137b2d6dea";
-    fsType = "btrfs";
-    options = [ "subvol=@home" "compress=zstd" "autodefrag" "noatime" ];
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/E637-868B";
-    fsType = "vfat";
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/a316f638-c48c-4a91-9057-3c137b2d6dea";
+      fsType = "btrfs";
+      options = [ "subvol=@nixos" "compress=zstd" "autodefrag" "noatime" ];
+    };
+    "/home" = {
+      device = "/dev/disk/by-uuid/a316f638-c48c-4a91-9057-3c137b2d6dea";
+      fsType = "btrfs";
+      options = [ "subvol=@home" "compress=zstd" "autodefrag" "noatime" ];
+    };
+    "/boot" = {
+      device = "/dev/disk/by-uuid/E637-868B";
+      fsType = "vfat";
+    };
   };
 
   swapDevices = [{
