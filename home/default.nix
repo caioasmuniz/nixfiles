@@ -28,7 +28,6 @@
       wdisplays
       libnotify
       brightnessctl
-      pavucontrol
       wl-clipboard
       osu-lazer-bin
       libsecret
