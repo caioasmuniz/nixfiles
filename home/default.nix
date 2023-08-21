@@ -23,18 +23,13 @@
     stateVersion = "22.11";
     packages = with pkgs; [
       gnome.nautilus
-      gnome.geary
       qalculate-gtk
       wdisplays
-      libnotify
-      brightnessctl
       wl-clipboard
       osu-lazer-bin
       libsecret
       mpv
       imv
-      lutris
-      networkmanagerapplet
       libreoffice-fresh
       deluge
       bottles
