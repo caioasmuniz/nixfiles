@@ -1,31 +1,5 @@
 { pkgs, lib, ... }: {
-  home.packages = [
-    (pkgs.rustPlatform.buildRustPackage
-      rec {
-        pname = "hyprland-autoname-workspaces";
-        version = "1.1.5";
-
-        src = pkgs.fetchFromGitHub {
-          owner = "hyprland-community";
-          repo = pname;
-          rev = version;
-          sha256 = "37IeWSQ24mrVI9u4jyIWCLYsPPqgD4Q50A/68suh3us=";
-        };
-
-        cargoSha256 = "adHPzYce72SR2C5ehJBS0Za01jFRFHaoUOvXp7j3qh0=";
-
-        nativeBuildInputs = with pkgs; [ pkg-config ];
-        buildInputs = with pkgs; [ gcc ];
-
-        meta = with lib; {
-          description = "This app automatically rename workspaces with icons of started applications - tested with waybar.";
-          homepage = "https://github.com/hyprland-community/hyprland-autoname-workspaces";
-          license = licenses.isc;
-        };
-      })
-  ];
-  wayland.windowManager.hyprland.extraConfig = ''exec-once=hyprland-autoname-workspaces &
-  '';
+  wayland.windowManager.hyprland.extraConfig = "exec-once=${lib.getExe pkgs.hyprland-autoname-workspaces} &";
 
   xdg.configFile."hyprland-autoname-workspaces/config.toml".text = ''
     [format]
@@ -39,7 +13,7 @@
     # {counter_sup} - superscripted count of clients on the workspace, and simple {counter}, {delim}
     # {icon}, {client}
     # workspace formatter
-    workspace = "{id}: {clients}<sup> </sup>" # {id}, {delim} and {clients} are supported
+    workspace = "{id}:{clients}<sup> </sup>" # {id}, {delim} and {clients} are supported
     workspace_empty = "{id}"                  # {id}, {delim} and {clients} are supported
     # client formatter
     client = "{icon}"
@@ -51,7 +25,7 @@
     # client_dup_fullscreen = "[{icon}]{delim}{icon}{counter_unfocused}"
     # client_dup_active = "{client}<sup> {counter}</sup>"
 
-    [icons]
+    [class]
     # Add your icons mapping
     # use double quote the key and the value
     # take class name from 'hyprctl clients'
@@ -69,6 +43,8 @@
     "mpv" = "󰐌"
     "swaync" = "󰂚"
     "wofi" = "󰌧"
+    "pavucontrol" = "󰕾"
+    "jetbrains-studio" = "<span color='#3DDC84'>󰀲</span>"
 
     [icons_active]
     "DEFAULT" = " {class}: {title}"
@@ -76,7 +52,7 @@
     [title."(?i)kitty"]
     "(?i)neomutt" = "neomutt"
 
-    [title."(?i)firefox"]
+    [title_in_class."(firefox|chrom.*)"]
     "(?i)twitch" = "<span color='purple'>󰕃</span>"
     "(?i)youtube" = "<span color='red'>󰗃</span>"
     "(?i)spotify" = "<span color='green'>󰓇</span>"
@@ -89,10 +65,6 @@
     # You can put an empty title to exclude based on
     # class name only, "" make the job.
     [exclude]
-    "(?i)fcitx" = ".*"            # will match all title for fcitx
-    "(?i)TestApp" = ""            # will match all title for TestApp
-    aProgram = "^$"               # will match null title for aProgram
-    "[Ss]team" = "Friends List.*"
-    # "[Ss]team" = "^$"             # will match all Steam window with null title (some popup)  
+    "" = "^$" # prevent displaying clients with empty class
   '';
 }
