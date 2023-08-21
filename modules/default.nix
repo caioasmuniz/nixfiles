@@ -72,9 +72,8 @@
     dconf.enable = true;
     seahorse.enable = true;
     zsh.enable = true;
+    kdeconnect.enable = true;
   };
-
-  # qt.platformTheme = "qt5ct";
 
   users = {
     defaultUserShell = pkgs.zsh;

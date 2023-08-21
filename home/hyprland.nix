@@ -179,10 +179,6 @@ in
       exec = [
         "hyprctl setcursor Adwaita 24"
       ];
-      exec-once = [
-        "${pkgs.wlsunset}/bin/wlsunset - l - 23.1 - L - 50.6 - t 4000 - T 6500 &"
-        "kdeconnect-indicator &"
-      ];
     };
   };
 }

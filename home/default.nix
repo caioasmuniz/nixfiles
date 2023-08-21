@@ -31,7 +31,6 @@
       pavucontrol
       obs-studio
       wl-clipboard
-      libsForQt5.kdeconnect-kde
       osu-lazer-bin
       libsecret
       mpv
@@ -46,9 +45,18 @@
   };
   services = {
     udiskie.enable = true;
+    kdeconnect = {
+      enable = true;
+      indicator = true;
+    };
     gnome-keyring = {
       enable = true;
       components = [ "pkcs11" "secrets" "ssh" ];
+    };
+    wlsunset = {
+      enable = true;
+      latitude = "-23.1";
+      longitude = "-50.6";
     };
   };
   programs = {
