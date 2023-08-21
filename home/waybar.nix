@@ -1,7 +1,8 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, lib, ... }: {
   imports = [ ./autoname-ws.nix ];
   programs.waybar = {
     enable = true;
+    package = pkgs.waybar-hyprland;
     systemd = {
       enable = true;
       target = "hyprland-session.target";
@@ -11,12 +12,17 @@
         layer = "top";
         position = "top";
         spacing = 4;
+        margin-top = 4;
+        margin-left = 4;
+        margin-right = 4;
+
         modules-left = [
-          "cpu"
-          "memory"
+          "custom/launcher"
+          "group/hardware"
           "temperature"
+          "custom/weather"
           "wlr/workspaces"
-          # "wlr/taskbar"
+          # "hyprland/window"
           # "mpris"
         ];
         modules-center = [
@@ -25,8 +31,7 @@
         modules-right = [
           "battery"
           "network"
-          # "wireplumber"
-          "pulseaudio"
+          "wireplumber"
           "backlight"
           "tray"
           "network#vpn"
@@ -43,6 +48,8 @@
           on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl s 5%-";
           on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl s +5%";
           tooltip = true;
+          scroll-step = 5.0;
+          reverse-scrolling = true;
         };
         battery = {
           bat = "BAT0";
@@ -63,15 +70,20 @@
           format-calendar = "<span color='#f38ba8' font='FiraCode Nerd Font'><b>{}</b></span>";
           format-calendar-weekdays = "<span color='#f38ba8'font='FiraCode Nerd Font'><b>{}</b></span>";
           interval = 1;
-          on-click = "gnome-calendar &";
+          on-click = "${pkgs.gnome.gnome-calendar}/bin/gnome-calendar &";
           today-format = "<span color='#a6e3a1'><b><u>{}</u></b></span>";
           tooltip-format = "<big><b>󰥔 {:%H:%M:%S 󰃭 %B %Y}</b></big>\n<tt><big>{calendar}</big></tt>";
         };
         cpu = {
-          format = "󰻠<sup> </sup>{usage}%";
+          format = "<small>CPU </small>{usage}%";
           interval = 5;
           states = { critical = 75; warning = 50; };
           tooltip-format = "{avg_frequency}";
+        };
+        "custom/launcher" = {
+          format = "<big>󱄅</big><sup> </sup>";
+          on-click = "pkill wofi || ${pkgs.wofi}/bin/wofi -n -s ~/.config/wofi/style.css";
+          tooltip = false;
         };
         "custom/darkman" = {
           exec = ''
@@ -116,10 +128,10 @@
           exec-if = "which ${pkgs.swaynotificationcenter}/bin/swaync-client";
           format = "{icon}<span foreground='red'><sup><b> {}</b></sup></span>";
           format-icons = {
-            none = "";
-            dnd-none = "<sup> </sup>";
-            notification = "";
-            dnd-notification = "<sup> </sup>";
+            none = "󰍡";
+            dnd-none = "󱙍";
+            notification = "󰍡";
+            dnd-notification = "󱙍";
           };
           on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
           on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
@@ -127,16 +139,33 @@
           tooltip = false;
         };
         "custom/weather" = {
-          exec = "~/.config/waybar/modules/weather.py";
-          format = "{}";
-          interval = 900;
+          exec = lib.getExe pkgs.wttrbar;
+          format = "{}°C";
+          interval = 3600;
           return-type = "json";
           tooltip = true;
+          on-click = "${pkgs.gnome.gnome-weather}/bin/gnome-weather &";
+        };
+        "group/hardware" = {
+          orientation = "vertical";
+          modules = [
+            "cpu"
+            "memory"
+          ];
         };
         "hyprland/submap" = {
           format = "✌️ {}";
           max-length = 8;
           tooltip = true;
+        };
+        "hyprland/window" = {
+          format = "";
+        };
+        "hyprland/workspaces" = {
+          format = "{icon}{name}";
+          format-icons = { special = " 󰣆"; };
+          on-scroll-down = "hyprctl dispatch workspace e-1";
+          on-scroll-up = "hyprctl dispatch workspace e+1";
         };
         idle_inhibitor = {
           format = "{icon}";
@@ -146,7 +175,7 @@
           };
         };
         memory = {
-          format = "󰍛<sup> </sup>{}%";
+          format = "<small>RAM </small>{}%";
           interval = 5;
           on-click = "${pkgs.kitty}/bin/kitty ${pkgs.btop}/bin/btop &";
           states = { critical = 75; warning = 50; };
@@ -173,7 +202,7 @@
             ethernet = "󰈀";
             wifi = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
           };
-          on-click-right = "pkill nm-connection-editor || nm-connection-editor --class='pavuctl popup' --name='pavuctl popup'";
+          interval = 5;
           tooltip-format-disconnected = "Disconnected";
           tooltip-format-ethernet = "󰈀 {ifname}  爵 {ipaddr}\n {bandwidthUpBytes}   {bandwidthDownBytes}";
           tooltip-format-wifi = "{icon} {essid}\n爵 {ipaddr}  鷺 {signaldBm}dBm\n {bandwidthUpBytes}   {bandwidthDownBytes}";
@@ -201,7 +230,7 @@
             headphones = "";
             phone = "";
           };
-          on-right-click = "${pkgs.coreutils}/bin/pkill pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol --class='pavuctl popup' --name='pavuctl popup' -t 3";
+          on-right-click = "${lib.getExe pkgs.pavucontrol} -t 3";
         };
         temperature = {
           thermal-zone = 1;
@@ -216,12 +245,13 @@
           spacing = 4;
         };
         wireplumber = {
-          format = "{icon}<sup> </sup>{volume}%";
+          format = "{icon}";
+          format-alt = "{icon}<sup> </sup>{volume}%";
           format-icons = [ "󰕿" "󰖀" "󰕾" ];
           format-muted = "󰝟";
-          on-scroll-up = "${pkgs.wireplumber}/bin/wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 1%+";
-          on-scroll-down = "${pkgs.wireplumber}/bin/wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 1%-";
-          on-click = "pkill ${pkgs.pavucontrol}/bin/pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol --class='pavuctl popup' --name='pavuctl popup' -t 3";
+          on-scroll-up = "${pkgs.swayosd}/bin/swayosd --output-volume raise 5";
+          on-scroll-down = "${pkgs.swayosd}/bin/swayosd --output-volume lower 5";
+          on-click = "pkill pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol -t 3";
         };
         "wlr/taskbar" = {
           format = "{icon}";
@@ -233,11 +263,6 @@
         };
         "wlr/workspaces" = {
           format = "{name}";
-          format-icons = {
-            active = "";
-            default = "";
-            urgent = "";
-          };
           on-click = "activate";
           on-scroll-down = "hyprctl dispatch workspace e-1";
           on-scroll-up = "hyprctl dispatch workspace e+1";
@@ -273,22 +298,25 @@
         font-family: Fira Code Nerd Font;
         font-size: 12px;
         min-height: 32px;
-
-        /* border: 2px solid #abe9b3; */
       }
 
+      window#waybar.solo {
+        background-color: @theme_bg_color;
+      }
+
+      #cpu,
+      #memory,
       #battery,
       #backlight,
       #clock,
-      #cpu,
       #taskbar,
-      #custom-weather,
-      #memory,
       #pulseaudio,
       #wireplumber,
       #workspaces button,
       #network,
       #network.disconnected.vpn,
+      #custom-weather,
+      #custom-launcher,
       #custom-notification,
       #custom-darkman,
       #custom-powerprofiles,
@@ -300,16 +328,25 @@
         border-radius: 12px;
         border: 1px solid @borders;
         padding: 0px 8px;
-        margin-top: 4px;
-        margin-bottom: 0px;
-        background-color: @theme_bg_color;
+        margin: 0px;
+        background-color: @theme_base_color;
         color: @theme_text_color;
         font-weight: bold;
-        min-height: 24px;
+      }
+
+      #hardware {
+        padding: 0px;
+        font-size: 9px;
+        font-weight: normal;
       }
 
       #cpu {
-        margin-left: 4px;
+          border-radius: 12px 12px 0px 0px;
+      }
+
+      #memory {
+        border-radius: 0px 0px 12px 12px;
+        border-top: none;
       }
 
       #cpu.warning,
@@ -339,28 +376,6 @@
       #workspaces button.active {
         background-color: @success_color;
         color: @theme_text_color;
-      }
-
-      #custom-notification {
-        margin-right: 4px;
-      }
-
-      #taskbar {
-        padding: 0px;
-      }
-
-      #taskbar button {
-        padding: 0px 4px;
-        transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
-      }
-
-      #taskbar button.active {
-        border-radius: 11px;
-      }
-
-      #taskbar button:hover {
-        border-radius: 11px;
-        background-color: @theme_selected_bg_color;
       }
 
       #window {
