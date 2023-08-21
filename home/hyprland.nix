@@ -97,10 +97,6 @@ in
         "size 25% 75%,class:^(pavuctl popup)$"
         "move 74% 5%,class:^(pavuctl popup)$"
 
-        "float, class:^(swaync)$"
-        "move 100%-512 42, class:^(swaync)$"
-        "animation slide, class:^(swaync)$"
-
         "float,class:^(com.nextcloud.desktopclient.nextcloud)$"
         "size 25% 75%,class:^(com.nextcloud.desktopclient.nextcloud)$"
         "move 74% 4%,class:^(com.nextcloud.desktopclient.nextcloud)$"

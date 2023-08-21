@@ -17,6 +17,11 @@
     };
     Install.WantedBy = [ "hyprland-session.target" ];
   };
+  wayland.windowManager.hyprland.extraConfig = ''
+    windowrulev2 = float, class:(swaync)
+    windowrulev2 = move 100%-512 42, class:(swaync)
+    windowrulev2 = animation slide, class:(swaync)
+    '';
   xdg.configFile = {
     "swaync/config.json".text = ''
       {
