@@ -4,8 +4,8 @@
     source = pkgs.fetchFromGitHub {
       owner = "rafaelmardojai";
       repo = "firefox-gnome-theme";
-      rev = "v114";
-      sha256 = "o53fws/jwhLfxiYfTyYpKSGi61d5LHzGgSCkt3DNGRI=";
+      rev = "v116";
+      sha256 = "0IS5na2WRSNWNygHhmZOcXhdrx2aFhCDQY8XVVeHf8Q=";
     };
   };
   programs.firefox = {
