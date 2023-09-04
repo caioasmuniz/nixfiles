@@ -12,6 +12,7 @@
     ./pipewire.nix
     ./virtualisation.nix
     ./bluetooth.nix
+    ./power-management.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -59,7 +60,6 @@
 
   services = {
     fwupd.enable = true;
-    power-profiles-daemon.enable = true;
     gnome = {
       evolution-data-server.enable = true;
       gnome-online-accounts.enable = true;
