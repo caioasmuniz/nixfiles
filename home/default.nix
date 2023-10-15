@@ -24,15 +24,17 @@
     packages = with pkgs; [
       gnome.nautilus
       qalculate-gtk
-      wdisplays
       wl-clipboard
       osu-lazer-bin
       libsecret
       mpv
       imv
       libreoffice-fresh
-      deluge
+      fragments
       bottles
+      stremio
+      spotifywm
+      steam
     ];
   };
   services = {
