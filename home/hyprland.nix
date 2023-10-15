@@ -1,12 +1,12 @@
 { pkgs, ... }:
 let
   scratchpad = pkgs.writeScript "scratchpad" ''
-    if [[ $(hyprctl workspaces -j |${pkgs.jq}/bin/jq '.[-1]|.id') != "-99" ]];
+    if [[ $(hyprctl workspaces -j | ${pkgs.jq}/bin/jq 'contains([{"name": "special"}])') == "false" ]];
     then
-      hyprctl dispatch exec [workspace special:scratchpad] kitty
-      sleep 1
+      hyprctl dispatch exec [workspace special] kitty
+    else
+      hyprctl dispatch togglespecialworkspace
     fi
-      hyprctl dispatch togglespecialworkspace scratchpad
   '';
 in
 {
@@ -120,8 +120,8 @@ in
         "SUPER,F,fullscreen"
         ",Pause,exec, ${scratchpad}"
         ",Insert,exec, ${scratchpad}"
-        "SUPER,Insert,movetoworkspace,special:scratchpad"
-        "SUPER,Pause,movetoworkspace,special:scratchpad"
+        "SUPER,Insert,movetoworkspace,special"
+        "SUPER,Pause,movetoworkspace,special"
         "SUPER,S,togglesplit"
         "SUPERSHIFT,S,swapactiveworkspaces,eDP-1 DP-1"
 
