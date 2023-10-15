@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
   scratchpad = pkgs.writeScript "scratchpad" ''
     if [[ $(hyprctl workspaces -j | ${pkgs.jq}/bin/jq 'contains([{"name": "special"}])') == "false" ]];
