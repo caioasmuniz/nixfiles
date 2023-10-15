@@ -7,6 +7,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nh.url = "github:viperML/nh";
+    hyprland.url = "github:hyprwm/Hyprland";
+    waybar.url = "github:Alexays/Waybar";
   };
 
   outputs = inputs:
@@ -27,6 +30,7 @@
         modules = [
           ./modules
           inputs.home-manager.nixosModules.home-manager
+          inputs.nh.nixosModules.default
           {
             programs.hyprland.enable = true;
             home-manager = {

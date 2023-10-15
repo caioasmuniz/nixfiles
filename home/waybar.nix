@@ -1,8 +1,7 @@
-{ pkgs, lib, ... }: {
-  imports = [ ./autoname-ws.nix ];
+{ pkgs, lib, inputs, ... }: {
   programs.waybar = {
     enable = true;
-    package = pkgs.waybar-hyprland;
+    package = inputs.waybar.packages.${pkgs.system}.default;
     systemd = {
       enable = true;
       target = "hyprland-session.target";
@@ -161,9 +160,37 @@
         "hyprland/window" = {
           format = "";
         };
+
         "hyprland/workspaces" = {
-          format = "{icon}{name}";
-          format-icons = { special = " 󰣆"; };
+          format = "{icon}{name}: {windows} ";
+          format-icons = { special = "󰣆 "; default = ""; };
+          window-rewrite-default = "";
+          window-rewrite = {
+            "class<kitty>" = "";
+            "class<firefox>" = "<span color='#D65126'>󰈹</span>";
+            "class<code-url-handler>" = "<span color='#0073B7'>󰨞</span>";
+            "class<org.gnome.Nautilus>" = "󰪶";
+            "class<com.usebottles.bottles>" = "󱄮";
+            "class<qalculate-gtk>" = "󰃬";
+            "class<osu!>" = "󰊗";
+            "class<com.obsproject.Studio>" = "󱜠";
+            "class<virt-manager>" = "";
+            "class<chromium-browser>" = "󰊯";
+            "class<mpv>" = "󰐌";
+            "class<swaync>" = "󰂚";
+            "class<wofi>" = "󰌧";
+            "class<pavucontrol>" = "󰕾";
+            "class<jetbrains-studio>" = "<span color='#3DDC84'>󰀲</span>";
+            "class<firefox> title<.*github.*>" = "󰊤";
+            "class<firefox> title<.*twitch.*>" = "<span color='purple'>󰕃</span>";
+            "class<firefox> title<.*youtube.*>" = "<span color='red'>󰗃</span>";
+            "class<firefox> title<.*spotify.*>" = "<span color='green'>󰓇</span>";
+            "class<firefox> title<.*whatsapp.*>" = "<span color='green'>󰖣</span>";
+            "class<firefox> title<.*discord.*>" = "<span color='darkblue'>󰙯</span>";
+            "class<firefox> title<.*reddit.*>" = "<span color='#FF4400'>󰑍</span>";
+          };
+          format-window-separator = " ";
+          show-special = true;
           on-scroll-down = "hyprctl dispatch workspace e-1";
           on-scroll-up = "hyprctl dispatch workspace e+1";
         };
