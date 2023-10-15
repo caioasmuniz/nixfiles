@@ -10,17 +10,15 @@
     ./android.nix
     ./hardware.nix
     ./pipewire.nix
-    ./virtualisation.nix
     ./bluetooth.nix
     ./power-management.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
   boot = {
-    initrd.systemd.enable = true;
     consoleLogLevel = 0;
     initrd.verbose = false;
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_zen;
     kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" "boot.shell_on_fail" ];
     plymouth = {
       enable = true;
@@ -30,7 +28,7 @@
       efi.canTouchEfiVariables = true;
       systemd-boot = {
         enable = true;
-        configurationLimit = 10;
+        configurationLimit = 5;
         consoleMode = "max";
       };
     };
@@ -38,30 +36,38 @@
 
   networking = {
     hostName = "nixos";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi.powersave = false;
+    };
   };
 
   hardware = {
+    opentabletdriver.enable = true;
     opengl = {
+      driSupport = true;
+      driSupport32Bit = true;
       enable = true;
       extraPackages = with pkgs; [
-        intel-media-driver # LIBVA_DRIVER_NAME=iHD
+        intel-media-driver
         vaapiIntel
         vaapiVdpau
         libvdpau-va-gl
+        intel-compute-runtime
       ];
     };
   };
 
   security = {
+    tpm2.enable = true;
     polkit.enable = true;
     pam.services.gtklock = { };
   };
 
   services = {
     fwupd.enable = true;
+    ddccontrol.enable = true;
     gnome = {
-      evolution-data-server.enable = true;
       gnome-online-accounts.enable = true;
       gnome-keyring.enable = true;
       at-spi2-core.enable = true;
@@ -72,7 +78,9 @@
     dconf.enable = true;
     seahorse.enable = true;
     zsh.enable = true;
+    geary.enable = true;
     kdeconnect.enable = true;
+    firefox.enable = true;
   };
 
   users = {
@@ -82,12 +90,12 @@
       hashedPassword = "$y$j9T$LWmQJtK.SNsnZPz3Ou15N1$3iRtBCYmnRq/zazbnPCpp63WMYDpywJ6emx43d9SUF0";
       isNormalUser = true;
       description = "Caio Muniz";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "wheel" ];
       shell = pkgs.zsh;
     };
   };
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
     fira
   ];
@@ -95,11 +103,9 @@
   environment = {
     sessionVariables = {
       MOZ_ENABLE_WAYLAND = "1";
-      XDG_CURRENT_DESKTOP = "hyprland";
+      NIXOS_OZONE_WL = "1";
+      SDL_VIDEODRIVER = "wayland";
     };
-    systemPackages = with pkgs; [
-      glib
-    ];
     pathsToLink = [ "/share/zsh" ];
     shells = [ pkgs.zsh ];
   };
