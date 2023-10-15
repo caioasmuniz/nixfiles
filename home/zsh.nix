@@ -1,13 +1,24 @@
 { config, lib, pkgs, ... }: {
   home = {
     packages = with pkgs;[ ripgrep ];
-    sessionVariables = { EDITOR = "micro"; };
+    sessionVariables = {
+      EDITOR = "micro";
+      SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
+    };
+    file.".profile".text = ''
+      . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+    '';
   };
   programs = {
-    exa = {
+    eza = {
       enable = true;
       icons = true;
-      extraOptions = [ "--color=always" ];
+      git = true;
+      extraOptions = [
+        "--color=always"
+        "--group-directories-first"
+        "--header"
+      ];
     };
     bat = {
       enable = true;
@@ -125,25 +136,31 @@
         rust = {
           symbol = "󱘗";
           style = "fg:white bg:purple";
-          format = "[ using $symbol ($version)]($style)";
+          format = "[ $symbol ($version)]($style)";
+        };
+
+         nodejs = {
+          symbol = "󰎙";
+          style = "fg:white bg:purple";
+          format = "[ $symbol ($version)]($style)";
         };
 
         c = {
           symbol = "󰙱";
           style = "fg:white bg:purple";
-          format = "[ using $symbol ($version)]($style)";
+          format = "[ $symbol ($version)]($style)";
         };
 
         java = {
           symbol = "󰬷";
           style = "fg:white bg:purple";
-          format = "[ using $symbol ($version)]($style)";
+          format = "[ $symbol ($version)]($style)";
         };
 
         python = {
           symbol = "󰌠";
           style = "fg:white bg:purple";
-          format = "[ using $symbol ($version)]($style)";
+          format = "[ $symbol ($version)]($style)";
         };
 
         cmd_duration = {
@@ -167,10 +184,10 @@
         searchDownKey = "^[OB";
       };
       shellAliases = {
-        update = "sudo nixos-rebuild switch --upgrade --flake github:caioasmuniz/nixfiles";
-        update-local = "sudo nixos-rebuild switch --flake ~/Documents/nixfiles";
-        update-flake = "sudo nix flake update ~/Documents/nixfiles;";
-        ls = "exa";
+        update = "nh os switch --nom github:caioasmuniz/nixfiles";
+        update-local = "nh os switch --nom ~/Documents/nixfiles";
+        update-flake = "nh os switch --update --nom ~/Documents/nixfiles";
+        ls = "eza";
         cat = "bat";
       };
       history = {
