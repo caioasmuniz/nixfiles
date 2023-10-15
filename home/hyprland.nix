@@ -16,13 +16,13 @@ in
     systemd = { enable = true; variables = [ "--all" ]; };
     settings = {
       monitor = [
-        "eDP-1,1920x1080@60,0x0,1.25"
-        "DP-1,2560x1080@75,0x0,1"
+        "eDP-1,1920x1080@60,2560x216,1.25"
+        "HDMI-A-1,2560x1080@75,0x0,1"
       ];
 
       workspace = [
         "eDP-1,1"
-        "DP-1,10"
+        "HDMI-A-1,10"
       ];
 
       input = {
@@ -44,9 +44,12 @@ in
         border_size = 2;
         "col.active_border" = "0xffa6e3a1";
         "col.inactive_border" = "0xFF313244";
-        "col.group_border" = "0xff1e1e2e";
-        "col.group_border_active" = "0xffcba6f7";
         resize_on_border = true;
+      };
+
+      group = {
+        "col.border_active" = "0xff1e1e2e";
+        "col.border_inactive" = "0xffcba6f7";
       };
 
       gestures = {
@@ -61,6 +64,7 @@ in
           enabled = true;
           passes = 2;
           new_optimizations = true;
+          special = true;
         };
         drop_shadow = true;
         shadow_range = 4;
@@ -72,6 +76,7 @@ in
         animation = [
           "windows,1,5,default,slide"
           "border,1,20,default"
+          "borderangle,1,45,default,once"
           "fadeIn,1,5,default"
           "workspaces,1,6,default,slidevert"
         ];
@@ -79,6 +84,7 @@ in
 
       misc = {
         animate_manual_resizes = true;
+        animate_mouse_windowdragging = false;
         vfr = true;
         vrr = 1;
         enable_swallow = true;
@@ -96,8 +102,8 @@ in
       };
       windowrulev2 = [
         "float,class:(pavucontrol)"
-        "size 25% 75%,class:(pavucontrol)"
-        "move 74% 5%,class:(pavucontrol)"
+        "size 400 800,class:(pavucontrol)"
+        "move 100%-412 44,class:(pavucontrol)"
       ];
       bind = [
         "SUPER,W,exec,pkill -USR1 waybar"
@@ -177,10 +183,7 @@ in
         "SUPERCONTROL,i,resizeactive,0 -64"
         "SUPERCONTROL,k,resizeactive,0 64"
       ];
-      bindl = ",switch:Lid Switch,exec,systemctl suspend";
-      exec = [
-        "hyprctl setcursor Adwaita 24"
-      ];
+      exec = [ "hyprctl setcursor Adwaita 24" ];
     };
   };
 }
