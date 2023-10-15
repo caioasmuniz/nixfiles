@@ -18,14 +18,12 @@
         modules-left = [
           "custom/launcher"
           "group/hardware"
-          "temperature"
-          "custom/weather"
-          "wlr/workspaces"
+          "hyprland/workspaces"
           # "hyprland/window"
           # "mpris"
         ];
         modules-center = [
-          "clock"
+          "group/clock-weather-drawer"
         ];
         modules-right = [
           "battery"
@@ -47,6 +45,7 @@
           on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl s 5%-";
           on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl s +5%";
           tooltip = true;
+          tooltip-format = "{icon}  {percent}%";
           scroll-step = 5.0;
           reverse-scrolling = true;
         };
@@ -62,23 +61,57 @@
           interval = 5;
           states = { critical = 10; warning = 25; normal = 26; normal2 = 89; good = 90; };
           tooltip = true;
-          tooltip-format = "󰥔 {timeTo}\n {power} W  󰂎 {capacity}%";
+          tooltip-format = "󰥔  {time}\n {power} W  󰂎 {capacity}%";
         };
+
+        "group/clock-weather-drawer" = {
+          orientation = "inherit";
+          drawer = {
+            transition-duration = 350;
+            children-class = "clock-weather-drawer";
+            transition-left-to-right = false;
+          };
+          modules = [
+            "clock"
+            "clock#date"
+            "custom/weather"
+          ];
+        };
+
         clock = {
-          format = "{:%H:%M 󰥔<sup> </sup>󰿟󰃭 %e %b}";
-          format-calendar = "<span color='#f38ba8' font='FiraCode Nerd Font'><b>{}</b></span>";
-          format-calendar-weekdays = "<span color='#f38ba8'font='FiraCode Nerd Font'><b>{}</b></span>";
-          interval = 1;
-          on-click = "${pkgs.gnome.gnome-calendar}/bin/gnome-calendar &";
-          today-format = "<span color='#a6e3a1'><b><u>{}</u></b></span>";
-          tooltip-format = "<big><b>󰥔 {:%H:%M:%S 󰃭 %B %Y}</b></big>\n<tt><big>{calendar}</big></tt>";
+          format = "{:%H:%M}";
+          interval = 30;
         };
-        cpu = {
-          format = "<small>CPU </small>{usage}%";
-          interval = 5;
-          states = { critical = 75; warning = 50; };
-          tooltip-format = "{avg_frequency}";
+
+        "clock#date" = {
+          format = "󰃭 {:%e %b}";
+          tooltip-format = "<tt>{calendar}</tt>";
+          calendar = {
+            mode = "month";
+            weeks-pos = "";
+            on-scroll = 1;
+            on-click-right = "mode";
+            format = {
+              today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+            };
+          };
+          actions = {
+            on-click = "${pkgs.gnome.gnome-calendar}/bin/gnome-calendar &";
+            on-click-right = "mode";
+            on-scroll-up = "shift_up";
+            on-scroll-down = "shift_down";
+          };
         };
+
+        "custom/weather" = {
+          exec = lib.getExe pkgs.wttrbar;
+          format = "{}°C";
+          interval = 3600;
+          return-type = "json";
+          tooltip = true;
+          on-click = "${pkgs.gnome.gnome-weather}/bin/gnome-weather &";
+        };
+
         "custom/launcher" = {
           format = "<big>󱄅</big><sup> </sup>";
           on-click = "pkill wofi || ${pkgs.wofi}/bin/wofi -n -s ~/.config/wofi/style.css";
@@ -125,7 +158,7 @@
           escape = true;
           exec = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
           exec-if = "which ${pkgs.swaynotificationcenter}/bin/swaync-client";
-          format = "{icon}<span foreground='red'><sup><b> {}</b></sup></span>";
+          format = "{icon}<span foreground = 'red' > <sup> <b> { } </b> </sup> </span> ";
           format-icons = {
             none = "󰍡";
             dnd-none = "󱙍";
@@ -137,23 +170,60 @@
           return-type = "json";
           tooltip = false;
         };
-        "custom/weather" = {
-          exec = lib.getExe pkgs.wttrbar;
-          format = "{}°C";
-          interval = 3600;
-          return-type = "json";
-          tooltip = true;
-          on-click = "${pkgs.gnome.gnome-weather}/bin/gnome-weather &";
-        };
+
         "group/hardware" = {
+          orientation = "horizontal";
+          modules = [
+            "group/cpu_ram"
+            "group/disk_temp"
+          ];
+        };
+
+        "group/cpu_ram" = {
           orientation = "vertical";
           modules = [
             "cpu"
             "memory"
           ];
         };
+
+        "group/disk_temp" = {
+          orientation = "vertical";
+          modules = [
+            "disk"
+            "temperature"
+          ];
+        };
+
+        cpu = {
+          format = "<small>CPU </small>{usage}%";
+          interval = 5;
+          states = { critical = 75; warning = 50; };
+          tooltip-format = "{avg_frequency}";
+        };
+
+        memory = {
+          format = "<small>RAM </small>{}%";
+          interval = 5;
+          on-click = "${pkgs.kitty}/bin/kitty ${pkgs.btop}/bin/btop &";
+          states = { critical = 75; warning = 50; };
+        };
+
+        disk = {
+          format = "<small>DISK </small>{percentage_used}%";
+          tooltip-format = "{used} used out of {total} on {path} ({percentage_used}%)";
+        };
+
+        temperature = {
+          thermal-zone = 1;
+          # hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
+          format = "<small>TEMP </small>{temperatureC}°C";
+          format-icons = [ "" "" "" "" "" ];
+          critical-threshold = 45;
+        };
+
         "hyprland/submap" = {
-          format = "✌️ {}";
+          format = "{}";
           max-length = 8;
           tooltip = true;
         };
@@ -201,12 +271,7 @@
             deactivated = "";
           };
         };
-        memory = {
-          format = "<small>RAM </small>{}%";
-          interval = 5;
-          on-click = "${pkgs.kitty}/bin/kitty ${pkgs.btop}/bin/btop &";
-          states = { critical = 75; warning = 50; };
-        };
+
         mpris = {
           format = "{player_icon} {dynamic}";
           ignored-players = [ "firefox" ];
@@ -221,6 +286,7 @@
             stopped = "";
           };
         };
+
         network = {
           format = "{icon}<sup> </sup>";
           format-alt = "{icon} {signalStrength}%  {bandwidthUpBytes}  {bandwidthDownBytes}";
@@ -230,15 +296,17 @@
             wifi = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
           };
           interval = 5;
-          tooltip-format-disconnected = "Disconnected";
+          tooltip-format = "{icon}  {essid}\n爵 {ipaddr}\n󱑽 {frequency}MHz  鷺 {signaldBm}dBm\n {bandwidthUpBytes}   {bandwidthDownBytes}";
           tooltip-format-ethernet = "󰈀 {ifname}  爵 {ipaddr}\n {bandwidthUpBytes}   {bandwidthDownBytes}";
-          tooltip-format-wifi = "{icon} {essid}\n爵 {ipaddr}  鷺 {signaldBm}dBm\n {bandwidthUpBytes}   {bandwidthDownBytes}";
+          tooltip-format-disconnected = "Disconnected";
         };
+
         "network#vpn" = {
           format = "󱇱<sup> </sup>";
           interface = "wg0";
           interval = 5;
           tooltip-format = "VPN Connected: {ipaddr}";
+          tooltip-format-disconnected = "Disconnected";
           on-click = ''
             if [[ $(${pkgs.networkmanager}/bin/nmcli device status | ${pkgs.gnugrep}/bin/grep wg0 | ${pkgs.gnugrep}/bin/grep connected) == "" ]]
             then
@@ -247,39 +315,23 @@
             ${pkgs.networkmanager}/bin/nmcli connection down wg0
             fi'';
         };
-        pulseaudio = {
-          format = "{icon}";
-          format-alt = "{icon}<sup> </sup>{volume}%";
-          format-bluetooth = "{icon} 󰂯";
-          format-muted = "󰝟";
-          format-icons = {
-            default = [ "󰕿" "󰖀" "󰕾" ];
-            headphones = "";
-            phone = "";
-          };
-          on-right-click = "${lib.getExe pkgs.pavucontrol} -t 3";
-        };
-        temperature = {
-          thermal-zone = 1;
-          # hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
-          format = "{icon}<sup> </sup>{temperatureC}°C";
-          format-icons = [ "" "" "" "" "" ];
-          critical-threshold = 45;
-        };
         tray = {
           icon-size = 20;
           show-passive-items = true;
           spacing = 4;
         };
+
         wireplumber = {
           format = "{icon}";
           format-alt = "{icon}<sup> </sup>{volume}%";
           format-icons = [ "󰕿" "󰖀" "󰕾" ];
           format-muted = "󰝟";
+          tooltip-format = "{icon} {volume}%\n󰓃 {node_name}";
           on-scroll-up = "${pkgs.swayosd}/bin/swayosd --output-volume raise 5";
           on-scroll-down = "${pkgs.swayosd}/bin/swayosd --output-volume lower 5";
           on-click = "pkill pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol -t 3";
         };
+
         "wlr/taskbar" = {
           format = "{icon}";
           icon-size = 18;
@@ -288,6 +340,7 @@
           on-click-middle = "close";
           tooltip-format = "{title}";
         };
+
         "wlr/workspaces" = {
           format = "{name}";
           on-click = "activate";
@@ -296,6 +349,7 @@
         };
       };
     };
+
     style = ''
       /* Reset all styles */
       * {
@@ -336,6 +390,7 @@
       #battery,
       #backlight,
       #clock,
+      #disk,
       #taskbar,
       #pulseaudio,
       #wireplumber,
@@ -368,13 +423,25 @@
       }
 
       #cpu {
-          border-radius: 12px 12px 0px 0px;
+          border-radius: 12px 0px 0px 0px;
+          border-right: none;
       }
 
       #memory {
-        border-radius: 0px 0px 12px 12px;
+        border-radius: 0px 0px 0px 12px;
         border-top: none;
+        border-right: none;
       }
+
+      #disk {
+          border-radius: 0px 12px 0px 0px;
+      }
+
+      #temperature {
+          border-radius: 0px 0px 12px 0px;
+          border-top: none;
+      }
+
 
       #cpu.warning,
       #memory.warning,
