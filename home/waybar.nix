@@ -1,4 +1,5 @@
 { pkgs, lib, inputs, ... }: {
+  home.packages = [ pkgs.playerctl ];
   programs.waybar = {
     enable = true;
     package = inputs.waybar.packages.${pkgs.system}.default;
@@ -18,24 +19,38 @@
         modules-left = [
           "custom/launcher"
           "group/hardware"
-          "hyprland/workspaces"
-          # "hyprland/window"
-          # "mpris"
+          "group/workspaces"
         ];
         modules-center = [
-          "group/clock-weather-drawer"
+          "group/clock-weather"
         ];
         modules-right = [
           "battery"
-          "network"
-          "wireplumber"
-          "backlight"
+          "group/group-network"
+          "group/group-audio"
+          "group/group-backlight"
           "tray"
-          "network#vpn"
           "custom/darkman"
           "custom/powerprofiles"
           "custom/notification"
         ];
+
+        "group/group-backlight" = {
+          orientation = "inherit";
+          drawer = {
+            transition-duration = 500;
+            children-class = "";
+            transition-left-to-right = false;
+          };
+          modules = [
+            "backlight"
+            "backlight/slider"
+          ];
+        };
+        "backlight/slider" = {
+          device = "intel_backlight";
+          orientation = "horizontal";
+        };
 
         backlight = {
           device = "intel_backlight";
@@ -49,6 +64,7 @@
           scroll-step = 5.0;
           reverse-scrolling = true;
         };
+
         battery = {
           bat = "BAT0";
           format-alt = "{icon}<sup> </sup>{capacity}%";
@@ -64,17 +80,17 @@
           tooltip-format = "󰥔  {time}\n {power} W  󰂎 {capacity}%";
         };
 
-        "group/clock-weather-drawer" = {
+        "group/clock-weather" = {
           orientation = "inherit";
           drawer = {
             transition-duration = 350;
-            children-class = "clock-weather-drawer";
+            children-class = "child-clock-weather";
             transition-left-to-right = false;
           };
           modules = [
             "clock"
-            "clock#date"
             "custom/weather"
+            "clock#date"
           ];
         };
 
@@ -227,8 +243,22 @@
           max-length = 8;
           tooltip = true;
         };
+
+        "group/workspaces" = {
+          orientation = "inherit";
+          drawer = {
+            transition-duration = 500;
+            children-class = "";
+            transition-left-to-right = false;
+          };
+          modules = [
+            "hyprland/workspaces"
+            "hyprland/window"
+          ];
+        };
+
         "hyprland/window" = {
-          format = "";
+          format = "{class}";
         };
 
         "hyprland/workspaces" = {
@@ -272,24 +302,22 @@
           };
         };
 
-        mpris = {
-          format = "{player_icon} {dynamic}";
-          ignored-players = [ "firefox" ];
-          player-icons = {
-            default = "";
-            firefox = "󰈹 ";
-            spotify = "󰓇 ";
+        "group/group-network" = {
+          orientation = "inherit";
+          drawer = {
+            transition-duration = 500;
+            children-class = "";
+            transition-left-to-right = false;
           };
-          status-icons = {
-            paused = "";
-            playing = "";
-            stopped = "";
-          };
+          modules = [
+            "network"
+            "network#vpn"
+            "network#stats"
+          ];
         };
 
         network = {
           format = "{icon}<sup> </sup>";
-          format-alt = "{icon} {signalStrength}%  {bandwidthUpBytes}  {bandwidthDownBytes}";
           format-disconnected = "󰤮<sup> </sup>";
           format-icons = {
             ethernet = "󰈀";
@@ -299,6 +327,11 @@
           tooltip-format = "{icon}  {essid}\n爵 {ipaddr}\n󱑽 {frequency}MHz  鷺 {signaldBm}dBm\n {bandwidthUpBytes}   {bandwidthDownBytes}";
           tooltip-format-ethernet = "󰈀 {ifname}  爵 {ipaddr}\n {bandwidthUpBytes}   {bandwidthDownBytes}";
           tooltip-format-disconnected = "Disconnected";
+        };
+
+        "network#stats" = {
+          format = " {bandwidthUpBytes}  {bandwidthDownBytes}";
+          interval = 5;
         };
 
         "network#vpn" = {
@@ -321,6 +354,41 @@
           spacing = 4;
         };
 
+        "group/group-audio" = {
+          orientation = "inherit";
+          drawer = {
+            transition-duration = 500;
+            children-class = "";
+            transition-left-to-right = false;
+          };
+          modules = [
+            "wireplumber"
+            "mpris"
+            "pulseaudio/slider"
+          ];
+        };
+
+        "pulseaudio/slider" = {
+          "orientation" = "horizontal";
+        };
+
+        mpris = {
+          format = "{player_icon} {dynamic}";
+          dynamic-order = [ "title" "artist" "position" "length" "album" ];
+          dynamic-importance-order = [ "position" "length" "title" "artist" "album" ];
+          title-len = 30;
+          player-icons = {
+            default = "";
+            firefox = "󰈹 ";
+            spotify = "󰓇 ";
+          };
+          status-icons = {
+            paused = "";
+            playing = "";
+            stopped = "";
+          };
+        };
+
         wireplumber = {
           format = "{icon}";
           format-alt = "{icon}<sup> </sup>{volume}%";
@@ -339,13 +407,6 @@
           on-click = "activate";
           on-click-middle = "close";
           tooltip-format = "{title}";
-        };
-
-        "wlr/workspaces" = {
-          format = "{name}";
-          on-click = "activate";
-          on-scroll-down = "hyprctl dispatch workspace e-1";
-          on-scroll-up = "hyprctl dispatch workspace e+1";
         };
       };
     };
@@ -381,10 +442,12 @@
         min-height: 32px;
       }
 
-      window#waybar.solo {
-        background-color: @theme_bg_color;
-      }
-
+      #window,
+      #pulseaudio-slider,
+      #backlight-slider,
+      #group-network,
+      #group-audio, 
+      #group-backlight,
       #cpu,
       #memory,
       #battery,
@@ -472,10 +535,6 @@
         color: @theme_text_color;
       }
 
-      #window {
-        font-weight: bold;
-      }
-
       #workspaces {
         padding: 0px;
         background-color: transparent;
@@ -490,6 +549,52 @@
         background-color: @theme_selected_bg_color;
         color: @theme_text_color;
         border-radius: 12px;
+      }
+
+      #network.vpn,
+      #pulseaudio-slider,
+      #backlight-slider {
+        border-width: 0px 1px 0px 1px;
+      }
+
+      #network,
+      #mpris,
+      #wireplumber,
+      #backlight {
+        border-width: 0px;
+      }
+
+      #group-network,
+      #group-audio, 
+      #group-backlight {
+        padding: 0;
+      }
+
+      slider {
+        min-height: 0px;
+        min-width: 0px;
+        opacity: 0;
+        background-image: none;
+        border: none;
+        box-shadow: none;
+      }
+
+      trough {
+        min-height: 10px;
+        min-width: 80px;
+        border-radius: 5px;
+        background-color: @theme_bg_color;
+        margin: 0px 8px;
+      }
+
+      highlight {
+        min-width: 10px;
+        border-radius: 5px;
+      }
+
+      #pulseaudio-slider highlight,
+      #backlight-slider highlight {
+        background-color: @success_color;
       }
     '';
   };
