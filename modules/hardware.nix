@@ -11,7 +11,6 @@
     initrd = {
       availableKernelModules = [ "xhci_pci" "thunderbolt" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
       kernelModules = [ ];
-      postDeviceCommands = "sleep 3";
       systemd.enable = true;
       luks.devices = {
         "swap".device = "/dev/disk/by-uuid/b0c42ef5-fd7f-4a08-9d50-43316223aac1";
