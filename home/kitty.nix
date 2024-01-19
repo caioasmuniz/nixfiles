@@ -39,7 +39,7 @@
       tab_title_template = "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title}";
       active_tab_title_template = "none";
 
-      background_opacity = "0.75";
+      background_opacity = "0.6";
       dynamic_background_opacity = "yes";
 
       enable_audio_bell = "no";

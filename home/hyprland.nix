@@ -31,10 +31,13 @@ in
         repeat_delay = 500;
         follow_mouse = true;
         accel_profile = "flat";
+        touchpad = {
+          natural_scroll = true;
+          scroll_factor = 0.5;
+        };
       };
 
       "device:DLL09D9:00 04F3:3146 Touchpad" = {
-        natural_scroll = true;
         accel_profile = "adaptive";
       };
 
@@ -91,6 +94,8 @@ in
         swallow_regex = "kitty";
         layers_hog_keyboard_focus = true;
         focus_on_activate = true;
+        disable_splash_rendering = true;
+        disable_hyprland_logo = true;
       };
 
       xwayland = { force_zero_scaling = true; };
@@ -131,8 +136,6 @@ in
         "SUPER,S,togglesplit"
         "SUPERSHIFT,S,swapactiveworkspaces,eDP-1 DP-1"
 
-        ",XF86MonBrightnessUp,exec,${pkgs.brightnessctl}/bin/brightnessctl s +5%"
-        ",XF86MonBrightnessDown,exec,${pkgs.brightnessctl}/bin/brightnessctl s 5%-"
         ",XF86AudioMedia,exec,${pkgs.playerctl}/bin/playerctl play-pause"
         ",XF86AudioPlay,exec,${pkgs.playerctl}/bin/playerctl play-pause"
         ",XF86AudioStop,exec,${pkgs.playerctl}/bin/playerctl stop"

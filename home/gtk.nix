@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+  home.sessionVariables = { ADW_DISABLE_PORTAL = 1; };
   gtk = {
     enable = true;
     font = {
