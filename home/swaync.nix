@@ -1,5 +1,29 @@
-{ pkgs, ... }: {
-  home.packages = [ pkgs.swaynotificationcenter ];
+{ pkgs, inputs, ... }:
+let
+  swaync = pkgs.swaynotificationcenter.overrideAttrs (old: {
+    src = inputs.swaync;
+    buildInputs = with pkgs;[
+      dbus
+      dbus-glib
+      gdk-pixbuf
+      glib
+      gtk-layer-shell
+      gtk3
+      json-glib
+      libgee
+      libhandy
+      libpulseaudio
+      librsvg
+      sassc
+      gvfs
+      pantheon.granite
+      libnotify
+    ];
+    patches = [ ];
+  });
+in
+{
+  home.packages = [ swaync ];
   systemd.user.services.swaync = {
     Unit = {
       Description = "Swaync notification daemon";
@@ -11,8 +35,8 @@
     Service = {
       Type = "dbus";
       BusName = "org.freedesktop.Notifications";
-      ExecStart = "${pkgs.swaynotificationcenter}/bin/swaync";
-      ExecReload = "${pkgs.swaynotificationcenter}/bin/swaync-client --reload-config;${pkgs.swaynotificationcenter}/bin/swaync-client --reload-css";
+      ExecStart = "${swaync}/bin/swaync";
+      ExecReload = "${swaync}/bin/swaync-client --reload-config;${swaync}/bin/swaync-client --reload-css";
       Restart = "on-failure";
     };
     Install.WantedBy = [ "hyprland-session.target" ];
@@ -21,18 +45,19 @@
     windowrulev2 = float, class:(swaync)
     windowrulev2 = move 100%-512 42, class:(swaync)
     windowrulev2 = animation slide, class:(swaync)
-    '';
+    layerrule = blur,swaync-control-center
+  '';
   xdg.configFile = {
     "swaync/config.json".text = ''
       {
         "$schema": "/etc/xdg/swaync/configSchema.json",
         "positionX": "right",
         "positionY": "top",
-        "layer-shell": false,
-        "control-center-margin-top": 0,
-        "control-center-margin-bottom": 0,
-        "control-center-margin-right": 0,
-        "control-center-margin-left": 0,
+        "layer-shell": true,
+        "control-center-margin-top": 12,
+        "control-center-margin-bottom": 12,
+        "control-center-margin-right": 12,
+        "control-center-margin-left": 12,
         "notification-icon-size": 64,
         "notification-body-image-height": 100,
         "notification-body-image-width": 200,

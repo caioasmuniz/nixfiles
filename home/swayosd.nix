@@ -1,20 +1,46 @@
-{ ... }: {
-  services.swayosd.enable = true;
+{ pkgs, inputs, config, lib, ... }:
+let
+  cfg = config.services.swayosd;
+  swayosd = pkgs.swayosd.overrideAttrs (old: {
+    src = inputs.swayosd;
+    cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
+      hash = "sha256-VjU7+d2WDEuQoREucGH1Z3rsevYt9VxJ8YjnLGK6boY=";
+      src = inputs.swayosd;
+    };
+    buildInputs = with pkgs;[
+      brightnessctl
+      gtk-layer-shell
+      libevdev
+      libinput
+      libpulseaudio
+      udev
+      sassc
+    ];
+    patches = [ ./swayosd_systemd_paths.patch ];
+  });
+in
+{
+
+  home.packages = [ pkgs.brightnessctl ];
+  services.swayosd = {
+    enable = true;
+    package = swayosd;
+  };
+  systemd.user.services.swayosd.Service.ExecStart = lib.mkForce ("${cfg.package}/bin/swayosd-server"
+    + (lib.optionalString (cfg.maxVolume != null)
+    " --max-volume ${toString cfg.maxVolume}"));
   wayland.windowManager.hyprland.extraConfig = ''
-    bindle=, XF86AudioRaiseVolume, exec, swayosd --output-volume raise 5
-    bindle=, XF86AudioLowerVolume, exec, swayosd --output-volume lower 5
+    bindle=, XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise 5
+    bindle=, XF86AudioLowerVolume, exec, swayosd-client --output-volume lower 5
 
-    bindle=SHIFT, XF86AudioRaiseVolume, exec, swayosd --input-volume raise 5
-    bindle=SHIFT, XF86AudioLowerVolume, exec, swayosd --input-volume lower 5
+    bindle=SHIFT, XF86AudioRaiseVolume, exec, swayosd-client --input-volume raise 5
+    bindle=SHIFT, XF86AudioLowerVolume, exec, swayosd-client --input-volume lower 5
 
-    bind=, XF86AudioMute, exec, swayosd --output-volume mute-toggle
-    bind=, XF86AudioMicMute, exec, swayosd --input-volume mute-toggle
+    bind=, XF86AudioMute, exec, swayosd-client --output-volume mute-toggle
+    bind=, XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle
 
-    binde=, XF86MonBrightnessUp, exec, light -A 10
-    binde=, XF86MonBrightnessDown, exec, light -U 10
-
-    bindl=, Caps_Lock, exec, swayosd --caps-lock-led input0::capslock
-    binde=, XF86MonBrightnessUp, exec, swayosd --brightness raise 5
-    binde=, XF86MonBrightnessDown, exec, swayosd --brightness lower 5
+    bindl=, Caps_Lock, exec, swayosd-client --caps-lock-led input0::capslock
+    binde=, XF86MonBrightnessUp, exec, swayosd-client --brightness raise
+    binde=, XF86MonBrightnessDown, exec, swayosd-client --brightness lower
   '';
 }
