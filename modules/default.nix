@@ -104,6 +104,12 @@
     fira
   ];
 
+  xdg.portal.extraPortals = with pkgs; [
+    gnome.gnome-keyring
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-hyprland
+  ];
+
   environment = {
     sessionVariables = {
       MOZ_ENABLE_WAYLAND = "1";
