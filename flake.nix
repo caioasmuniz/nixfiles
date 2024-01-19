@@ -3,13 +3,26 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
+    nh.url = "github:viperML/nh";
+    hyprland.url = "github:hyprwm/Hyprland";
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nh.url = "github:viperML/nh";
-    hyprland.url = "github:hyprwm/Hyprland";
-    waybar.url = "github:Alexays/Waybar";
+    firefox-gnome-theme = {
+      url = "github:rafaelmardojai/firefox-gnome-theme";
+      flake = false;
+    };
+    swayosd = {
+      url = "github:ErikReider/SwayOSD";
+      flake = false;
+    };
+    swaync = {
+      url = "github:ErikReider/SwayNotificationCenter";
+      flake = false;
+    };
   };
 
   outputs = inputs:
