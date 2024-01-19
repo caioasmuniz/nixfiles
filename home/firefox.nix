@@ -1,15 +1,15 @@
-{ pkgs, ... }: {
+{ inputs, pkgs, ... }: {
   home.file."firefox-gnome-theme" = {
     target = ".mozilla/firefox/default/chrome/firefox-gnome-theme";
-    source = pkgs.fetchFromGitHub {
-      owner = "rafaelmardojai";
-      repo = "firefox-gnome-theme";
-      rev = "v118";
-      hash = "sha256-jmYHoZYx2/dSvDH/khg7vi2qaKKuXK1g8pnvcRyLw/4=";
-    };
+    source = inputs.firefox-gnome-theme;
   };
   programs.firefox = {
     enable = true;
+    package = (pkgs.firefox.override {
+      extraNativeMessagingHosts = [
+        inputs.pipewire-screenaudio.packages.${pkgs.system}.default
+      ];
+    });
     profiles.default = {
       search = {
         default = "DuckDuckGo";
