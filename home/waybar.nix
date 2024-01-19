@@ -1,8 +1,8 @@
-{ pkgs, lib, inputs, ... }: {
-  home.packages = [ pkgs.playerctl ];
+{ pkgs, config, lib, inputs, ... }: {
+  home.packages = [ pkgs.playerctl pkgs.cava ];
   programs.waybar = {
     enable = true;
-    package = inputs.waybar.packages.${pkgs.system}.default;
+    package = inputs.nixpkgs-wayland.packages.${pkgs.system}.waybar;
     systemd = {
       enable = true;
       target = "hyprland-session.target";
@@ -22,17 +22,14 @@
           "group/workspaces"
         ];
         modules-center = [
-          "group/clock-weather"
+          "group/group-clockweather"
         ];
         modules-right = [
           "battery"
           "group/group-network"
           "group/group-audio"
           "group/group-backlight"
-          "tray"
-          "custom/darkman"
-          "custom/powerprofiles"
-          "custom/notification"
+          "group/group-quicksettings"
         ];
 
         "group/group-backlight" = {
@@ -57,8 +54,8 @@
           format = "{icon}<sup> </sup>";
           format-alt = "{icon} {percent}%";
           format-icons = [ "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨" ];
-          on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl s 5%-";
-          on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl s +5%";
+          on-scroll-down = "${config.services.swayosd.package}/bin/swayosd-client --brightness raise";
+          on-scroll-up = "${config.services.swayosd.package}/bin/swayosd-client --brightness lower";
           tooltip = true;
           tooltip-format = "{icon}  {percent}%";
           scroll-step = 5.0;
@@ -80,7 +77,7 @@
           tooltip-format = "󰥔  {time}\n {power} W  󰂎 {capacity}%";
         };
 
-        "group/clock-weather" = {
+        "group/group-clockweather" = {
           orientation = "inherit";
           drawer = {
             transition-duration = 350;
@@ -128,11 +125,59 @@
           on-click = "${pkgs.gnome.gnome-weather}/bin/gnome-weather &";
         };
 
-        "custom/launcher" = {
-          format = "<big>󱄅</big><sup> </sup>";
-          on-click = "pkill wofi || ${pkgs.wofi}/bin/wofi -n -s ~/.config/wofi/style.css";
-          tooltip = false;
+        "group/group-quicksettings" = {
+          orientation = "inherit";
+          drawer = {
+            transition-duration = 500;
+            children-class = "not-power";
+            transition-left-to-right = false;
+          };
+          modules = [
+            "custom/notification"
+            "custom/power"
+            "custom/lock"
+            "custom/reboot"
+            "custom/darkman"
+            "custom/powerprofiles"
+            "tray"
+          ];
         };
+
+        "custom/notification" = {
+          exec = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
+          exec-if = "which ${pkgs.swaynotificationcenter}/bin/swaync-client";
+          format = "{icon}<span foreground = 'red'> <sup><b>{}</b></sup></span>";
+          #format = "{icon}<span foreground = 'red' > <sup> <b> { } </b> </sup> </span> ";
+          format-icons = {
+            none = "󰍡";
+            dnd-none = "󱙍";
+            notification = "󰍡";
+            dnd-notification = "󱙍";
+          };
+          on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
+          on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
+          return-type = "json";
+          tooltip = true;
+        };
+
+        "custom/power" = {
+          format = "󰐥";
+          tooltip = false;
+          on-click = "systemctl poweroff";
+        };
+
+        "custom/reboot" = {
+          format = "󰑓";
+          tooltip = false;
+          on-click = "systemctl reboot";
+        };
+
+        "custom/lock" = {
+          format = "󰌾";
+          tooltip = false;
+          on-click = "${lib.getExe pkgs.gtklock}";
+        };
+
         "custom/darkman" = {
           exec = ''
             state=$(${pkgs.darkman}/bin/darkman get)
@@ -170,20 +215,34 @@
             fi'';
           tooltip = false;
         };
-        "custom/notification" = {
-          escape = true;
-          exec = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
-          exec-if = "which ${pkgs.swaynotificationcenter}/bin/swaync-client";
-          format = "{icon}<span foreground = 'red' > <sup> <b> { } </b> </sup> </span> ";
-          format-icons = {
-            none = "󰍡";
-            dnd-none = "󱙍";
-            notification = "󰍡";
-            dnd-notification = "󱙍";
-          };
-          on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
-          on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
-          return-type = "json";
+
+        tray = {
+          icon-size = 20;
+          show-passive-items = true;
+          spacing = 4;
+        };
+
+        privacy = {
+          icon-spacing = 4;
+          icon-size = 18;
+          transition-duration = 250;
+          modules = [
+            {
+              type = "screenshare";
+              tooltip = true;
+              tooltip-icon-size = 24;
+            }
+            {
+              type = "audio-in";
+              tooltip = true;
+              tooltip-icon-size = 24;
+            }
+          ];
+        };
+
+        "custom/launcher" = {
+          format = "<big>󱄅</big><sup> </sup>";
+          on-click = "pkill wofi || ${pkgs.wofi}/bin/wofi -n -s ~/.config/wofi/style.css";
           tooltip = false;
         };
 
@@ -231,8 +290,7 @@
         };
 
         temperature = {
-          thermal-zone = 1;
-          # hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
+          thermal-zone = 2;
           format = "<small>TEMP </small>{temperatureC}°C";
           format-icons = [ "" "" "" "" "" ];
           critical-threshold = 45;
@@ -271,6 +329,7 @@
             "class<code-url-handler>" = "<span color='#0073B7'>󰨞</span>";
             "class<org.gnome.Nautilus>" = "󰪶";
             "class<com.usebottles.bottles>" = "󱄮";
+            "class<steam>" = "󰓓";
             "class<qalculate-gtk>" = "󰃬";
             "class<osu!>" = "󰊗";
             "class<com.obsproject.Studio>" = "󱜠";
@@ -323,6 +382,7 @@
             ethernet = "󰈀";
             wifi = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
           };
+          on-click = "${lib.getExe pkgs.iwgtk}";
           interval = 5;
           tooltip-format = "{icon}  {essid}\n爵 {ipaddr}\n󱑽 {frequency}MHz  鷺 {signaldBm}dBm\n {bandwidthUpBytes}   {bandwidthDownBytes}";
           tooltip-format-ethernet = "󰈀 {ifname}  爵 {ipaddr}\n {bandwidthUpBytes}   {bandwidthDownBytes}";
@@ -347,11 +407,6 @@
             else
             ${pkgs.networkmanager}/bin/nmcli connection down wg0
             fi'';
-        };
-        tray = {
-          icon-size = 20;
-          show-passive-items = true;
-          spacing = 4;
         };
 
         "group/group-audio" = {
@@ -395,8 +450,8 @@
           format-icons = [ "󰕿" "󰖀" "󰕾" ];
           format-muted = "󰝟";
           tooltip-format = "{icon} {volume}%\n󰓃 {node_name}";
-          on-scroll-up = "${pkgs.swayosd}/bin/swayosd --output-volume raise 5";
-          on-scroll-down = "${pkgs.swayosd}/bin/swayosd --output-volume lower 5";
+          on-scroll-up = "${config.services.swayosd.package}/bin/swayosd-client --output-volume raise 5";
+          on-scroll-down = "${config.services.swayosd.package}/bin/swayosd-client --output-volume lower 5";
           on-click = "pkill pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol -t 3";
         };
 
@@ -442,31 +497,19 @@
         min-height: 32px;
       }
 
-      #window,
-      #pulseaudio-slider,
-      #backlight-slider,
-      #group-network,
-      #group-audio, 
-      #group-backlight,
-      #cpu,
-      #memory,
+      #group-quicksettings, #custom-power, #custom-reboot, #custom-lock, 
+      #group-network, #network, #network.disconnected.vpn,
+      #group-audio, #wireplumber, #mpris, #pulseaudio-slider,
+      #group-backlight, #backlight, #backlight-slider,
+      #group-clockweather, #clock, #custom-weather,
+      #cpu, #memory, #disk, #temperature,
+      #workspaces button, #window,
       #battery,
-      #backlight,
-      #clock,
-      #disk,
-      #taskbar,
-      #pulseaudio,
-      #wireplumber,
-      #workspaces button,
-      #network,
-      #network.disconnected.vpn,
-      #custom-weather,
+      #privacy, privacy-item,
       #custom-launcher,
       #custom-notification,
       #custom-darkman,
       #custom-powerprofiles,
-      #mpris,
-      #temperature,
       #idle_inhibitor,
       #tray {
         transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
@@ -557,6 +600,8 @@
         border-width: 0px 1px 0px 1px;
       }
 
+      #clock,
+      #custom-notification,
       #network,
       #mpris,
       #wireplumber,
@@ -564,6 +609,8 @@
         border-width: 0px;
       }
 
+      #group-quicksettings,
+      #group-clockweather,
       #group-network,
       #group-audio, 
       #group-backlight {
