@@ -11,6 +11,7 @@
     ./hardware.nix
     ./pipewire.nix
     ./bluetooth.nix
+    ./networking.nix
     ./power-management.nix
   ];
 
