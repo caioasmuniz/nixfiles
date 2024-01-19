@@ -200,7 +200,7 @@
         file = "share/fzf-tab/fzf-tab.zsh";
       }];
       initExtra = ''
-        ${pkgs.neofetch}/bin/neofetch
+        ${lib.getExe pkgs.fastfetch}
       '';
     };
   };
