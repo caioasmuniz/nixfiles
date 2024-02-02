@@ -14,7 +14,6 @@
     ./hyprland.nix
     ./swayidle.nix
     ./polkit-agent.nix
-    ./android-studio.nix
     ./nextcloud-client.nix
   ];
 
