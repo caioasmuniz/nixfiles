@@ -7,6 +7,7 @@
     ./kitty.nix
     ./waybar.nix
     ./swaync.nix
+    ./gaming.nix
     ./firefox.nix
     ./darkman.nix
     ./swayosd.nix
@@ -25,16 +26,13 @@
       gnome.nautilus
       qalculate-gtk
       wl-clipboard
-      osu-lazer-bin
       libsecret
       mpv
       imv
       libreoffice-fresh
       fragments
-      bottles
       stremio
       spotifywm
-      steam
     ];
   };
   services = {
