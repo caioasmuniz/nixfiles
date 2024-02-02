@@ -1,15 +1,4 @@
-{ pkgs, inputs, ... }:
-let
-  scratchpad = pkgs.writeScript "scratchpad" ''
-    if [[ $(hyprctl workspaces -j | ${pkgs.jq}/bin/jq 'contains([{"name": "special"}])') == "false" ]];
-    then
-      hyprctl dispatch exec [workspace special] kitty
-    else
-      hyprctl dispatch togglespecialworkspace
-    fi
-  '';
-in
-{
+{ pkgs, lib, inputs, ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.default;
@@ -17,12 +6,13 @@ in
     settings = {
       monitor = [
         "eDP-1,1920x1080@60,2560x216,1.25"
-        "HDMI-A-1,2560x1080@75,0x0,1"
+        "desc:LG Electronics LG HDR WFHD 0x0003187E,2560x1080@75,0x0,1"
       ];
 
       workspace = [
-        "eDP-1,1"
-        "HDMI-A-1,10"
+        "special, on-created-empty:${lib.getExe pkgs.kitty}"
+        "1, monitor:eDP-1, default:true"
+        "10, monitor:HDMI-A-1, default:true"
       ];
 
       input = {
@@ -129,8 +119,8 @@ in
         "SUPER,P,exec, hyprctl dispatch pseudo"
         "SUPERSHIFT,P,exec, hyprctl --batch 'dispatch togglefloating 1;dispatch resizeactive exact 1920 1080;dispatch togglefloating 0;dispatch pseudo'"
         "SUPER,F,fullscreen"
-        ",Pause,exec, ${scratchpad}"
-        ",Insert,exec, ${scratchpad}"
+        ",Pause,togglespecialworkspace"
+        ",Insert,togglespecialworkspace"
         "SUPER,Insert,movetoworkspace,special"
         "SUPER,Pause,movetoworkspace,special"
         "SUPER,S,togglesplit"
