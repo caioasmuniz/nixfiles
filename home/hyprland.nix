@@ -3,6 +3,11 @@
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.default;
     systemd = { enable = true; variables = [ "--all" ]; };
+    extraConfig = ''
+    device {
+      name=DLL09D9:00 04F3:3146 Touchpad
+      accel_profile=adaptive
+    }'';
     settings = {
       monitor = [
         "eDP-1,1920x1080@60,2560x216,1.25"
@@ -25,10 +30,6 @@
           natural_scroll = true;
           scroll_factor = 0.5;
         };
-      };
-
-      "device:DLL09D9:00 04F3:3146 Touchpad" = {
-        accel_profile = "adaptive";
       };
 
       general = {
