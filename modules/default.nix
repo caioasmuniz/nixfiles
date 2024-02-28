@@ -10,6 +10,7 @@
     ./pipewire.nix
     ./bluetooth.nix
     ./networking.nix
+    ./home-manager.nix
     ./power-management.nix
   ];
 
