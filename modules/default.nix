@@ -7,8 +7,6 @@
     ./nix.nix
     ./locale.nix
     ./greetd.nix
-    ./android.nix
-    ./hardware.nix
     ./pipewire.nix
     ./bluetooth.nix
     ./networking.nix
@@ -72,6 +70,7 @@
   };
 
   programs = {
+    hyprland.enable = true;
     dconf.enable = true;
     seahorse.enable = true;
     zsh.enable = true;
