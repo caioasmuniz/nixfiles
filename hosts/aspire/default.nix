@@ -4,16 +4,21 @@
 
 { pkgs, ... }: {
   imports = [
-    ./nix.nix
-    ./locale.nix
-    ./greetd.nix
-    ./android.nix
+    ../../modules/nix.nix
+    ../../modules/locale.nix
+    ../../modules/greetd.nix
+    ../../modules/android.nix
+    ../../modules/hardware.nix
+    ../../modules/pipewire.nix
+    ../../modules/bluetooth.nix
+    ../../modules/networking.nix
+    ../../modules/home-manager.nix
+    ../../modules/power-management.nix
     ./hardware.nix
-    ./pipewire.nix
-    ./bluetooth.nix
-    ./networking.nix
-    ./power-management.nix
   ];
+
+  networking.hostName = "aspire";
+  programs.hyprland.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -38,7 +43,7 @@
       };
     };
   };
-
+  
   hardware = {
     opentabletdriver.enable = true;
     opengl = {
@@ -65,7 +70,6 @@
   };
 
   programs = {
-    steam.enable = true;
     dconf.enable = true;
     seahorse.enable = true;
     zsh.enable = true;
