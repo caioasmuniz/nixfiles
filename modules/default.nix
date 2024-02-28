@@ -40,16 +40,9 @@
   hardware = {
     opentabletdriver.enable = true;
     opengl = {
+      enable = true;
       driSupport = true;
       driSupport32Bit = true;
-      enable = true;
-      extraPackages = with pkgs; [
-        intel-media-driver
-        vaapiIntel
-        vaapiVdpau
-        libvdpau-va-gl
-        intel-compute-runtime
-      ];
     };
   };
 
