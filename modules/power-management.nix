@@ -1,5 +1,4 @@
 { ... }: {
-
   powerManagement = {
     cpuFreqGovernor = "ondemand";
     enable = true;

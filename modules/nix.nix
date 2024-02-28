@@ -1,10 +1,5 @@
 { ... }: {
-  nixpkgs = {
-    config.allowUnfree = true;
-    config.packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-    };
-  };
+  nixpkgs.config.allowUnfree = true;
 
   nix.settings = {
     auto-optimise-store = true;
@@ -24,6 +19,7 @@
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
     ];
   };
+
   nh = {
     enable = true;
     clean.enable = true;
