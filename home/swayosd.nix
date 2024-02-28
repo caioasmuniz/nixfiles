@@ -26,9 +26,6 @@ in
     enable = true;
     package = swayosd;
   };
-  systemd.user.services.swayosd.Service.ExecStart = lib.mkForce ("${cfg.package}/bin/swayosd-server"
-    + (lib.optionalString (cfg.maxVolume != null)
-    " --max-volume ${toString cfg.maxVolume}"));
   wayland.windowManager.hyprland.extraConfig = ''
     bindle=, XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise 5
     bindle=, XF86AudioLowerVolume, exec, swayosd-client --output-volume lower 5
