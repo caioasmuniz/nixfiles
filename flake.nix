@@ -7,6 +7,7 @@
     nh.url = "github:viperML/nh";
     hyprland.url = "github:hyprwm/Hyprland";
     hyprlock.url = "github:hyprwm/Hyprlock";
+    hypridle.url = "github:hyprwm/Hypridle";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nix-gaming.url = "github:fufexan/nix-gaming";
     home-manager = {

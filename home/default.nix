@@ -12,7 +12,8 @@
     ./darkman.nix
     ./swayosd.nix
     ./hyprland.nix
-    ./swayidle.nix
+    ./hyprlock.nix
+    ./hypridle.nix
     ./polkit-agent.nix
     ./nextcloud-client.nix
   ];
