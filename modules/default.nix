@@ -7,6 +7,7 @@
     ./nix.nix
     ./locale.nix
     ./greetd.nix
+    ./zramswap.nix
     ./pipewire.nix
     ./bluetooth.nix
     ./networking.nix
