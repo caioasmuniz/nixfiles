@@ -1,7 +1,7 @@
 { inputs, pkgs, ... }: {
-  home.packages = [
-    pkgs.steam
-    pkgs.bottles
+  home.packages = with pkgs; [
+    steam
+    bottles
     inputs.nix-gaming.packages.${pkgs.system}.osu-lazer-bin
   ];
 }
