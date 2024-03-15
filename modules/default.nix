@@ -51,7 +51,6 @@
   security = {
     tpm2.enable = true;
     polkit.enable = true;
-    pam.services.gtklock = { };
   };
 
   services = {
@@ -70,8 +69,6 @@
     seahorse.enable = true;
     zsh.enable = true;
     geary.enable = true;
-    kdeconnect.enable = true;
-    firefox.enable = true;
   };
 
   users = {
