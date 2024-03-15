@@ -184,9 +184,9 @@
         searchDownKey = "^[OB";
       };
       shellAliases = {
-        update = "nh os switch --nom github:caioasmuniz/nixfiles";
-        update-local = "nh os switch --nom ~/Documents/nixfiles";
-        update-flake = "nh os switch --update --nom ~/Documents/nixfiles";
+        update = "nh os switch github:caioasmuniz/nixfiles";
+        update-local = "nh os switch ~/Documents/nixfiles";
+        update-flake = "nh os switch --update ~/Documents/nixfiles";
         ls = "eza";
         cat = "bat";
       };
