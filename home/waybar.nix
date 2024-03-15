@@ -1,5 +1,5 @@
 { pkgs, config, lib, inputs, ... }: {
-  home.packages = [ pkgs.playerctl pkgs.cava ];
+  home.packages = [ pkgs.playerctl ];
   programs.waybar = {
     enable = true;
     package = inputs.nixpkgs-wayland.packages.${pkgs.system}.waybar;
@@ -138,7 +138,7 @@
             "custom/lock"
             "custom/reboot"
             "custom/darkman"
-            "custom/powerprofiles"
+            "power-profiles-daemon"
             "tray"
           ];
         };
@@ -192,28 +192,15 @@
           on-click = "${pkgs.darkman}/bin/darkman toggle";
           tooltip = false;
         };
-        "custom/powerprofiles" = {
-          exec = ''
-            state=$(${pkgs.power-profiles-daemon}/bin/powerprofilesctl get)
-            if [[ $state == "power-saver" ]]; then
-                echo "󰌪"
-            elif [[ $state == "balanced" ]]; then
-                echo "󰗑"
-            else
-                echo "󰓅"
-            fi'';
-          format = "{}<sup> </sup>";
-          interval = 5;
-          on-click = ''
-            state=$(${pkgs.power-profiles-daemon}/bin/powerprofilesctl get)
-            if [[ $state == "power-saver" ]]; then
-                ${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced
-            elif [[ $state == "balanced" ]]; then
-                ${pkgs.power-profiles-daemon}/bin/powerprofilesctl set performance
-            else
-                ${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver
-            fi'';
-          tooltip = false;
+        power-profiles-daemon = {
+          format = "{icon}";
+          tooltip = true;
+          tooltip-format = "{icon} {profile}";
+          format-icons = {
+            power-saver = "󰌪";
+            balanced = "󰗑";
+            performance = "󰓅";
+          };
         };
 
         tray = {
@@ -382,7 +369,6 @@
             ethernet = "󰈀";
             wifi = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
           };
-          on-click = "${lib.getExe pkgs.iwgtk}";
           interval = 5;
           tooltip-format = "{icon}  {essid}\n爵 {ipaddr}\n󱑽 {frequency}MHz  鷺 {signaldBm}dBm\n {bandwidthUpBytes}   {bandwidthDownBytes}";
           tooltip-format-ethernet = "󰈀 {ifname}  爵 {ipaddr}\n {bandwidthUpBytes}   {bandwidthDownBytes}";
@@ -509,7 +495,7 @@
       #custom-launcher,
       #custom-notification,
       #custom-darkman,
-      #custom-powerprofiles,
+      #power-profiles-daemon,
       #idle_inhibitor,
       #tray {
         transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);

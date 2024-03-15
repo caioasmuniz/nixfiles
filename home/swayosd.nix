@@ -1,6 +1,5 @@
-{ pkgs, inputs, config, lib, ... }:
+{ pkgs, inputs, ... }:
 let
-  cfg = config.services.swayosd;
   swayosd = pkgs.swayosd.overrideAttrs (old: {
     src = inputs.swayosd;
     cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
