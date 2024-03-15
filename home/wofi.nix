@@ -5,7 +5,9 @@
       width = 300;
       height = 500;
       image_size = 40;
-      location = "center";
+      location = "top_left";
+      xoffset = 12;
+      yoffset = 12;
       show = "drun";
       prompt = "Search...";
       filter_rate = 100;
@@ -21,6 +23,7 @@
     style = ''
         window {
       	border-radius: 12px;
+        border: 1px solid @success_color;
       	background: alpha(@theme_bg_color, 0.75);
       }
 
@@ -47,9 +50,7 @@
     '';
   };
   wayland.windowManager.hyprland.extraConfig = ''
-    bind=SUPER,Space,exec, pkill wofi || ${pkgs.wofi}/bin/wofi -n -s ~/.config/wofi/style.css
-    windowrulev2 = float,class:(wofi)
-    windowrulev2 = move 12 42,class:(wofi)
-    windowrulev2 = animation slide ,class:(wofi)
-  '';
+    bind=SUPER,Space,exec, pkill wofi || ${pkgs.wofi}/bin/wofi
+    layerrule=blur,wofi
+    '';
 }

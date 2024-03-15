@@ -57,8 +57,8 @@
         blur = {
           enabled = true;
           passes = 2;
-          new_optimizations = true;
           special = true;
+          popups = true;
         };
         drop_shadow = true;
         shadow_range = 4;
@@ -69,6 +69,7 @@
         enabled = 1;
         animation = [
           "windows,1,5,default,slide"
+          "layers,1,5,default,slide"
           "border,1,20,default"
           "borderangle,1,45,default,once"
           "fadeIn,1,5,default"

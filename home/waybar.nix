@@ -242,7 +242,7 @@
 
         "custom/launcher" = {
           format = "<big>󱄅</big><sup> </sup>";
-          on-click = "pkill wofi || ${pkgs.wofi}/bin/wofi -n -s ~/.config/wofi/style.css";
+          on-click = "pkill wofi || ${pkgs.wofi}/bin/wofi";
           tooltip = false;
         };
 
