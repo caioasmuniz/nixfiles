@@ -4,10 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
-    nh.url = "github:viperML/nh";
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprlock.url = "github:hyprwm/Hyprlock";
-    hypridle.url = "github:hyprwm/Hypridle";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nix-gaming.url = "github:fufexan/nix-gaming";
     home-manager = {
@@ -47,7 +44,6 @@
           modules = [
             ./hosts/inspiron
             inputs.home-manager.nixosModules.home-manager
-            inputs.nh.nixosModules.default
           ];
         };
 
@@ -57,7 +53,6 @@
           modules = [
             ./hosts/aspire
             inputs.home-manager.nixosModules.home-manager
-            inputs.nh.nixosModules.default
           ];
         };
       };
