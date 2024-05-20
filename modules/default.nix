@@ -38,7 +38,7 @@
       };
     };
   };
-  
+
   hardware = {
     opentabletdriver.enable = true;
     opengl = {
@@ -54,6 +54,7 @@
   };
 
   services = {
+    upower.enable = true;
     fwupd.enable = true;
     ddccontrol.enable = true;
     gnome = {
@@ -69,6 +70,11 @@
     seahorse.enable = true;
     zsh.enable = true;
     geary.enable = true;
+    gamemode.enable = true;
+    steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+    };
   };
 
   users = {

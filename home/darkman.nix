@@ -9,10 +9,8 @@
       portal = true;
     };
     lightModeScripts.light = ''
-      ${pkgs.swaybg}/bin/swaybg -m fill -i ${builtins.path {path = ../assets/bigsur-day.jpg;} } &
-      
-      rm ~/.config/gtklock/config.ini; echo -e "[main]\ngtk-theme=Adwaita" >>.config/gtklock/config.ini
-      
+      hyprctl hyprpaper wallpaper ",${builtins.path {path = ../assets/bigsur-day.jpg;} }" &
+
       ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/gtk-theme '"Adwaita"'
       ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme '"prefer-light"'
 
@@ -22,9 +20,7 @@
       ${pkgs.libnotify}/bin/notify-send --app-name="darkman" --urgency=low --icon=weather-clear-symbolic "switching to light mode"
     '';
     darkModeScripts.dark = ''
-      ${pkgs.swaybg}/bin/swaybg -m fill -i ${builtins.path {path = ../assets/bigsur-night.jpg;} } &
-      
-      rm ~/.config/gtklock/config.ini; echo -e "[main]\ngtk-theme=Adwaita-dark" >>.config/gtklock/config.ini
+      hyprctl hyprpaper wallpaper ",${builtins.path {path = ../assets/bigsur-night.jpg;} }" &
       
       ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/gtk-theme '"Adwaita-dark"'
       ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'      

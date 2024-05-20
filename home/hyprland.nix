@@ -4,10 +4,10 @@
     package = inputs.hyprland.packages.${pkgs.system}.default;
     systemd = { enable = true; variables = [ "--all" ]; };
     extraConfig = ''
-    device {
-      name=DLL09D9:00 04F3:3146 Touchpad
-      accel_profile=adaptive
-    }'';
+      device {
+        name=DLL09D9:00 04F3:3146 Touchpad
+        accel_profile=adaptive
+      }'';
     settings = {
       monitor = [
         "eDP-1,1920x1080@60,2560x216,1.25"
@@ -15,7 +15,7 @@
       ];
 
       workspace = [
-        "special, on-created-empty:${lib.getExe pkgs.kitty}"
+        "special, on-created-empty: kitty"
         "1, monitor:eDP-1, default:true"
         "10, monitor:HDMI-A-1, default:true"
       ];
@@ -112,7 +112,8 @@
         "SUPERSHIFT,Q,exec,pkill Hyprland"
         "SUPERSHIFT,R,exec, hyprctl reload;${pkgs.libnotify}/bin/notify-send 'Hyprland had just reloaded!'"
         ",Print,exec,${pkgs.shotman}/bin/shotman -c target"
-        "SUPERCONTROL,S,exec,${pkgs.shotman}/bin/shotman -c region"
+        "SUPERCONTROL,S,exec,${lib.getExe pkgs.shotman} -c region"
+        "SUPERSHIFT,v,exec,pkill wvkbd || ${lib.getExe pkgs.wvkbd}"
 
         "SUPERSHIFT,F,togglefloating,active"
         "SUPERSHIFT,G,togglegroup"

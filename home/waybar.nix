@@ -307,8 +307,8 @@
         };
 
         "hyprland/workspaces" = {
-          format = "{icon}{name}: {windows} ";
-          format-icons = { special = "󰣆 "; default = ""; };
+          format = "{icon}{windows}<sup> </sup>";
+          format-icons = { special = "󰣆 : "; default = ""; };
           window-rewrite-default = "";
           window-rewrite = {
             "class<kitty>" = "";

@@ -14,6 +14,7 @@
     ./hyprland.nix
     ./hyprlock.nix
     ./hypridle.nix
+    ./hyprpaper.nix
     ./polkit-agent.nix
     ./nextcloud-client.nix
   ];
@@ -33,6 +34,8 @@
       fragments
       stremio
       spotifywm
+      vesktop
+      moonlight-qt
     ];
   };
   services = {
