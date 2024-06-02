@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    hyprpaper.url = "github:hyprwm/hyprpaper";
     nix-gaming.url = "github:fufexan/nix-gaming";
     home-manager = {
       url = "github:nix-community/home-manager";

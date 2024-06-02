@@ -15,7 +15,7 @@
       ];
 
       workspace = [
-        "special, on-created-empty: kitty"
+        "special:scratchpad, on-created-empty: kitty"
         "1, monitor:eDP-1, default:true"
         "10, monitor:HDMI-A-1, default:true"
       ];
@@ -122,8 +122,8 @@
         "SUPER,P,exec, hyprctl dispatch pseudo"
         "SUPERSHIFT,P,exec, hyprctl --batch 'dispatch togglefloating 1;dispatch resizeactive exact 1920 1080;dispatch togglefloating 0;dispatch pseudo'"
         "SUPER,F,fullscreen"
-        ",Pause,togglespecialworkspace"
-        ",Insert,togglespecialworkspace"
+        ",Pause,togglespecialworkspace, scratchpad"
+        ",Insert,togglespecialworkspace,scratchpad"
         "SUPER,Insert,movetoworkspace,special"
         "SUPER,Pause,movetoworkspace,special"
         "SUPER,S,togglesplit"

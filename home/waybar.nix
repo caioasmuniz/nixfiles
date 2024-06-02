@@ -1,8 +1,6 @@
-{ pkgs, config, lib, inputs, ... }: {
-  home.packages = [ pkgs.playerctl ];
+{ pkgs, config, lib, ... }: {
   programs.waybar = {
     enable = true;
-    package = inputs.nixpkgs-wayland.packages.${pkgs.system}.waybar;
     systemd = {
       enable = true;
       target = "hyprland-session.target";
