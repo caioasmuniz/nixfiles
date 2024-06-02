@@ -25,8 +25,9 @@
     };
   };
 
-  outputs = inputs:
+  outputs = { self,... }@inputs:
     let
+      inherit (self) outputs;
       system = "x86_64-linux";
       pkgs = import inputs.nixpkgs {
         inherit system;
@@ -40,7 +41,7 @@
       nixosConfigurations = {
         inspiron = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs outputs; };
           modules = [
             ./hosts/inspiron
             inputs.home-manager.nixosModules.home-manager
@@ -49,7 +50,7 @@
 
         aspire = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs outputs; };
           modules = [
             ./hosts/aspire
             inputs.home-manager.nixosModules.home-manager

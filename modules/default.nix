@@ -4,6 +4,7 @@
 
 { pkgs, ... }: {
   imports = [
+    ./ssh.nix
     ./nix.nix
     ./locale.nix
     ./greetd.nix
