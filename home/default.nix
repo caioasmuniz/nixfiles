@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./zsh.nix
+    ./ssh.nix
     ./xdg.nix
     ./gtk.nix
     ./wofi.nix

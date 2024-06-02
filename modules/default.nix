@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   imports = [
     ./ssh.nix
     ./nix.nix
@@ -87,6 +87,8 @@
       description = "Caio Muniz";
       extraGroups = [ "wheel" ];
       shell = pkgs.zsh;
+      openssh.authorizedKeys.keys = lib.splitString "\n"
+        (builtins.readFile ../hosts/inspiron/ssh_host_ed25519_key.pub);
     };
   };
 
