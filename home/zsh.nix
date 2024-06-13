@@ -63,6 +63,7 @@
           "[](blue)"
           "$os"
           "$username"
+          "$hostname"
           "[](bg:red fg:blue)"
           "$directory"
           "[](fg:red bg:yellow)"
@@ -91,8 +92,17 @@
         username = {
           show_always = true;
           style_user = "fg:white bg:blue";
-          style_root = "fg:white bg:blue";
+          style_root = "fg:white bg:black";
           format = "[$user ]($style)";
+          disabled = false;
+        };
+
+        hostname = {
+          ssh_only = true;
+          ssh_symbol = "󰢹 ";
+          format = "[on $hostname $ssh_symbol]($style)";
+          style = "fg:white bg:blue";
+          trim_at = ".";
           disabled = false;
         };
 
@@ -139,7 +149,7 @@
           format = "[ $symbol ($version)]($style)";
         };
 
-         nodejs = {
+        nodejs = {
           symbol = "󰎙";
           style = "fg:white bg:purple";
           format = "[ $symbol ($version)]($style)";
