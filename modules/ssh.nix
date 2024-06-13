@@ -12,7 +12,7 @@
       type = "ed25519";
     }];
   };
-  users.users.caio.openssh.authorizedKeys.keyFiles = ../hosts/inspiron/ssh_host_ed25519_key.pub;
+  users.users.caio.openssh.authorizedKeys.keyFiles = [ ../hosts/inspiron/ssh_host_ed25519_key.pub ];
 
   programs.ssh = {
     # Each hosts public key
