@@ -166,7 +166,7 @@
 
       bindm = [
         "SUPER,mouse:272,movewindow"
-        "bindm=SUPER,mouse:273,resizewindow"
+        "SUPER,mouse:273,resizewindow"
       ];
 
       binde = [
