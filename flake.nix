@@ -7,6 +7,7 @@
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprpaper.url = "github:hyprwm/hyprpaper";
     nix-gaming.url = "github:fufexan/nix-gaming";
+    ags.url = "github:Aylur/ags";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,7 +26,7 @@
     };
   };
 
-  outputs = { self,... }@inputs:
+  outputs = { self, ... }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
