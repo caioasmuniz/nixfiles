@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   imports = [ ../../modules ./hardware.nix ];
   networking = {
     hostName = "aspire";
@@ -28,16 +28,19 @@
       };
     };
   };
-
   services = {
-    xserver.videoDrivers = [ "nvidia" ];
+    greetd.settings.initial_session = {
+      command = lib.getExe config.programs.hyprland.package;
+      user = "caio";
+    };
     sunshine = {
       enable = true;
-      package = pkgs.sunshine.override { cudaSupport = true; };
+      #package = pkgs.sunshine.override { cudaSupport = true; };
       autoStart = true;
       capSysAdmin = true;
       openFirewall = true;
     };
+    xserver.videoDrivers = [ "nvidia" ];
   };
   environment.systemPackages = [ pkgs.nvtop pkgs.egl-wayland ];
 }
