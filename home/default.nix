@@ -1,13 +1,11 @@
 { pkgs, ... }: {
   imports = [
+    ./ags
     ./zsh.nix
     ./ssh.nix
     ./xdg.nix
     ./gtk.nix
-    ./wofi.nix
     ./kitty.nix
-    ./waybar.nix
-    ./swaync.nix
     ./gaming.nix
     ./firefox.nix
     ./darkman.nix
@@ -37,6 +35,8 @@
       spotifywm
       vesktop
       moonlight-qt
+      mission-center
+      zed-editor
     ];
   };
   services = {
