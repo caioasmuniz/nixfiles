@@ -111,8 +111,9 @@
         "SUPER,E,exec,${pkgs.gnome.nautilus}/bin/nautilus"
         "SUPERSHIFT,Q,exec,pkill Hyprland"
         "SUPERSHIFT,R,exec, hyprctl reload;${pkgs.libnotify}/bin/notify-send 'Hyprland had just reloaded!'"
-        ",Print,exec,${pkgs.shotman}/bin/shotman -c target"
-        "SUPERCONTROL,S,exec,${lib.getExe pkgs.shotman} -c region"
+        "SUPER, PRINT, exec, ${pkgs.hyprshot} -m window"
+        ", PRINT, exec, ${pkgs.hyprshot} -m output"
+        "SUPERSHIFT, PRINT, exec, ${pkgs.hyprshot} -m region"
         "SUPERSHIFT,v,exec,pkill wvkbd || ${lib.getExe pkgs.wvkbd}"
 
         "SUPERSHIFT,F,togglefloating,active"

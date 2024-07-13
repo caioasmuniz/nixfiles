@@ -14,6 +14,7 @@
       enable = true;
       icons = true;
       git = true;
+      enableZshIntegration = true;
       extraOptions = [
         "--color=always"
         "--group-directories-first"
@@ -55,6 +56,9 @@
     fzf = {
       enable = true;
       enableZshIntegration = true;
+      defaultOptions = [ "--border" ];
+      changeDirWidgetOptions = [ "--preview 'eza --tree --icons --color=always {} | head -200'" ];
+      fileWidgetOptions = [ "--preview 'bat -n --color=always --line-range :500 {}'" ];
     };
     starship = {
       enable = true;

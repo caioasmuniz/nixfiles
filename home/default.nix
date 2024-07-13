@@ -5,8 +5,8 @@
     ./ssh.nix
     ./xdg.nix
     ./gtk.nix
-        ./kitty.nix
-        ./gaming.nix
+    ./kitty.nix
+    ./gaming.nix
     ./firefox.nix
     ./darkman.nix
     ./swayosd.nix
@@ -35,6 +35,8 @@
       spotifywm
       vesktop
       moonlight-qt
+      mission-center
+      zed-editor
     ];
   };
   services = {
