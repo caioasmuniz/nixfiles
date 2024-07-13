@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   imports = [
+    ./ags
     ./zsh.nix
     ./ssh.nix
     ./xdg.nix
