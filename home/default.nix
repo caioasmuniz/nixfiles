@@ -5,11 +5,8 @@
     ./ssh.nix
     ./xdg.nix
     ./gtk.nix
-    ./wofi.nix
-    ./kitty.nix
-    ./waybar.nix
-    ./swaync.nix
-    ./gaming.nix
+        ./kitty.nix
+        ./gaming.nix
     ./firefox.nix
     ./darkman.nix
     ./swayosd.nix
