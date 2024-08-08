@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   security.pam.services.greetd.enableGnomeKeyring = true;
-  environment.systemPackages = [ pkgs.gnome.adwaita-icon-theme ];
+  environment.systemPackages = [ pkgs.adwaita-icon-theme ];
 
   programs.regreet = {
     enable = true;

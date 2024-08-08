@@ -5,7 +5,7 @@
     interfaces.enp3s0.wakeOnLan.enable = true;
   };
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
       extraPackages = with pkgs; [
         nvidia-vaapi-driver

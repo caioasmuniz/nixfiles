@@ -42,9 +42,9 @@
 
   hardware = {
     opentabletdriver.enable = true;
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
   };
 
@@ -97,7 +97,7 @@
   ];
 
   xdg.portal.extraPortals = with pkgs; [
-    gnome.gnome-keyring
+    gnome-keyring
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
   ];

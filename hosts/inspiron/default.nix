@@ -6,7 +6,7 @@
   imports = [ ../../modules ./hardware.nix ];
   networking.hostName = "inspiron";
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
       extraPackages = with pkgs; [
         intel-media-driver
