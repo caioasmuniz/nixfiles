@@ -9,8 +9,7 @@
     ./gaming.nix
     ./firefox.nix
     ./darkman.nix
-    ./swayosd.nix
-    ./hyprland.nix
+        ./hyprland.nix
     ./hyprlock.nix
     ./hypridle.nix
     ./hyprpaper.nix

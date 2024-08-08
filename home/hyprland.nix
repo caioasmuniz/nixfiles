@@ -103,8 +103,7 @@
         "move 100%-462 50%-450,class:(pwvucontrol)"
       ];
       bind = [
-        "SUPER,W,exec,pkill -USR1 waybar"
-        "SUPER,C,exec, ${pkgs.vscode}/bin/code ~/Documents/nixfiles"
+                "SUPER,C,exec, ${pkgs.vscode}/bin/code ~/Documents/nixfiles"
         "SUPER,Return,exec,${pkgs.kitty}/bin/kitty"
         "SUPER,B,exec,firefox"
         "SUPER,V,exec,pkill pwvucontrol || pwvucontrol"
@@ -163,11 +162,24 @@
         "SUPERALT,k,workspace,+1"
         "SUPERSHIFTALT,i,movetoworkspace,-1"
         "SUPERSHIFTALT,k,movetoworkspace,+1"
+", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
       ];
+
+      bindle = [
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 5%-"
+        "SHIFT, XF86AudioRaiseVolume, exec, swayosd-client --input-volume raise 5"
+        "SHIFT, XF86AudioLowerVolume, exec, swayosd-client --input-volume lower 5"
+      ];
+
+      # bindl = [ "Caps_Lock, exec, swayosd-client --caps-lock-led input0::capslock"       ];
 
       bindm = [
         "SUPER,mouse:272,movewindow"
+"SUPER,SHIFT, movewindow"
         "SUPER,mouse:273,resizewindow"
+"SUPER,CONTROL,resizewindow"
       ];
 
       binde = [
@@ -179,6 +191,8 @@
         "SUPERCONTROL,l,resizeactive,64 0"
         "SUPERCONTROL,i,resizeactive,0 -64"
         "SUPERCONTROL,k,resizeactive,0 64"
+",XF86MonBrightnessUp, exec, brightnessctl set +5%"
+        ",XF86MonBrightnessDown, exec, brightnessctl set -5%"
       ];
       exec = [ "hyprctl setcursor Adwaita 24" ];
     };
