@@ -103,7 +103,7 @@
         "move 100%-462 50%-450,class:(pwvucontrol)"
       ];
       bind = [
-                "SUPER,C,exec, ${pkgs.vscode}/bin/code ~/Documents/nixfiles"
+        "SUPER,C,exec, ${pkgs.vscode}/bin/code ~/Documents/nixfiles"
         "SUPER,Return,exec,${pkgs.kitty}/bin/kitty"
         "SUPER,B,exec,firefox"
         "SUPER,V,exec,pkill pwvucontrol || pwvucontrol"
@@ -162,7 +162,7 @@
         "SUPERALT,k,workspace,+1"
         "SUPERSHIFTALT,i,movetoworkspace,-1"
         "SUPERSHIFTALT,k,movetoworkspace,+1"
-", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
       ];
 
@@ -177,9 +177,9 @@
 
       bindm = [
         "SUPER,mouse:272,movewindow"
-"SUPER,SHIFT, movewindow"
+        "SUPER,SHIFT, movewindow"
         "SUPER,mouse:273,resizewindow"
-"SUPER,CONTROL,resizewindow"
+        "SUPER,CONTROL,resizewindow"
       ];
 
       binde = [
@@ -191,7 +191,7 @@
         "SUPERCONTROL,l,resizeactive,64 0"
         "SUPERCONTROL,i,resizeactive,0 -64"
         "SUPERCONTROL,k,resizeactive,0 64"
-",XF86MonBrightnessUp, exec, brightnessctl set +5%"
+        ",XF86MonBrightnessUp, exec, brightnessctl set +5%"
         ",XF86MonBrightnessDown, exec, brightnessctl set -5%"
       ];
       exec = [ "hyprctl setcursor Adwaita 24" ];
