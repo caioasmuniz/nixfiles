@@ -98,17 +98,17 @@
         no_gaps_when_only = false;
       };
       windowrulev2 = [
-        "float,class:(pavucontrol)"
-        "size 400 800,class:(pavucontrol)"
-        "move 100%-412 44,class:(pavucontrol)"
+        "float,class:(pwvucontrol)"
+        "size 450 900,class:(pwvucontrol)"
+        "move 100%-462 50%-450,class:(pwvucontrol)"
       ];
       bind = [
         "SUPER,W,exec,pkill -USR1 waybar"
         "SUPER,C,exec, ${pkgs.vscode}/bin/code ~/Documents/nixfiles"
         "SUPER,Return,exec,${pkgs.kitty}/bin/kitty"
         "SUPER,B,exec,firefox"
-        "SUPER,V,exec,pkill pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol -t 3"
-        "SUPER,E,exec,${pkgs.gnome.nautilus}/bin/nautilus"
+        "SUPER,V,exec,pkill pwvucontrol || pwvucontrol"
+        "SUPER,E,exec,nautilus"
         "SUPERSHIFT,Q,exec,pkill Hyprland"
         "SUPERSHIFT,R,exec, hyprctl reload;${pkgs.libnotify}/bin/notify-send 'Hyprland had just reloaded!'"
         "SUPER, PRINT, exec, ${pkgs.hyprshot} -m window"

@@ -23,8 +23,7 @@
     homeDirectory = "/home/caio";
     stateVersion = "22.11";
     packages = with pkgs; [
-      gnome.nautilus
-      qalculate-gtk
+            qalculate-gtk
       wl-clipboard
       libsecret
       mpv

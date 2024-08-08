@@ -10,7 +10,7 @@
       gtksourceview
       webkitgtk
       accountsservice
-      pavucontrol
+      
     ];
 
   };

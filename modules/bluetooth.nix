@@ -1,7 +1,7 @@
-{ ... }: {
+{ pkgs, ... }: {
   hardware = {
     bluetooth.enable = true;
     bluetooth.powerOnBoot = false;
   };
-  services.blueman.enable = true;
+  environment.systemPackages = [ pkgs.overskride ];
 }
