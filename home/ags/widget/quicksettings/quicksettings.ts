@@ -1,24 +1,9 @@
 const hyprland = await Service.import("hyprland");
-const systemtray = await Service.import("systemtray");
 import { brightnessSlider, volumeSlider } from "../sliders";
 import notificationList from "./modules/notificationList";
 import media from "./modules/media";
+import sysTray from "./modules/tray";
 
-const sysTray = () => {
-  const items = systemtray.bind("items").as((items) =>
-    items.map((item) =>
-      Widget.Button({
-        child: Widget.Icon({ icon: item.bind("icon") }),
-        on_primary_click: (_, event) => item.activate(event),
-        on_secondary_click: (_, event) => item.openMenu(event),
-        tooltip_markup: item.bind("tooltip_markup"),
-      })
-    )
-  );
-  return Widget.Box({
-    children: items,
-  });
-};
 
 const calendar = () =>
   Widget.Calendar({
@@ -29,6 +14,7 @@ const calendar = () =>
 
 const darkMode = () =>
   Widget.Button({
+    css: `border-radius:12px;`,
     on_clicked: () => {
       Utils.execAsync(["bash", "-c", "darkman toggle"]);
     },
@@ -45,8 +31,10 @@ export default () =>
     anchor: ["top", "bottom", "right"],
     monitor: hyprland.active.monitor.bind("id"),
     css: `border-radius:12px;
-          background-color:@theme_bg_color`,
+          background-color: rgba(0,0,0,0.1);`,
     child: Widget.Box({
+      css: `padding: 4px;
+            min-width: 350px;`,
       spacing: 8,
       vertical: true,
       homogeneous: false,

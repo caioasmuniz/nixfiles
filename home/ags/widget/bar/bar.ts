@@ -9,6 +9,7 @@ const date = Variable("", {
 
 function Clock() {
   return Widget.Button({
+    css:`border-radius:12px;`,
     class_name: "clock",
     label: date.bind(),
     on_clicked: () => {
@@ -19,6 +20,7 @@ function Clock() {
 
 const launcher = () =>
   Widget.Button({
+    css:`border-radius:12px;`,
     on_clicked: () => App.ToggleWindow("applauncher"),
     cursor: "pointer",
     child: Widget.Icon({
@@ -33,9 +35,11 @@ export default (monitor: number = 0) =>
     class_name: "bar",
     monitor,
     anchor: ["top", "left", "right"],
-    margins: [4],
+    //margins: [4],
     exclusivity: "exclusive",
+    css: `background-color: rgba(0,0,0,0.1);`,
     child: Widget.CenterBox({
+      css: `padding: 4px;`,
       start_widget: Widget.Box({
         spacing: 8,
         children: [launcher(), systemUsage(), workspaces(monitor)],

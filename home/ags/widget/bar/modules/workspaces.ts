@@ -67,6 +67,7 @@ export default (monitor: number) => {
             .filter((c) => c != undefined)
         );
         return Widget.Button({
+          css:`border-radius:12px;`,
           cursor: "pointer",
           tooltip_markup: `${id > 0 ? id : "scratchpad"}`,
           on_clicked: () =>

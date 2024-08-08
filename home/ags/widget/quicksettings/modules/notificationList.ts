@@ -9,6 +9,7 @@ export default () =>
       Widget.Box({
         children: [
           Widget.Label({
+            hexpand: true,
             css: `color:@theme_text_color;`,
             label: "Notifications",
           }),
@@ -17,7 +18,7 @@ export default () =>
             onClicked: () => {
               notifications.clear();
             },
-            label: "Clear All",
+            child: Widget.Label("Clear All"),
           }),
         ],
       }),
@@ -26,7 +27,7 @@ export default () =>
         vexpand: true,
         child: Widget.Box({
           spacing: 4,
-          css: "padding: 4px;min-width: 2px; min-height: 2px;",
+          css: "padding: 4px 0px;min-width: 2px; min-height: 2px;",
           class_name: "notifications",
           vertical: true,
           children: notifications

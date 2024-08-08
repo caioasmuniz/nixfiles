@@ -4,12 +4,14 @@ const WINDOW_NAME = "applauncher";
 /** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
 const AppItem = (app) =>
   Widget.Button({
+    css:`border-radius:12px;`,
     on_clicked: () => {
       App.closeWindow(WINDOW_NAME);
       app.launch();
     },
     attribute: { app },
     child: Widget.Box({
+      spacing: 8,
       children: [
         Widget.Icon({
           icon: app.icon_name || "",
@@ -32,7 +34,6 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
 
   // container holding the buttons
   const list = Widget.Box({
-    css:`padding-right:${spacing + 4}`,
     vertical: true,
     children: applications,
     spacing,
@@ -47,7 +48,8 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
   // search entry
   const entry = Widget.Entry({
     hexpand: true,
-    css: `margin-bottom: ${spacing}px;`,
+    css: `margin-bottom: ${spacing * 2}px;
+          border-radius:12px;`,
 
     // to launch the first item on Enter
     on_accept: () => {
@@ -68,7 +70,7 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
 
   return Widget.Box({
     vertical: true,
-    css: `margin: ${spacing}px;`,
+    css: `margin: ${spacing * 2}px;`,
     children: [
       entry,
       // wrap the list in a scrollable
@@ -96,7 +98,8 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
 export default () =>
   Widget.Window({
     name: WINDOW_NAME,
-    css: `border-radius: 12px`,
+    css: `border-radius: 12px;
+          background-color: rgba(0,0,0,0.1);`,
     anchor: ["top", "left"],
     margins: [12],
     keymode: "exclusive",

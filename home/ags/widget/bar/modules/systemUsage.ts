@@ -59,6 +59,7 @@ const ram = {
 
 export default () =>
   Widget.Button({
+    css:`border-radius:12px;`,
     cursor: "pointer",
     onClicked: () => Utils.execAsync(["missioncenter"]),
     child: Widget.Box({

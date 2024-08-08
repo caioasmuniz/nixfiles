@@ -96,6 +96,7 @@ const BatteryIndicator = () => {
 
 export default () =>
   Widget.Button({
+    css:`border-radius:12px;`,
     cursor: "pointer",
     on_clicked: () => App.toggleWindow("quicksettings"),
     on_scroll_up: () => (audio.speaker.volume += 0.02),

@@ -57,6 +57,7 @@ export default (notif: Notification) => {
   const closeButton = Widget.Button({
     child: Widget.Label("close"),
     on_clicked: () => {
+      notif.dismiss();
       notif.close();
     },
   });
@@ -66,6 +67,7 @@ export default (notif: Notification) => {
     children: notif.actions
       .map(({ id, label }) =>
         Widget.Button({
+          css:`border-radius:12px;`,
           class_name: "action-button",
           on_clicked: () => {
             notif.invoke(id);
@@ -82,8 +84,8 @@ export default (notif: Notification) => {
     attribute: { id: notif.id },
     on_primary_click: notif.dismiss,
     css: `background-color: @theme_base_color;
-            border: 2px black;
-            border-radius: 12px;`,
+          border: 2px black;
+          border-radius: 12px;`,
     child: Widget.Box({
       class_name: `notification ${notif.urgency}`,
       vertical: true,

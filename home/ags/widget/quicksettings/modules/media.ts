@@ -149,7 +149,7 @@ function Player(player) {
 export default () =>
   Widget.Box({
     vertical: true,
-    css: "max-height: 2px; min-width: 2px;", // small hack to make it visible
+    css: "min-height: 2px; min-width: 2px;", // small hack to make it visible
     visible: players.as((p) => p.length > 0),
     children: players.as((p) => p.map(Player)),
   });
