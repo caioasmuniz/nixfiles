@@ -7,6 +7,7 @@
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprpaper.url = "github:hyprwm/hyprpaper";
     nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-software-center.url = "github:snowfallorg/nix-software-center";
     ags.url = "github:Aylur/ags";
     home-manager = {
       url = "github:nix-community/home-manager";

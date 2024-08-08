@@ -35,6 +35,9 @@
       moonlight-qt
       mission-center
       zed-editor
+      blackbox-terminal
+      inputs.nix-software-center.packages.${pkgs.system}.default
+      trayscale
     ];
   };
   services = {
