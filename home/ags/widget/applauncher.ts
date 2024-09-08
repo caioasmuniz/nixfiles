@@ -4,12 +4,18 @@ const WINDOW_NAME = "applauncher";
 /** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
 const AppItem = (app) =>
   Widget.Button({
-    css:`border-radius:12px;`,
+    css: `border-radius:12px;`,
     on_clicked: () => {
       App.closeWindow(WINDOW_NAME);
       app.launch();
     },
     attribute: { app },
+    on_hover: (self) => {
+      self.css = "background: @theme_selected_bg_color;";
+    },
+    on_hover_lost: (self) => {
+      self.css = "background: @theme_bg_color;";
+    },
     child: Widget.Box({
       spacing: 8,
       children: [

@@ -4,9 +4,9 @@ import notificationList from "./modules/notificationList";
 import media from "./modules/media";
 import sysTray from "./modules/tray";
 
-
 const calendar = () =>
   Widget.Calendar({
+    css: `border-radius:12px;`,
     showDayNames: true,
     showDetails: true,
     showHeading: true,

@@ -67,7 +67,6 @@ export default (monitor: number) => {
             .filter((c) => c != undefined)
         );
         return Widget.Button({
-          css:`border-radius:12px;`,
           cursor: "pointer",
           tooltip_markup: `${id > 0 ? id : "scratchpad"}`,
           on_clicked: () =>
@@ -77,7 +76,7 @@ export default (monitor: number) => {
                   `dispatch togglespecialworkspace scratchpad`
                 ),
           child: Widget.Box({ children: clientIcons, spacing: 8 }),
-          attribute: monitorID,
+          attribute: { monitor: monitorID, id: id },
         });
       })
   );
@@ -89,7 +88,15 @@ export default (monitor: number) => {
     setup: (self) =>
       self.hook(hyprland, () =>
         self.children.forEach((btn) => {
-          btn.visible = monitor === btn.attribute;
+          btn.visible = monitor === btn.attribute.monitor;
+          btn.css = `border-radius: 12px;
+          background:${
+            hyprland.active.workspace.id == btn.attribute.id
+              ? "@theme_selected_bg_color"
+              : btn.attribute.id < 0
+              ? "@warning_color"
+              : "@theme_bg_color"
+          };`;
         })
       ),
   });

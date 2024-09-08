@@ -14,6 +14,7 @@ export default () =>
             label: "Notifications",
           }),
           Widget.Button({
+            css:`border-radius:12px;`,
             hpack: "end",
             onClicked: () => {
               notifications.clear();

@@ -31,6 +31,5 @@
     bind=SUPER,n,exec, ags -t quicksettings
     layerrule=blur,quicksettings
     layerrule=ignorezero,quicksettings
-    layerrule=dimaround,quicksettings
   '';
 }

@@ -5,6 +5,7 @@ import notification from "./notification";
 export default () => {
   const list = Widget.Box({
     vertical: true,
+    spacing: 4,
     children: notifications.popups.map(notification),
   });
 
@@ -26,11 +27,11 @@ export default () => {
     name: `notifications${monitor}`,
     class_name: "notification-popups",
     anchor: ["top", "right"],
+    margins: [12],
     child: Widget.Box({
       css: "min-width: 350px; min-height: 2px;",
       class_name: "notifications",
       vertical: true,
-      spacing: 4,
       child: list,
     }),
   });
