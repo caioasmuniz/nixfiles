@@ -59,6 +59,7 @@
     upower.enable = true;
     fwupd.enable = true;
     ddccontrol.enable = true;
+    tailscale.enable = true;
     gnome = {
       gnome-online-accounts.enable = true;
       gnome-keyring.enable = true;
@@ -76,6 +77,7 @@
     steam = {
       enable = true;
       gamescopeSession.enable = true;
+      remotePlay.openFirewall = true;
     };
   };
 
