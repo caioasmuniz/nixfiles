@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
   imports = [
     ./ags
     ./zsh.nix
@@ -9,7 +9,7 @@
     ./gaming.nix
     ./firefox.nix
     ./darkman.nix
-        ./hyprland.nix
+    ./hyprland.nix
     ./hyprlock.nix
     ./hypridle.nix
     ./hyprpaper.nix
@@ -22,9 +22,10 @@
     homeDirectory = "/home/caio";
     stateVersion = "22.11";
     packages = with pkgs; [
-            qalculate-gtk
+      qalculate-gtk
       wl-clipboard
       libsecret
+      audio-sharing
       mpv
       imv
       libreoffice-fresh

@@ -1,7 +1,6 @@
-{ pkgs, lib, inputs, ... }: {
+{ pkgs, lib, ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.default;
     systemd = { enable = true; variables = [ "--all" ]; };
     extraConfig = ''
       device {
@@ -99,8 +98,8 @@
       };
       windowrulev2 = [
         "float,class:(pwvucontrol)"
-        "size 450 900,class:(pwvucontrol)"
-        "move 100%-462 50%-450,class:(pwvucontrol)"
+        "size 900 900,class:(pwvucontrol)"
+        "move 100%-912 64,class:(pwvucontrol)"
       ];
       bind = [
         "SUPER,C,exec, ${pkgs.vscode}/bin/code ~/Documents/nixfiles"
@@ -124,8 +123,8 @@
         "SUPER,F,fullscreen"
         ",Pause,togglespecialworkspace, scratchpad"
         ",Insert,togglespecialworkspace,scratchpad"
-        "SUPER,Insert,movetoworkspace,special"
-        "SUPER,Pause,movetoworkspace,special"
+        "SUPER,Insert,movetoworkspace,special:scratchpad"
+        "SUPER,Pause,movetoworkspace,special:scratchpad"
         "SUPER,S,togglesplit"
         "SUPERSHIFT,S,swapactiveworkspaces,eDP-1 DP-1"
 
