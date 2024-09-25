@@ -50,51 +50,88 @@
   };
   xdg.configFile = {
     "kitty/themes/adwaita.conf".text = ''
-      selection_background #FFFFFF
-      selection_foreground #000000
-      background #FFFFFF
-      foreground #171421
-      cursor #000000
-      color0 #171421
-      color8 #5E5C64
-      color1 #C01C28
-      color9 #F66151
-      color2 #26A269
-      color10 #33D17A
-      color3 #A2734C
-      color11 #E9AD0C
-      color4 #12488B
-      color12 #2A7BDE
-      color5 #A347BA
-      color13 #C061CB
-      color6 #2AA1B3
-      color14 #33C7DE
-      color7 #D0CFCC
-      color15 #FFFFFF    
-    '';
-    
+      background                #fcfcfc
+      foreground                #504e55
+
+      selection_background      #deddda
+      selection_foreground      #5e5c64
+
+      url_color                 #1a5fb4
+
+      cursor                    #504e55
+      cursor_text_color         #fcfcfc
+
+      active_border_color       #c0bfbc
+      inactive_border_color     #f6f5f4
+      bell_border_color         #ed333b
+      visual_bell_color         none
+
+      active_tab_background     #b0afac
+      active_tab_foreground     #504e55
+      inactive_tab_background   #deddda
+      inactive_tab_foreground   #5e5c64
+      tab_bar_background        none
+      tab_bar_margin_color      none
+
+      color0                    #fcfcfc
+      color1                    #ed333b
+      color2                    #57e389
+      color3                    #ff7800
+      color4                    #62a0ea
+      color5                    #9141ac
+      color6                    #5bc8af
+      color7                    #deddda
+
+      color8                    #9a9996
+      color9                    #f66151
+      color10                   #8ff0a4
+      color11                   #ffa348
+      color12                   #99c1f1
+      color13                   #dc8add
+      color14                   #93ddc2
+      color15                   #f6f5f4'';
+
     "kitty/themes/adwaita-dark.conf".text = ''
-      selection_background #000000
-      selection_foreground #FFFFFF
-      background #171421
-      foreground #D0CFCC
-      cursor #FFFFFF
-      color0 #171421
-      color8 #5E5C64
-      color1 #C01C28
-      color9 #F66151
-      color2 #26A269
-      color10 #33D17A
-      color3 #A2734C
-      color11 #E9AD0C
-      color4 #12488B
-      color12 #2A7BDE
-      color5 #A347BA
-      color13 #C061CB
-      color6 #2AA1B3
-      color14 #33C7DE
-      color7 #D0CFCC
-      color15 #FFFFFF
+      background                #1d1d1d
+      foreground                #deddda
+
+      selection_background      #303030
+      selection_foreground      #c0bfbc
+
+      url_color                 #1a5fb4
+
+      cursor                    #deddda
+      cursor_text_color         #1d1d1d
+
+      active_border_color       #4f4f4f
+      inactive_border_color     #282828
+      bell_border_color         #ed333b
+      visual_bell_color         none
+
+      active_tab_background     #242424 
+      active_tab_foreground     #fcfcfc
+      inactive_tab_background   #303030
+      inactive_tab_foreground   #b0afac
+      tab_bar_background        none
+      tab_bar_margin_color      none
+
+      color0                    #1d1d1d
+      color1                    #ed333b
+      color2                    #57e389
+      color3                    #ff7800
+      color4                    #62a0ea
+      color5                    #9141ac
+      color6                    #5bc8af
+      color7                    #deddda
+
+      color8                    #9a9996
+      color9                    #f66151
+      color10                   #8ff0a4
+      color11                   #ffa348
+      color12                   #99c1f1
+      color13                   #dc8add
+      color14                   #93ddc2
+      color15                   #f6f5f4
     '';
   };
 }
