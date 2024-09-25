@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-software-center.url = "github:snowfallorg/nix-software-center";
     ags.url = "github:Aylur/ags";
