@@ -14,7 +14,7 @@
       ];
 
       workspace = [
-        "special:scratchpad, on-created-empty: kitty"
+        "special:scratchpad, on-created-empty: [pseudo; size 1920 1080] kitty"
         "1, monitor:eDP-1, default:true"
         "10, monitor:HDMI-A-1, default:true"
       ];
@@ -100,6 +100,8 @@
         "float,class:(pwvucontrol)"
         "size 900 900,class:(pwvucontrol)"
         "move 100%-912 64,class:(pwvucontrol)"
+        "pseudo,tag:16x9"
+        "size 1920 1080,tag:16x9"
       ];
       bind = [
         "SUPER,C,exec, ${pkgs.vscode}/bin/code ~/Documents/nixfiles"
