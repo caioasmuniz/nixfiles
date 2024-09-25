@@ -4,7 +4,6 @@ export default () => {
   const items = systemtray.bind("items").as((items) =>
     items.map((item) =>
       Widget.Button({
-        hexpand: true,
         css: `border-radius:12px;`,
         child: Widget.Icon({ icon: item.bind("icon") }),
         on_primary_click: (_, event) => item.activate(event),
@@ -14,8 +13,9 @@ export default () => {
     )
   );
   return Widget.Box({
-    spacing: 4,
+    spacing: 8,
     children: items,
+    hpack: "fill",
     css: `border-radius:12px;`,
   });
 };

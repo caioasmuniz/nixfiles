@@ -1,0 +1,3 @@
+@use "sass:color";
+
+$bg-blur: color.change($bg_color, $alpha: 0.6);

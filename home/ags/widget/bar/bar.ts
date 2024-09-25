@@ -37,7 +37,7 @@ export default (monitor: number = 0) =>
     anchor: ["top", "left", "right"],
     //margins: [4],
     exclusivity: "exclusive",
-    css: `background-color: rgba(0,0,0,0.1);`,
+    css: `background: alpha(@theme_bg_color, 0.25);`,
     child: Widget.CenterBox({
       css: `padding: 4px;`,
       start_widget: Widget.Box({

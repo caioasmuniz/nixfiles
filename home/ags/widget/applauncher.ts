@@ -4,17 +4,18 @@ const WINDOW_NAME = "applauncher";
 /** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
 const AppItem = (app) =>
   Widget.Button({
-    css: `border-radius:12px;`,
+    css: `border-radius:12px;
+          background: alpha(@theme_bg_color, 0.7);`,
     on_clicked: () => {
       App.closeWindow(WINDOW_NAME);
       app.launch();
     },
     attribute: { app },
     on_hover: (self) => {
-      self.css = "background: @theme_selected_bg_color;";
+      self.css = "background: alpha(@theme_selected_bg_color, 0.7); border-radius:12px; color:@theme_base_color";
     },
     on_hover_lost: (self) => {
-      self.css = "background: @theme_bg_color;";
+      self.css = "background: alpha(@theme_bg_color, 0.7); border-radius:12px;color:@theme_text_color";
     },
     child: Widget.Box({
       spacing: 8,
@@ -55,7 +56,8 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
   const entry = Widget.Entry({
     hexpand: true,
     css: `margin-bottom: ${spacing * 2}px;
-          border-radius:12px;`,
+          border-radius:12px;
+          background: alpha(@theme_bg_color, 0.5);`,
 
     // to launch the first item on Enter
     on_accept: () => {
@@ -105,7 +107,7 @@ export default () =>
   Widget.Window({
     name: WINDOW_NAME,
     css: `border-radius: 12px;
-          background-color: rgba(0,0,0,0.1);`,
+          background: alpha(@theme_bg_color, 0.25);`,
     anchor: ["top", "left"],
     margins: [12],
     keymode: "exclusive",
@@ -113,7 +115,7 @@ export default () =>
     child: Applauncher({
       width: 350,
       height: 500,
-      spacing: 4,
+      spacing: 6,
     }),
     setup: (self) =>
       self.keybind("Escape", () => {

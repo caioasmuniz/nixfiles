@@ -1,54 +1,34 @@
 const audio = await Service.import("audio");
 import brightness from "lib/brightness";
 
-const sliderBox = (value, icon, on_change, setup) => {
-  const slider = Widget.Slider({
-    css: "padding:0px;",
-    hexpand: true,
-    draw_value: false,
-    value,
-    on_change,
+const default_slider = (icon, value, onChange?) =>
+  Widget.Box({
+    class_name: "slider",
+    css: `min-width: 120px;
+          padding: 8px;
+          border-radius: 12px;
+          background: alpha(@theme_bg_color, 0.25);
+          color: @theme_text_color;`,
+    children: [
+      icon,
+      Widget.Slider({
+        min: 0,
+        max: 100,
+        draw_value: false,
+        value,
+        onChange,
+        hexpand: true,
+      }),
+      Widget.Label({ label: value.as(String) }),
+    ],
   });
 
-  return Widget.Box({
-    css: "min-width: 120px",
-    children: [icon, slider, Widget.Label(value)],
-  });
-};
-
-export const brightnessSlider = () => {
-  const slider = Widget.Slider({
-    hexpand: true,
-    css: "padding:0px;",
-    draw_value: false,
-    value: brightness.bind("screen_value"),
-    on_change: (self) => (brightness.screen_value = self.value),
-  });
-
-  const label = Widget.Label({
-    label: brightness.bind("screen_value").as((v) => `${Math.trunc(v * 100)}`),
-    setup: (self) =>
-      self.hook(
-        brightness,
-        (self, screenValue) => {
-          self.label = screenValue ?? 0;
-
-          // NOTE:
-          // since hooks are run upon construction
-          // the passed screenValue will be undefined the first time
-
-          // all three are valid
-          self.label = `${brightness.screen_value}`;
-        },
-        "screen-changed"
-      ),
-  });
-  const icon = Widget.Icon("display-brightness-symbolic");
-  return Widget.Box({
-    css: "min-width: 120px",
-    children: [icon, slider, label],
-  });
-};
+export const brightnessSlider = () =>
+  default_slider(
+    Widget.Icon("display-brightness-symbolic"),
+    brightness.bind("screen_value").as((v) => Math.floor(v * 100)),
+    (self) => (brightness.screen_value = self.value / 100)
+  );
 
 export const volumeSlider = () => {
   const icons = {
@@ -69,21 +49,9 @@ export const volumeSlider = () => {
     return `audio-volume-${icons[icon]}-symbolic`;
   }
 
-  const icon = Widget.Icon({
-    icon: Utils.watch(getIcon(), audio.speaker, getIcon),
-  });
-
-  const slider = Widget.Slider({
-    css: "padding:0px;",
-    hexpand: true,
-    draw_value: false,
-    on_change: ({ value }) => (audio.speaker.volume = value),
-    value: audio.speaker.bind("volume"),
-  });
-
-  return Widget.Box({
-    class_name: "volume",
-    css: "min-width: 100px",
-    children: [icon, slider],
-  });
+  return default_slider(
+    Widget.Icon({ icon: Utils.watch(getIcon(), audio.speaker, getIcon) }),
+    audio.speaker.bind("volume").as((v) => Math.floor(v * 100)),
+    (self) => (audio.speaker.volume = self.value / 100)
+  );
 };

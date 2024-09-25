@@ -89,7 +89,7 @@ export default (notif: Notification) => {
     class_name: `notification ${notif.urgency}`,
     child: Widget.Box({
       css: `background-color: @theme_base_color;
-            border: 2px @borders;
+            border: 2px @theme_fg_color;
             border-radius: 12px;
             padding: 4px;`,
       vertical: true,

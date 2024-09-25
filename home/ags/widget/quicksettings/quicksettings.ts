@@ -18,7 +18,25 @@ const darkMode = () =>
     on_clicked: () => {
       Utils.execAsync(["bash", "-c", "darkman toggle"]);
     },
-    label: "󰔎",
+    child: Widget.Icon("night-light-symbolic"),
+  });
+
+const lock = () =>
+  Widget.Button({
+    css: `border-radius:12px;`,
+    on_clicked: () => {
+      Utils.execAsync(["bash", "-c", "hyprlock --immediate"]);
+    },
+    child: Widget.Icon("system-lock-screen-symbolic"),
+  });
+
+const poweroff = () =>
+  Widget.Button({
+    css: `border-radius:12px;`,
+    on_clicked: () => {
+      Utils.execAsync(["bash", "-c", "systemctl poweroff"]);
+    },
+    child: Widget.Icon("system-shutdown-symbolic"),
   });
 
 export default () =>
@@ -31,7 +49,7 @@ export default () =>
     anchor: ["top", "bottom", "right"],
     monitor: hyprland.active.monitor.bind("id"),
     css: `border-radius:12px;
-          background-color: rgba(0,0,0,0.1);`,
+          background: alpha(@theme_bg_color, 0.25);`,
     child: Widget.Box({
       css: `padding: 4px;
             min-width: 350px;`,
@@ -39,8 +57,11 @@ export default () =>
       vertical: true,
       homogeneous: false,
       children: [
-        darkMode(),
-        sysTray(),
+        Widget.Box({
+          hpack: "center",
+          spacing: 8,
+          children: [sysTray(), darkMode(), lock(), poweroff()],
+        }),
         brightnessSlider(),
         volumeSlider(),
         notificationList(),

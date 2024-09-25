@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }: {
   imports = [ inputs.ags.homeManagerModules.default ];
-  home.packages = with pkgs; [ bun brightnessctl ];
+  home.packages = with pkgs; [ bun brightnessctl sassc ];
   programs.ags = {
     enable = true;
     configDir= ../ags;
@@ -10,7 +10,7 @@
       gtksourceview
       webkitgtk
       accountsservice
-      
+      sassc
     ];
 
   };

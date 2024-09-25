@@ -27,6 +27,7 @@ export default () => {
     name: `notifications${monitor}`,
     class_name: "notification-popups",
     anchor: ["top", "right"],
+    layer: "overlay",
     margins: [12],
     child: Widget.Box({
       css: "min-width: 350px; min-height: 2px;",
