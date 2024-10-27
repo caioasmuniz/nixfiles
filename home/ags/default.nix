@@ -1,35 +1,31 @@
 { inputs, pkgs, ... }: {
   imports = [ inputs.ags.homeManagerModules.default ];
-  home.packages = with pkgs; [ bun brightnessctl sassc ];
+  home.packages = with pkgs; [ brightnessctl ];
   programs.ags = {
     enable = true;
-    configDir= ../ags;
+    configDir = ../ags;
+    systemd.enable = true;
 
     # additional packages to add to gjs's runtime
-    extraPackages = with pkgs; [
-      gtksourceview
-      webkitgtk
-      accountsservice
-      sassc
+    extraPackages = with inputs.ags.packages.${pkgs.system}; [
+      apps
+      battery
+      bluetooth
+      hyprland
+      mpris
+      network
+      notifd
+      powerprofiles
+      tray
+      wireplumber
     ];
 
   };
   wayland.windowManager.hyprland.extraConfig = ''
-    exec=ags
-
-    layerrule=blur,osd
-    layerrule=ignorezero,osd
-    
-    bind=SUPER,w,exec, ags -t bar-0;ags -t bar-1
-    layerrule=blur,bar
-    layerrule=ignorezero,bar
-    
+    layerrule=blur,gtk-layer-shell
+    layerrule=ignorezero,gtk-layer-shell
+      
     bind=SUPER,Space,exec, ags -t applauncher
-    layerrule=blur,applauncher
-    layerrule=ignorezero,applauncher
-    
     bind=SUPER,n,exec, ags -t quicksettings
-    layerrule=blur,quicksettings
-    layerrule=ignorezero,quicksettings
   '';
 }

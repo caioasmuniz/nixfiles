@@ -1,0 +1,14 @@
+
+tooltip {
+  border-radius: 12px;
+  padding: 0px;
+  background: @theme_bg_color;
+}
+
+tooltip label {
+  color: @theme_text_color;
+}
+
+scrollable viewport {
+  border: none;
+}

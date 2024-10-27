@@ -6,7 +6,14 @@
     pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-software-center.url = "github:snowfallorg/nix-software-center";
-    ags.url = "github:Aylur/ags";
+    astal = {
+      url = "github:aylur/astal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ags = {
+      url = "github:Aylur/ags/v2";
+      inputs.astal.follows = "astal";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
