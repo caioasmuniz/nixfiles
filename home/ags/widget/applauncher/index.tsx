@@ -4,10 +4,7 @@ import Hyprland from "gi://AstalHyprland"
 import { bind, Variable } from "astal";
 
 const hyprland = Hyprland.get_default()
-const apps = new Apps.Apps({
-  includeEntry: true,
-  includeExecutable: true
-})
+const apps = new Apps.Apps()
 
 const list = Variable(apps.fuzzy_query(""))
 
@@ -43,6 +40,7 @@ export default () => <window name="applauncher"
             <button css={`border-radius:12px;
               color:@theme_text_color;
               background: alpha(@theme_bg_color, 0.7);`}
+              cursor={"pointer"}
               onClick={() => {
                 App.toggle_window("applauncher")
                 app.launch();

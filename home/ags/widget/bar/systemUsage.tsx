@@ -3,52 +3,50 @@ import { Astal, Gtk } from "astal/gtk3";
 
 const cpu = {
   type: "CPU",
-  poll: (self: Astal.Label) =>
-    execAsync([
-      "sh",
-      "-c",
-      `top -bn1 | rg '%Cpu' | tail -1 | awk '{print 100-$8}'`,
-    ])
-      .then((r) => (self.set_label(Math.round(Number(r)) + "%")))
-      .catch((err) => print(err)),
+  poll: (self: Astal.CircularProgress) =>
+    execAsync(["sh", "-c",
+      `top -bn1 | rg '%Cpu' | tail -1 | awk '{print 100-$8}'`])
+      .then(r => self.set_value(Number(r) / 100))
+      .catch(err => print(err)),
 };
 
 const ram = {
   type: "MEM",
-  poll: (self: Astal.Label) =>
-    execAsync([
-      "sh",
-      "-c",
-      `free | tail -2 | head -1 | awk '{print $3/$2*100}'`,
-    ])
-      .then((r) => (self.label = Math.round(Number(r)) + "%"))
-      .catch((err) => print(err)),
+  poll: (self: Astal.CircularProgress) =>
+    execAsync(["sh", "-c",
+      `free | tail -2 | head -1 | awk '{print $3/$2*100}'`])
+      .then(r => self.value = Number(r) / 100)
+      .catch(err => print(err)),
 };
 
 const temp = {
   type: "TEMP",
-  poll: (self: Astal.Label) =>
-    execAsync(["sh", "-c", `cat /sys/class/thermal/thermal_zone0/temp`])
-      .then((r) => (self.label = Math.round(Number(r) / 1000) + "°C"))
-      .catch((err) => print(err)),
+  poll: (self: Astal.CircularProgress) =>
+    execAsync(["sh", "-c",
+      `cat /sys/class/hwmon/hwmon3/temp1_input`])
+      .then(r => self.value = Number(r) / 100000)
+      .catch(err => print(err)),
 };
 
 const Indicator = (props: { type: any; poll: any; }) =>
-  <box vertical vexpand>
-    <label className="type" label={props.type}
-      css="font-size:0.65em;font-weight:bold;" />
-    <label className="value" width_chars={4}
-      setup={(self) => {
-        interval(1000).connect("now",
-          () => { props.poll(self) })
-      }}
-      css="font-size:0.8em;" />
-  </box>
+  <circularprogress
+    setup={(self) => interval(1000)
+      .connect("now", () => props.poll(self))}
+    rounded
+    startAt={0.25}
+    endAt={0.25}
+    css={`color:@theme_text_color;
+        min-width:25px;min-height:25px;
+        font-size:2px;`}>
+    <label
+      label={props.type}
+      css={`color:@theme_text_color;font-size:8px;`} />
+  </circularprogress>
 
 export default ({ vertical }: { vertical: boolean }) =>
   <button cursor="pointer"
     css={`border-radius:12px;
-      padding:${vertical ? "4px 0px;" : "0px 4px;"}`}
+      padding:2px`}
     onClicked={() => execAsync(["missioncenter"])}>
     <box className="system-info module"
       vexpand={!vertical} hexpand={vertical}

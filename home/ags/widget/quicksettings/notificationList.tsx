@@ -15,14 +15,14 @@ const DNDButton = () => <box spacing={4} css={`
     color:@theme_text_color;`} />
   <label label={"Do Not Disturb"} css={"color:@theme_text_color;"} />
   <switch valign={Gtk.Align.CENTER} active={bind(notifd, "dontDisturb")}
-    setup={self => self.connect("notify::active", self => {
-      notifd.dontDisturb = self.state
-    })} />
+    cursor={"pointer"} setup={self =>
+      self.connect("notify::active", self =>
+        notifd.dontDisturb = self.state)} />
 </box>
 
 const ClearAllButton = () => <button
   css={"border-radius:12px;"}
-  halign={Gtk.Align.END}
+  halign={Gtk.Align.END} cursor={"pointer"}
   onClicked={() => notifd.get_notifications().
     forEach(n => n.dismiss())}>
   <box spacing={4}>

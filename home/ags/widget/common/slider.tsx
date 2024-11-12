@@ -3,7 +3,7 @@ import Brightness from "../../lib/brightness"
 import { bind } from "astal"
 
 const brightness = Brightness.get_default()
-const audio = Wireplumber.get_default().audio
+const audio = Wireplumber.get_default()!.audio
 
 export enum SliderType {
   AUDIO,
@@ -19,6 +19,10 @@ export const Slider = ({ type }: { type: SliderType }) =>
       "display-brightness-symbolic"}
       css={"font-size:1.5em;"} />
     <slider min={0} max={100}
+      setup={self => type === SliderType.AUDIO ?
+        self.set_value(audio.defaultSpeaker.volume) :
+        self.set_value(brightness.screen * 100)
+      }
       drawValue={false} hexpand
       value={type === SliderType.AUDIO ?
         bind(audio.defaultSpeaker, "volume").as(v => v * 100) :

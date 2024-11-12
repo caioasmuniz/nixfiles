@@ -1,4 +1,3 @@
-import Hyprland from "gi://AstalHyprland";
 import { App } from "astal/gtk3";
 
 import style from "./scss/main.css";
@@ -8,15 +7,15 @@ import osd from "./widget/osd";
 import applauncher from "./widget/applauncher";
 import quicksettings from "./widget/quicksettings";
 import notificationPopup from "./widget/notifications";
-
-const hyprland = Hyprland.get_default();
+import infopannel from "./widget/infopannel";
 
 App.start({
   css: style,
   main() {
-    hyprland.get_monitors().map(m => bar(m, false));
+    bar(false);
     notificationPopup();
     quicksettings();
+    infopannel();
     applauncher();
     osd();
   }

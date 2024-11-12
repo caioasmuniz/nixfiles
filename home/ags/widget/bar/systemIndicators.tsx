@@ -7,7 +7,7 @@ import PowerProf from "gi://AstalPowerProfiles"
 import { App } from "astal/gtk3";
 import { bind } from "astal";
 
-const audio = Wireplumber.get_default().audio
+const audio = Wireplumber.get_default()!.audio
 const battery = Batery.get_default()
 const network = Network.get_default()
 const powerprof = PowerProf.get_default()
@@ -40,22 +40,22 @@ const AudioIndicator = () => <icon
   css={"font-size:1.25em"}
   icon={bind(audio.default_speaker, "volume_icon")}
   tooltipMarkup={bind(audio.default_speaker, "volume")
-    .as(v => "Volume: " + Math.round(v * 100).toString() + "%")} />
+    .as(v => "Volume: " + (v * 100).toFixed(0).toString() + "%")} />
 
 const MicrophoneIndicator = () => <icon
   css={"font-size:1.25em"}
   visible={bind(audio, "recorders").as(rec => rec.length > 0)}
   icon={bind(audio.default_microphone, "volume_icon")}
   tooltipMarkup={bind(audio.default_microphone, "volume")
-    .as(v => Math.round(v * 100).toString() + "%")} />
+    .as(v => (v * 100).toFixed(0).toString() + "%")} />
 
 const BatteryIndicator = () => <icon
   css={"font-size:1.25em"}
   className="battery"
   visible={bind(battery, "is_present")}
-  icon={bind(battery, "icon_name")}
+  icon={bind(battery, "batteryIconName")}
   tooltipMarkup={bind(battery, "percentage")
-    .as((p) => (p * 100).toString() + "%")} />
+    .as((p) => (p * 100).toFixed(0).toString() + "%")} />
 
 
 export default ({ vertical }: { vertical: boolean }) =>

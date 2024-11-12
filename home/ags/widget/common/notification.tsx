@@ -28,10 +28,11 @@ export default (notif: Notifd.Notification) =>
             label={notif.body} wrap />
         </box>
       </box>
-      <box className={"actions"}>
+      <box className={"actions"} spacing={4}>
         {bind(notif, "actions").as(n => n.map((action) =>
-          <button onClicked={() => notif.invoke(action.id)}>
-            <label label={action.label} />
+          <button onClicked={() => notif.invoke(action.id)}
+            css={"border-radius:12px;"}>
+            <label label={action.label}/>
           </button>))}
       </box>
     </box>

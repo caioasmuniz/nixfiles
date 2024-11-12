@@ -11,6 +11,7 @@ export default () => <box vertical spacing={4}>
   <box>
     <Slider type={SliderType.AUDIO} />
     <button css={"border-radius:0px 12px 12px 0px;"}
+      cursor={"pointer"}
       onClicked={() => reveal.set(!reveal.get())}>
       <icon icon={bind(reveal).as(r => r ?
         "go-up-symbolic" : "go-down-symbolic")} />
@@ -26,6 +27,7 @@ export default () => <box vertical spacing={4}>
             <label label={speaker.description}
               css={"color:@theme_text_color"} wrap hexpand />
             <switch halign={Gtk.Align.END} valign={Gtk.Align.CENTER}
+              cursor={"pointer"}
               active={bind(speaker, "isDefault")}
               setup={self => self.connect("notify::active", self => {
                 speaker.isDefault = self.state

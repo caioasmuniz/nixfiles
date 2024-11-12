@@ -1,4 +1,5 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }:
+{
   imports = [ inputs.ags.homeManagerModules.default ];
   home.packages = with pkgs; [ brightnessctl ];
   programs.ags = {
@@ -25,7 +26,8 @@
     layerrule=blur,gtk-layer-shell
     layerrule=ignorezero,gtk-layer-shell
       
-    bind=SUPER,Space,exec, ags -t applauncher
-    bind=SUPER,n,exec, ags -t quicksettings
+    bind=SUPER,Space,exec, ags toggle applauncher
+    bind=SUPER,n,exec, ags toggle quicksettings
+    bind=SUPERSHIFT,n,exec, ags toggle infopannel
   '';
 }

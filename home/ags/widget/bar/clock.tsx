@@ -1,5 +1,5 @@
 import { Variable, GLib } from "astal"
-import { Gtk } from "astal/gtk3"
+import { App, Gtk } from "astal/gtk3"
 
 export default ({ vertical }: { vertical: boolean }) => {
   const day = Variable<string>("").poll(1000, () =>
@@ -10,9 +10,15 @@ export default ({ vertical }: { vertical: boolean }) => {
     GLib.DateTime.new_now_local().format("%H")!)
   const minute = Variable<string>("").poll(1000, () =>
     GLib.DateTime.new_now_local().format("%M")!)
+
   return <button className="clock"
+    hexpand={vertical}
+    cursor={"pointer"}
+    onClicked={() => App.toggle_window("infopannel")}
     css={`border-radius:12; 
-    padding:${vertical ? "2px 0px;" : "0px 4px;"}`} >
+      padding:${vertical ?
+        "2px 0px;" :
+        "0px 4px;"}`} >
     <box vertical={vertical} spacing={vertical ? 0 : 4}>
       <box vertical={vertical} spacing={vertical ? 0 : 4}>
         <label css="font-size:1.75em;font-weight:bold;" label={hour()} />
@@ -24,5 +30,5 @@ export default ({ vertical }: { vertical: boolean }) => {
         <label css="font-size:0.6em;font-weight:bold;" label={month()} />
       </box>
     </box>
-  </button >
+  </button>
 }

@@ -5,10 +5,10 @@ import Apps from "gi://AstalApps"
 const hyprland = Hyprland.get_default()
 
 const apps = new Apps.Apps({
-  includeName: true,
-  includeEntry: true,
-  includeExecutable: true,
-  includeDescription: true,
+  nameMultiplier: 4,
+  entryMultiplier: 1,
+  executableMultiplier: 1,
+  descriptionMultiplier: 1,
 })
 
 const workspaces = Variable.derive([
@@ -24,17 +24,18 @@ const workspaces = Variable.derive([
   })))
 
 const getIcon = (client: Hyprland.Client) => {
-  const classQuery = apps.fuzzy_query(client.class).at(0)
-  const titleQuery = apps.fuzzy_query(client.title).at(0)
-  const initTitleQuery = apps.fuzzy_query("Visual Studio Code").at(0)
-  const result = classQuery?.iconName || titleQuery?.iconName ||
-    initTitleQuery?.iconName
-
-  console.log(`INIT TITLE: ${client.initialTitle}\t\tQUERY: ${initTitleQuery?.name}`)
-  console.log("RESULT: " + result)
-  return result || ""
+  switch (client.class) {
+    case "code-url-handler":
+      return "vscode"
+    default:
+      const classQuery = apps.fuzzy_query(client.class).at(0)
+      const titleQuery = apps.fuzzy_query(client.title).at(0)
+      const initTitleQuery = apps.fuzzy_query(client.initialTitle).at(0)
+      const result = classQuery?.iconName || titleQuery?.iconName ||
+        initTitleQuery?.iconName
+      return result || "image-missing-symbolic"
+  }
 }
-
 export default ({ monitor, vertical }:
   { monitor: Hyprland.Monitor, vertical: boolean }) =>
   <box vertical={vertical} spacing={4}
@@ -48,7 +49,12 @@ export default ({ monitor, vertical }:
         cursor={"pointer"}
         css={`transition:all 500ms;  
               border: 1px solid @borders;
-              padding: 2px; 
+              padding: ${ws.focused ?
+            vertical ?
+              "8px 2px" :
+              "2px 8px" :
+            "2px"
+          }; 
               border-radius:12px;
               background:${!ws.focused && ws.data.id > 0 ?
             "@theme_bg_color"
