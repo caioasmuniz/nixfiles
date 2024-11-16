@@ -1,6 +1,12 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   home = {
-    packages = with pkgs;[ ripgrep ];
+    packages = with pkgs; [ ripgrep ];
     sessionVariables = {
       EDITOR = "micro";
       SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
@@ -12,7 +18,7 @@
   programs = {
     eza = {
       enable = true;
-      icons = true;
+      icons = "auto";
       git = true;
       enableZshIntegration = true;
       extraOptions = [
@@ -26,7 +32,10 @@
       config = {
         theme = "base16";
       };
-      extraPackages = with pkgs.bat-extras;[ prettybat batman ];
+      extraPackages = with pkgs.bat-extras; [
+        prettybat
+        batman
+      ];
     };
     btop = {
       enable = true;
@@ -208,15 +217,16 @@
         size = 10000;
         path = "${config.xdg.dataHome}/zsh/history";
       };
-      plugins = [{
-        name = "fzf-tab";
-        src = pkgs.zsh-fzf-tab;
-        file = "share/fzf-tab/fzf-tab.zsh";
-      }];
+      plugins = [
+        {
+          name = "fzf-tab";
+          src = pkgs.zsh-fzf-tab;
+          file = "share/fzf-tab/fzf-tab.zsh";
+        }
+      ];
       initExtra = ''
         ${lib.getExe pkgs.fastfetch}
       '';
     };
   };
 }
-

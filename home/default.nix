@@ -1,4 +1,5 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     ./ags
     ./zsh.nix
@@ -16,7 +17,6 @@
     ./polkit-agent.nix
     ./nextcloud-client.nix
   ];
-
   home = {
     username = "caio";
     homeDirectory = "/home/caio";
@@ -25,19 +25,16 @@
       qalculate-gtk
       wl-clipboard
       libsecret
-      audio-sharing
+      satty
       mpv
       imv
       libreoffice-fresh
       fragments
       stremio
-      spotifywm
+      spotify
       vesktop
       moonlight-qt
-      mission-center
-      zed-editor
-      blackbox-terminal
-      inputs.nix-software-center.packages.${pkgs.system}.default
+      resources
       trayscale
     ];
   };
@@ -49,7 +46,11 @@
     };
     gnome-keyring = {
       enable = true;
-      components = [ "pkcs11" "secrets" "ssh" ];
+      components = [
+        "pkcs11"
+        "secrets"
+        "ssh"
+      ];
     };
     wlsunset = {
       enable = true;
@@ -69,4 +70,3 @@
     };
   };
 }
-

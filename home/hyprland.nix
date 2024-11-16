@@ -1,7 +1,11 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   wayland.windowManager.hyprland = {
     enable = true;
-    systemd = { enable = true; variables = [ "--all" ]; };
+    systemd = {
+      enable = true;
+      variables = [ "--all" ];
+    };
     extraConfig = ''
       device {
         name=DLL09D9:00 04F3:3146 Touchpad
@@ -59,9 +63,11 @@
           special = true;
           popups = true;
         };
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 1;
+        shadow = {
+          enabled = true;
+          range = 4;
+          render_power = 4;
+        };
       };
 
       animations = {
@@ -89,12 +95,14 @@
         disable_hyprland_logo = true;
       };
 
-      xwayland = { force_zero_scaling = true; };
+      xwayland = {
+        force_zero_scaling = true;
+      };
 
       dwindle = {
         pseudotile = 1;
         preserve_split = true;
-        no_gaps_when_only = false;
+        smart_split = true;
       };
       windowrulev2 = [
         "float,class:(pwvucontrol)"
@@ -109,12 +117,14 @@
         "SUPER,B,exec,firefox"
         "SUPER,V,exec,pkill pwvucontrol || pwvucontrol"
         "SUPER,E,exec,nautilus"
-        "SUPERSHIFT,Q,exec,pkill Hyprland"
-        "SUPERSHIFT,R,exec, hyprctl reload;${pkgs.libnotify}/bin/notify-send 'Hyprland had just reloaded!'"
-        "SUPER, PRINT, exec, ${pkgs.hyprshot} -m window"
-        ", PRINT, exec, ${pkgs.hyprshot} -m output"
-        "SUPERSHIFT, PRINT, exec, ${pkgs.hyprshot} -m region"
         "SUPERSHIFT,v,exec,pkill wvkbd || ${lib.getExe pkgs.wvkbd}"
+
+        "SUPER, PRINT, exec, ${lib.getExe pkgs.hyprshot} -m window"
+        ", PRINT, exec, ${lib.getExe pkgs.hyprshot} -m output"
+        "SUPERSHIFT, PRINT, exec, ${lib.getExe pkgs.hyprshot} -m region"
+
+        "SUPERSHIFT,R,exec, hyprctl reload;${pkgs.libnotify}/bin/notify-send 'Hyprland had just reloaded!'"
+        "SUPERSHIFT,Q,exec,pkill Hyprland"
 
         "SUPERSHIFT,F,togglefloating,active"
         "SUPERSHIFT,G,togglegroup"
@@ -173,8 +183,6 @@
         "SHIFT, XF86AudioRaiseVolume, exec, swayosd-client --input-volume raise 5"
         "SHIFT, XF86AudioLowerVolume, exec, swayosd-client --input-volume lower 5"
       ];
-
-      # bindl = [ "Caps_Lock, exec, swayosd-client --caps-lock-led input0::capslock"       ];
 
       bindm = [
         "SUPER,mouse:272,movewindow"

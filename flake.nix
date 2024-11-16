@@ -4,16 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
-    nix-gaming.url = "github:fufexan/nix-gaming";
-    nix-software-center.url = "github:snowfallorg/nix-software-center";
-    astal = {
-      url = "github:aylur/astal";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    ags = {
-      url = "github:Aylur/ags/v2";
-      inputs.astal.follows = "astal";
-    };
+    ags.url = "github:Aylur/ags";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,7 +15,8 @@
     };
   };
 
-  outputs = { self, ... }@inputs:
+  outputs =
+    { self, ... }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -35,12 +27,17 @@
     in
     {
       devShells.x86_64-linux.default = pkgs.mkShell {
-        buildInputs = with pkgs; [ nixpkgs-fmt nil ];
+        buildInputs = with pkgs; [
+          nixfmt-rfc-style
+          nixd
+        ];
       };
       nixosConfigurations = {
         inspiron = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = {
+            inherit inputs outputs;
+          };
           modules = [
             ./hosts/inspiron
             inputs.home-manager.nixosModules.home-manager
@@ -49,7 +46,9 @@
 
         aspire = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = {
+            inherit inputs outputs;
+          };
           modules = [
             ./hosts/aspire
             inputs.home-manager.nixosModules.home-manager
