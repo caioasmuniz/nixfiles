@@ -36,6 +36,7 @@ const getIcon = (client: Hyprland.Client) => {
       return result || "image-missing-symbolic"
   }
 }
+
 export default ({ monitor, vertical }:
   { monitor: Hyprland.Monitor, vertical: boolean }) =>
   <box vertical={vertical} spacing={4}
@@ -47,15 +48,14 @@ export default ({ monitor, vertical }:
         hyprland.message_async("dispatch togglespecialworkspace scratchpad", null) :
         ws.data.focus()}
         cursor={"pointer"}
-        css={`transition:all 500ms;  
-              border: 1px solid @borders;
+        css={`border: 1px solid @borders;
+              border-radius:12px;
+              box-shadow: none;
               padding: ${ws.focused ?
             vertical ?
               "8px 2px" :
               "2px 8px" :
-            "2px"
-          }; 
-              border-radius:12px;
+            "2px"}; 
               background:${!ws.focused && ws.data.id > 0 ?
             "@theme_bg_color"
             : !ws.focused && ws.data.id < 0 ?
@@ -68,7 +68,8 @@ export default ({ monitor, vertical }:
           {bind(ws.data, "clients").as(clients =>
             clients.map(client => <icon
               icon={getIcon(client)}
-              css="font-size:1.5em" />
+              css={`font-size:1.5em;
+                    box-shadow: none;`} />
             ))}
         </box>
       </button >))}

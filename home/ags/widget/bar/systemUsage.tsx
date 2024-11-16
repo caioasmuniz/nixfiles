@@ -47,7 +47,7 @@ export default ({ vertical }: { vertical: boolean }) =>
   <button cursor="pointer"
     css={`border-radius:12px;
       padding:2px`}
-    onClicked={() => execAsync(["missioncenter"])}>
+    onClicked={() => execAsync(["resources"])}>
     <box className="system-info module"
       vexpand={!vertical} hexpand={vertical}
       vertical={vertical} valign={Gtk.Align.CENTER}

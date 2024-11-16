@@ -1,11 +1,23 @@
 import Hyprland from "gi://AstalHyprland"
-import { App, Astal } from "astal/gtk3";
+import { App, Astal, Gtk } from "astal/gtk3";
 import { bind } from "astal";
 
 const hyprland = Hyprland.get_default()
 import Media from "./media";
 import Battery from "./battery"
 import Calendar from "./calendar"
+
+const Title = () => <box
+  halign={Gtk.Align.CENTER} css={`
+  border-radius:12px;
+  padding:4px;
+  background: alpha(@theme_bg_color, 0.75);`}>
+  <label
+    label={"Info Pannel"} css={`
+      font-size:2.5em;
+      font-weight:bold;
+      color:@theme_text_color`} />
+</box>
 
 export default () => <window
   name="infopannel"
@@ -25,7 +37,10 @@ export default () => <window
     css={`padding: 4px`}>
     <box spacing={8}>
       <Calendar />
-      <Battery />
+      <box vertical spacing={8}>
+        <Title />
+        <Battery />
+      </box>
     </box>
     <Media />
   </box>
