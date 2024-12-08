@@ -24,7 +24,7 @@ export default ({ vertical }: { vertical: boolean }) => {
         <label css="font-size:1.75em;font-weight:bold;" label={hour()} />
         <label css="font-size:1.75em;font-weight:bold;" label={minute()} />
       </box>
-      <box vertical={!vertical} spacing={vertical ? 2 : 0}
+      <box vertical spacing={vertical ? 2 : 0}
         halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
         <label css="font-size:0.6em;font-weight:bold;" label={day()} />
         <label css="font-size:0.6em;font-weight:bold;" label={month()} />

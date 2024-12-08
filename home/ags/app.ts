@@ -1,4 +1,5 @@
 import { App } from "astal/gtk3";
+import { Variable } from "astal";
 
 import style from "./scss/main.css";
 
@@ -9,13 +10,15 @@ import quicksettings from "./widget/quicksettings";
 import notificationPopup from "./widget/notifications";
 import infopannel from "./widget/infopannel";
 
+const verticalBar = Variable(false)
+
 App.start({
   css: style,
   main() {
-    bar(false);
+    bar(verticalBar);
     notificationPopup();
-    quicksettings();
-    infopannel();
+    quicksettings(verticalBar);
+    infopannel(verticalBar);
     applauncher();
     osd();
   }

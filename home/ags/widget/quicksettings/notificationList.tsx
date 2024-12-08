@@ -31,20 +31,39 @@ const ClearAllButton = () => <button
   </box>
 </button >
 
-export default () => <box vertical spacing={4}>
-  <box vertical spacing={4}>
-    <label label={"Notifications"} css={`
-  font-weight:bold;
-  font-size:1.25em;
-  color:@theme_text_color`} />
-    <box halign={Gtk.Align.CENTER} spacing={4}>
-      <DNDButton />
-      <ClearAllButton />
-    </box>
-  </box>
-  <scrollable vexpand={true} hscroll={Gtk.PolicyType.NEVER}>
-    <box vertical spacing={6}>
-      {bind(notifd, "notifications").as(n => n.map(notification))}
-    </box>
-  </scrollable>
+const EmptyNotifs = () => <box>
+<label label={"No Notifications"}/>
+<icon icon={""}/>
 </box>
+
+export default () =>
+  <box vertical spacing={4}>
+    <box vertical spacing={4}>
+      <label
+        label={"Notifications"}
+        css={`font-weight:bold;
+          font-size:1.25em;
+          color:@theme_text_color;`} />
+      <box halign={Gtk.Align.CENTER} spacing={4}>
+        <DNDButton />
+        <ClearAllButton />
+      </box>
+    </box>
+    <scrollable
+      hscroll={Gtk.PolicyType.NEVER}
+      vscroll={bind(notifd, "notifications")
+        .as(n => n.length > 5 ?
+          Gtk.PolicyType.AUTOMATIC :
+          Gtk.PolicyType.NEVER
+        )}
+      minContentHeight={bind(notifd, "notifications")
+        .as(n => n.length > 5 ? 300 : -1)}>
+      <box vertical spacing={6}>
+        {bind(notifd, "notifications").as(n =>
+          n.length > 0 ?
+            n.map(notification) :
+            <EmptyNotifs />
+        )}
+      </box>
+    </scrollable>
+  </box>
