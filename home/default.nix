@@ -27,12 +27,12 @@
       libsecret
       satty
       mpv
-      imv
-      libreoffice-fresh
+      loupe
+      wpaperd
       fragments
       stremio
       spotify
-      vesktop
+      discord
       moonlight-qt
       resources
       trayscale
