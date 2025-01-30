@@ -3,8 +3,8 @@
   gtk = {
     enable = true;
     font = {
-      package = pkgs.fira;
-      name = "Fira Sans Regular";
+      package = pkgs.inter;
+      name = "Inter";
       size = 10;
     };
     cursorTheme = {

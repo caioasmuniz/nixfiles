@@ -1,6 +1,6 @@
 import { bind, execAsync, Variable } from "astal";
 import { Gtk } from "astal/gtk3";
-
+import GTop from "gi://GTop";
 const cpu = Variable(0)
   .poll(1000, ["sh", "-c",
     `top -bn1 | rg '%Cpu' | tail -1 | awk '{print 100-$8}'`])

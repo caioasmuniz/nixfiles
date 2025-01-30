@@ -1,11 +1,10 @@
 {
     "compilerOptions": {
         "experimentalDecorators": true,
-        "target": "ES2022",
+        "jsx": "react-jsx",
+        "jsxImportSource": "astal/gtk3",
         "module": "ES2022",
         "moduleResolution": "Bundler",
-        "jsx": "react-jsx",
-        "jsxImportSource": "/home/caio/.local/share/ags/gtk3",
         "paths": {
             "astal": [
                 "/home/caio/.local/share/ags"
@@ -13,6 +12,7 @@
             "astal/*": [
                 "/home/caio/.local/share/ags/*"
             ]
-        }
+        },
+        "target": "ES2022"
     }
 }

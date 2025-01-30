@@ -2,11 +2,11 @@
 {
   imports = [
     ./ags
-    ./zsh.nix
+    ./fish.nix
     ./ssh.nix
     ./xdg.nix
     ./gtk.nix
-    ./kitty.nix
+    ./ghostty.nix
     ./gaming.nix
     ./firefox.nix
     ./darkman.nix
@@ -27,12 +27,12 @@
       libsecret
       satty
       mpv
-      imv
-      libreoffice-fresh
+      loupe
+      wpaperd
       fragments
       stremio
       spotify
-      vesktop
+      discord
       moonlight-qt
       resources
       trayscale

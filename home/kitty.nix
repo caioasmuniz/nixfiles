@@ -3,8 +3,8 @@
     enable = true;
     font = {
       size = 10;
-      name = "FiraCode Nerd Font";
-      package = pkgs.nerd-fonts.fira-code;
+      name = "CommitMono Nerd Font";
+      package = pkgs.nerd-fonts.commit-mono;
     };
     extraConfig = "include current-theme.conf";
     settings = {
