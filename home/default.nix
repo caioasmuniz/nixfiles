@@ -2,11 +2,11 @@
 {
   imports = [
     ./ags
-    ./zsh.nix
+    ./fish.nix
     ./ssh.nix
     ./xdg.nix
     ./gtk.nix
-    ./kitty.nix
+    ./ghostty.nix
     ./gaming.nix
     ./firefox.nix
     ./darkman.nix

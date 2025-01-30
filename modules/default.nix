@@ -2,7 +2,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   imports = [
     ./ssh.nix
     ./nix.nix
@@ -71,7 +72,8 @@
     hyprland.enable = true;
     dconf.enable = true;
     seahorse.enable = true;
-    zsh.enable = true;
+    # zsh.enable = true;
+    fish.enable = true;
     geary.enable = true;
     gamemode.enable = true;
     steam = {
@@ -82,14 +84,14 @@
   };
 
   users = {
-    defaultUserShell = pkgs.zsh;
+    # defaultUserShell = pkgs.zsh;
     mutableUsers = false;
     users.caio = {
       hashedPassword = "$y$j9T$LWmQJtK.SNsnZPz3Ou15N1$3iRtBCYmnRq/zazbnPCpp63WMYDpywJ6emx43d9SUF0";
       isNormalUser = true;
       description = "Caio Muniz";
       extraGroups = [ "wheel" ];
-      shell = pkgs.zsh;
+      shell = pkgs.fish;
       openssh.authorizedKeys.keys = lib.splitString "\n"
         (builtins.readFile ../hosts/inspiron/ssh_host_ed25519_key.pub);
     };
@@ -112,8 +114,8 @@
       NIXOS_OZONE_WL = "1";
       SDL_VIDEODRIVER = "wayland";
     };
-    pathsToLink = [ "/share/zsh" ];
-    shells = [ pkgs.zsh ];
+    # pathsToLink = [ "/share/zsh" ];
+    shells = [ pkgs.bashInteractive ];
   };
   system.stateVersion = "22.11";
 }

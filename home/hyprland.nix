@@ -18,7 +18,7 @@
       ];
 
       workspace = [
-        "special:scratchpad, on-created-empty: [pseudo; size 1920 1080] kitty"
+        "special:scratchpad, on-created-empty: [pseudo; size 1920 1080] ghostty"
         "1, monitor:eDP-1, default:true"
         "10, monitor:HDMI-A-1, default:true"
       ];
@@ -113,7 +113,7 @@
       ];
       bind = [
         "SUPER,C,exec, ${pkgs.vscode}/bin/code ~/Documents/nixfiles"
-        "SUPER,Return,exec,${pkgs.kitty}/bin/kitty"
+        "SUPER,Return,exec,${lib.getExe pkgs.ghostty}"
         "SUPER,B,exec,firefox"
         "SUPER,V,exec,pkill pwvucontrol || pwvucontrol"
         "SUPER,E,exec,nautilus"
