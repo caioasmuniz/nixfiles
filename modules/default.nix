@@ -92,8 +92,9 @@
       description = "Caio Muniz";
       extraGroups = [ "wheel" ];
       shell = pkgs.fish;
-      openssh.authorizedKeys.keys = lib.splitString "\n"
-        (builtins.readFile ../hosts/inspiron/ssh_host_ed25519_key.pub);
+      openssh.authorizedKeys.keys = lib.splitString "\n" (
+        builtins.readFile ../hosts/inspiron/ssh_host_ed25519_key.pub
+      );
     };
   };
 

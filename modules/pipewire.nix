@@ -1,6 +1,5 @@
 { pkgs, ... }: {
   security.rtkit.enable = true;
-  hardware.pulseaudio.enable = false;
   environment.systemPackages = [ pkgs.pwvucontrol ];
   services.pipewire = {
     enable = true;
