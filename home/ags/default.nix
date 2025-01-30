@@ -1,7 +1,10 @@
 { inputs, pkgs, ... }:
 {
   imports = [ inputs.ags.homeManagerModules.default ];
-  home.packages = with pkgs; [ brightnessctl ];
+  home.packages = with pkgs; [
+    brightnessctl
+    nixos-icons
+  ];
   programs.ags = {
     enable = true;
     configDir = ../ags;
@@ -19,12 +22,17 @@
       powerprofiles
       tray
       wireplumber
+      pkgs.libgtop
     ];
 
   };
   wayland.windowManager.hyprland.extraConfig = ''
     layerrule=blur,gtk-layer-shell
     layerrule=ignorezero,gtk-layer-shell
+
+    layerrule=blur,gtk4-layer-shell
+    layerrule=ignorezero,gtk4-layer-shell
+     
       
     bind=SUPER,Space,exec, ags toggle applauncher
     bind=SUPER,n,exec, ags toggle quicksettings

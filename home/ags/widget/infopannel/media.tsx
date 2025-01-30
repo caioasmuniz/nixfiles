@@ -51,10 +51,12 @@ export default () => <box vertical spacing={4} css={"min-width:200px;"}
             icon={bind(player, "entry").as(entry =>
               apps.fuzzy_query(entry)[0]?.iconName)} />
         </box>
-        <label className={"artist"}
+        <label
+          className={"artist"}
           css={`color:@theme_text_color`}
           label={bind(player, "artist")} />
-        <slider className={"position"}
+        <slider
+          className={"position"}
           css={`color:@theme_text_color`}
           drawValue={false}
           onDragged={({ value }) => player.position = value}
@@ -63,11 +65,10 @@ export default () => <box vertical spacing={4} css={"min-width:200px;"}
           visible={bind(player, "canSeek")}
           value={bind(player, "position")} />
         <centerbox>
-          <label css={`color:@theme_text_color`}
+          <label
+            css={`color:@theme_text_color`}
             label={bind(player, "position").as(lengthStr)} />
-
           <PlaybackButtons player={player} />
-
           <label label={bind(player, "length").as(lengthStr)} css={`color:@theme_text_color`} />
         </centerbox>
       </box>

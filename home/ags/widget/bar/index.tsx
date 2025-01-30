@@ -1,5 +1,5 @@
-import { Variable } from "astal";
-import { Astal, App, Gtk } from "astal/gtk3"
+import { GObject, Variable } from "astal";
+import { Astal, App, Gtk, Widget } from "astal/gtk3"
 
 import Hyprland from "gi://AstalHyprland";
 
@@ -63,15 +63,19 @@ const bar = (monitor: Hyprland.Monitor, vertical: boolean) =>
   </window>
 
 export default (vertical: Variable<boolean>) => {
-  const bars = new Map<Hyprland.Monitor, Gtk.Widget>()
+  const bars = Variable([{
+    monitor: 0,
+    vertical: false,
+    widget: Gtk.Widget
+  }])
 
   // initialize
   for (const monitor of hyprland.get_monitors()) {
-    bars.set(monitor, bar(monitor, vertical.get()))
+    bars.set(monitor, false, bar(monitor, false))
   }
 
   hyprland.connect("monitor-added", (_, monitor) => {
-    bars.set(monitor, bar(monitor, vertical.get()))
+    bars.set(monitor, bar(monitor, vertical[monitor.id].get()))
   })
 
   hyprland.connect("monitor-removed", (_, monitor) => {
