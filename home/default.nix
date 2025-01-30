@@ -12,7 +12,7 @@
     ./darkman.nix
     ./hyprland.nix
     ./hyprlock.nix
-    ./hypridle.nix
+    #./hypridle.nix
     ./hyprpaper.nix
     ./polkit-agent.nix
     ./nextcloud-client.nix

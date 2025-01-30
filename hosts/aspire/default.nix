@@ -28,7 +28,14 @@
       };
     };
   };
+
+  users.users.caio.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHgNS5i0tJexqz53w7NFhme6ix8KeYMsgwiZuZeldMWD daviaaze@gmail.com"
+  ];
+
+
   services = {
+    tailscale.enable = true;
     greetd.settings.initial_session = {
       command = lib.getExe config.programs.hyprland.package;
       user = "caio";
@@ -42,5 +49,6 @@
     };
     xserver.videoDrivers = [ "nvidia" ];
   };
-  environment.systemPackages = [ pkgs.nvtop pkgs.egl-wayland ];
+  environment.systemPackages = [ pkgs.nvtop pkgs.egl-wayland pkgs.immich-machine-learning ];
+  networking.firewall.allowedTCPPorts = [3003];
 }
