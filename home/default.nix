@@ -1,11 +1,11 @@
 { pkgs, ... }:
 {
   imports = [
-    ./ags
     ./fish.nix
     ./ssh.nix
     ./xdg.nix
     ./gtk.nix
+    ./stash.nix
     ./ghostty.nix
     ./gaming.nix
     ./firefox.nix
@@ -27,12 +27,12 @@
       libsecret
       satty
       mpv
-      imv
-      libreoffice-fresh
+      loupe
+      wpaperd
       fragments
       stremio
       spotify
-      vesktop
+      discord
       moonlight-qt
       resources
       trayscale
