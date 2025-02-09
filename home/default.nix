@@ -1,11 +1,11 @@
 { pkgs, ... }:
 {
   imports = [
-    ./ags
     ./fish.nix
     ./ssh.nix
     ./xdg.nix
     ./gtk.nix
+    ./stash.nix
     ./ghostty.nix
     ./gaming.nix
     ./firefox.nix

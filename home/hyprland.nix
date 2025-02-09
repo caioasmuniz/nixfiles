@@ -1,7 +1,12 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 {
   wayland.windowManager.hyprland = {
     enable = true;
+    plugins = [ pkgs.hyprlandPlugins.hypr-dynamic-cursors ];
     systemd = {
       enable = true;
       variables = [ "--all" ];
@@ -114,6 +119,27 @@
         preserve_split = true;
         smart_split = true;
       };
+
+      "plugin:dynamic-cursors" = {
+        enabled = true;
+        mode = "none";
+        shake = {
+          enabled = true;
+          threshold = 3.0;
+          timeout = 1000;
+          limit = 4.0;
+          speed = 0.0;
+        };
+        hyprcursor = {
+          enabled = true;
+          nearest = false;
+          fallback = "default";
+        };
+      };
+
+      layerrule = [
+        "noanim,selection"
+      ];
       windowrulev2 = [
         "float,class:(pwvucontrol)"
         "size 900 900,class:(pwvucontrol)"
