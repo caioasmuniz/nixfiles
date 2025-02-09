@@ -102,7 +102,6 @@
       dwindle = {
         pseudotile = 1;
         preserve_split = true;
-        smart_split = true;
       };
       windowrulev2 = [
         "float,class:(pwvucontrol)"
@@ -112,7 +111,7 @@
         "size 1920 1080,tag:16x9"
       ];
       bind = [
-        "SUPER,C,exec, ${pkgs.vscode}/bin/code ~/Documents/nixfiles"
+        "SUPER,C,exec, ${lib.getExe pkgs.vscode} ~/Documents/nixfiles/nixfiles.code-workspace"
         "SUPER,Return,exec,${lib.getExe pkgs.ghostty}"
         "SUPER,B,exec,firefox"
         "SUPER,V,exec,pkill pwvucontrol || pwvucontrol"
