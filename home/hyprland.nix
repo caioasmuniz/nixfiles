@@ -109,7 +109,8 @@
         preserve_split = true;
       };
 
-      "plugin:dynamic-cursors" = {
+      plugin = {
+        dynamic-cursors = {
         enabled = true;
         mode = "none";
         shake = {
@@ -123,6 +124,7 @@
           enabled = true;
           nearest = false;
           fallback = "default";
+          };
         };
       };
 
