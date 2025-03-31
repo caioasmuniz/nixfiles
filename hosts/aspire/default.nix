@@ -1,5 +1,15 @@
-{ config, pkgs, lib, ... }: {
-  imports = [ ../../modules ./hardware.nix ];
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  imports = [
+    ../../modules
+    ./hardware.nix
+    ../../modules/ollama.nix
+  ];
   networking = {
     hostName = "aspire";
     interfaces.enp3s0.wakeOnLan.enable = true;
@@ -33,7 +43,6 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHgNS5i0tJexqz53w7NFhme6ix8KeYMsgwiZuZeldMWD daviaaze@gmail.com"
   ];
 
-
   services = {
     tailscale.enable = true;
     greetd.settings.initial_session = {
@@ -49,6 +58,10 @@
     };
     xserver.videoDrivers = [ "nvidia" ];
   };
-  environment.systemPackages = [ pkgs.nvtop pkgs.egl-wayland pkgs.immich-machine-learning ];
-  networking.firewall.allowedTCPPorts = [3003];
+  environment.systemPackages = [
+    pkgs.nvtopPackages.nvidia
+    pkgs.egl-wayland
+    pkgs.immich-machine-learning
+  ];
+  networking.firewall.allowedTCPPorts = [ 3003 ];
 }

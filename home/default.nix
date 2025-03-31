@@ -1,6 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
+    inputs.vscode-server.homeModules.default
     ./fish.nix
     ./ssh.nix
     ./xdg.nix
@@ -57,6 +58,7 @@
       latitude = "-23.1";
       longitude = "-50.6";
     };
+    vscode-server.enable = true;
   };
   programs = {
     obs-studio.enable = true;
