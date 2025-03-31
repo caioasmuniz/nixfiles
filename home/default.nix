@@ -15,6 +15,7 @@
     ./hyprlock.nix
     #./hypridle.nix
     ./hyprpaper.nix
+    ./vscode.nix
     ./polkit-agent.nix
     ./nextcloud-client.nix
   ];
