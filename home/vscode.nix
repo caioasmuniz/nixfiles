@@ -11,6 +11,12 @@
       piousdeer.adwaita-theme
       ms-vscode-remote.remote-ssh
       arrterian.nix-env-selector
+      ms-vsliveshare.vsliveshare
+      redhat.ansible
+      redhat.vscode-yaml
+      ms-python.python
+      ms-azuretools.vscode-docker
+      alefragnani.project-manager
     ];
   };
 }
