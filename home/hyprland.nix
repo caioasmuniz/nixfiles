@@ -59,6 +59,9 @@
         "col.active_border" = "0xffa6e3a1";
         "col.inactive_border" = "0xFF313244";
         resize_on_border = true;
+        snap = {
+          enabled = true;
+        };
       };
 
       group = {

@@ -1,15 +1,11 @@
-{ inputs, pkgs, ... }: {
+{ inputs, ... }:
+{
   home.file."firefox-gnome-theme" = {
     target = ".mozilla/firefox/default/chrome/firefox-gnome-theme";
     source = inputs.firefox-gnome-theme;
   };
   programs.firefox = {
     enable = true;
-    package = (pkgs.firefox.override {
-      nativeMessagingHosts = [
-        inputs.pipewire-screenaudio.packages.${pkgs.system}.default
-      ];
-    });
     profiles.default = {
       search = {
         default = "DuckDuckGo";

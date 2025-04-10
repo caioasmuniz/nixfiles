@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
     stash.url = "github:caioasmuniz/stash";
     home-manager = {
       url = "github:nix-community/home-manager";
