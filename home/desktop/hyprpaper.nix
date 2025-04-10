@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   services.hyprpaper = {
     enable = true;
     settings = {
@@ -7,10 +8,10 @@
       splash_offset = 2.0;
 
       preload = [
-        "${builtins.path { path = ../assets/bigsur-day.jpg; }}"
-        "${builtins.path { path = ../assets/bigsur-night.jpg; }}"
+        "${builtins.path { path = ../../assets/bigsur-day.jpg; }}"
+        "${builtins.path { path = ../../assets/bigsur-night.jpg; }}"
       ];
-      wallpaper = [ ",${builtins.path { path = ../assets/bigsur-day.jpg; }}" ];
+      wallpaper = [ ",${builtins.path { path = ../../assets/bigsur-day.jpg; }}" ];
     };
   };
 }
