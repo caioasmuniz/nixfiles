@@ -9,11 +9,9 @@
     ./nix.nix
     ./locale.nix
     ./greetd.nix
-    ./android.nix
     ./nautilus.nix
     ./zramswap.nix
     ./pipewire.nix
-    ./bluetooth.nix
     ./networking.nix
     ./home-manager.nix
     ./power-management.nix
