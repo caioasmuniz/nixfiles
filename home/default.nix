@@ -1,4 +1,4 @@
-{ ... }:
+{ user, ... }:
 {
   imports = [
     ./desktop
@@ -10,8 +10,8 @@
     ./vscode.nix
   ];
   home = {
-    username = "caio";
-    homeDirectory = "/home/caio";
+    username = user;
+    homeDirectory = "/home/${user}";
     stateVersion = "22.11";
   };
 }

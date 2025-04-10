@@ -1,8 +1,14 @@
-{ inputs, outputs, ... }: {
+{
+  inputs,
+  outputs,
+  user,
+  ...
+}:
+{
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs outputs; };
-    users.caio.imports = [ ../home ];
+    extraSpecialArgs = { inherit inputs outputs user; };
+    users.${user}.imports = [ ../home ];
   };
 }

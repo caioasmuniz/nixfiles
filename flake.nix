@@ -18,6 +18,7 @@
     { self, ... }@inputs:
     let
       inherit (self) outputs;
+      user = "caio";
       system = "x86_64-linux";
       pkgs = import inputs.nixpkgs {
         inherit system;
@@ -35,7 +36,7 @@
         inspiron = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
-            inherit inputs outputs;
+            inherit inputs outputs user;
           };
           modules = [
             ./hosts/inspiron

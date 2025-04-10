@@ -1,5 +1,15 @@
-{ config, pkgs, lib, ... }: {
-  imports = [ ../../modules ./hardware.nix ];
+{
+  config,
+  pkgs,
+  lib,
+  user,
+  ...
+}:
+{
+  imports = [
+    ../../modules
+    ./hardware.nix
+  ];
   networking = {
     hostName = "aspire";
     interfaces.enp3s0.wakeOnLan.enable = true;
@@ -31,7 +41,7 @@
   services = {
     greetd.settings.initial_session = {
       command = lib.getExe config.programs.hyprland.package;
-      user = "caio";
+      user = user;
     };
     sunshine = {
       enable = true;
@@ -42,5 +52,8 @@
     };
     xserver.videoDrivers = [ "nvidia" ];
   };
-  environment.systemPackages = [ pkgs.nvtop pkgs.egl-wayland ];
+  environment.systemPackages = [
+    pkgs.nvtop
+    pkgs.egl-wayland
+  ];
 }

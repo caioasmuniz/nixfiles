@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  user,
+  ...
+}:
 {
   imports = [
     ./ssh.nix
@@ -84,7 +89,7 @@
   users = {
     # defaultUserShell = pkgs.zsh;
     mutableUsers = false;
-    users.caio = {
+    users.${user} = {
       hashedPassword = "$y$j9T$LWmQJtK.SNsnZPz3Ou15N1$3iRtBCYmnRq/zazbnPCpp63WMYDpywJ6emx43d9SUF0";
       isNormalUser = true;
       description = "Caio Muniz";

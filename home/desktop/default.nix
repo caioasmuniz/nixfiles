@@ -12,7 +12,7 @@
     ./xdg.nix
     ./nextcloud-client.nix
   ];
-  packages = with pkgs; [
+  home.packages = with pkgs; [
     qalculate-gtk
     wl-clipboard
     satty

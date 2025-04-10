@@ -1,8 +1,9 @@
-{ ... }: {
+{ user, ... }:
+{
   services.gvfs.enable = true;
   programs = {
     adb.enable = true;
     kdeconnect.enable = true;
   };
-  users.users.caio.extraGroups = [ "adbusers" ];
+  users.users.${user}.extraGroups = [ "adbusers" ];
 }
