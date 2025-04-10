@@ -17,6 +17,7 @@
       ms-python.python
       ms-azuretools.vscode-docker
       alefragnani.project-manager
+      bradlc.vscode-tailwindcss
     ];
   };
 }
