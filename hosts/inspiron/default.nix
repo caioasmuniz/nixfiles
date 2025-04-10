@@ -2,8 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }: {
-  imports = [ ../../modules ./hardware.nix ];
+{ pkgs, ... }:
+{
+  imports = [
+    ../../modules
+    ../../modules/docker.nix
+    ./hardware.nix
+  ];
   networking.hostName = "inspiron";
   hardware = {
     graphics = {
