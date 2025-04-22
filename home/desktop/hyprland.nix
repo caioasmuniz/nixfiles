@@ -145,7 +145,7 @@
       ];
       bind = [
         "SUPER,C,exec, ${lib.getExe pkgs.vscode} ~/Documents/nixfiles/nixfiles.code-workspace"
-        "SUPER,Return,exec,${lib.getExe pkgs.ghostty}"
+        "SUPER,Return,exec,ghostty"
         "SUPER,B,exec,firefox"
         "SUPER,V,exec,pkill pwvucontrol || pwvucontrol"
         "SUPER,E,exec,nautilus"
