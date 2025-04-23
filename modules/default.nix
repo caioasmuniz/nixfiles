@@ -4,7 +4,6 @@
 
 {
   pkgs,
-  lib,
   user,
   ...
 }:
@@ -22,30 +21,6 @@
     ./power-management.nix
   ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot = {
-    consoleLogLevel = 0;
-    initrd.verbose = false;
-    kernelPackages = pkgs.linuxPackages_zen;
-    kernelParams = [
-      "quiet"
-      "splash"
-      "rd.systemd.show_status=false"
-      "rd.udev.log_level=3"
-      "udev.log_priority=3"
-      "boot.shell_on_fail"
-    ];
-    loader = {
-      timeout = 0;
-      efi.canTouchEfiVariables = true;
-      systemd-boot = {
-        enable = true;
-        configurationLimit = 5;
-        consoleMode = "max";
-      };
-    };
-  };
-
   hardware = {
     opentabletdriver.enable = true;
     graphics = {
@@ -60,7 +35,6 @@
   };
 
   services = {
-    upower.enable = true;
     fwupd.enable = true;
     ddccontrol.enable = true;
     tailscale.enable = true;
@@ -75,7 +49,6 @@
     hyprland.enable = true;
     dconf.enable = true;
     seahorse.enable = true;
-    # zsh.enable = true;
     fish.enable = true;
     geary.enable = true;
     gamemode.enable = true;
@@ -87,7 +60,6 @@
   };
 
   users = {
-    # defaultUserShell = pkgs.zsh;
     mutableUsers = false;
     users.${user} = {
       hashedPassword = "$y$j9T$LWmQJtK.SNsnZPz3Ou15N1$3iRtBCYmnRq/zazbnPCpp63WMYDpywJ6emx43d9SUF0";
@@ -95,9 +67,6 @@
       description = "Caio Muniz";
       extraGroups = [ "wheel" ];
       shell = pkgs.fish;
-      openssh.authorizedKeys.keys = lib.splitString "\n" (
-        builtins.readFile ../hosts/inspiron/ssh_host_ed25519_key.pub
-      );
     };
   };
 
@@ -120,7 +89,6 @@
       NIXOS_OZONE_WL = "1";
       SDL_VIDEODRIVER = "wayland";
     };
-    # pathsToLink = [ "/share/zsh" ];
     shells = [ pkgs.bashInteractive ];
   };
   system.stateVersion = "22.11";
