@@ -11,6 +11,7 @@
   imports = [
     ./ssh.nix
     ./nix.nix
+    ./boot.nix
     ./locale.nix
     ./greetd.nix
     ./nautilus.nix
