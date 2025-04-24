@@ -15,6 +15,7 @@
     ./locale.nix
     ./zramswap.nix
     ./networking.nix
+    ./power-management.nix
   ];
 
   security = {
