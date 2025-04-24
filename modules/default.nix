@@ -2,16 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{
-  pkgs,
-  user,
-  ...
-}:
+{ pkgs, user, ... }:
 {
   imports = [
     ./ssh.nix
     ./nix.nix
     ./boot.nix
+    ./fish.nix
     ./locale.nix
     ./zramswap.nix
     ./networking.nix
@@ -28,7 +25,6 @@
     tailscale.enable = true;
   };
 
-  programs.fish.enable = true;
   environment.shells = [ pkgs.bashInteractive ];
 
   users = {
@@ -38,7 +34,6 @@
       isNormalUser = true;
       description = "Caio Muniz";
       extraGroups = [ "wheel" ];
-      shell = pkgs.fish;
     };
   };
 
