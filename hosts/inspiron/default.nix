@@ -7,8 +7,9 @@
   imports = [
     ../../modules
     ../../modules/docker.nix
-    ../../modules/android.nix
-    ../../modules/bluetooth.nix
+    ../../modules/desktop
+    ../../modules/desktop/android.nix
+    ../../modules/desktop/bluetooth.nix
     ./hardware.nix
   ];
   networking.hostName = "inspiron";

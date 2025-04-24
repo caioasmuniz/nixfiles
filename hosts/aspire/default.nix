@@ -8,6 +8,7 @@
 {
   imports = [
     ../../modules
+    ../../modules/desktop
     ./hardware.nix
   ];
   networking = {
