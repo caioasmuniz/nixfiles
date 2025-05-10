@@ -20,8 +20,10 @@
       }'';
     settings = {
       monitor = [
-        "eDP-1,1920x1080@60,2560x216,1.25"
-        "desc:LG Electronics LG HDR WFHD 0x0003187E,2560x1080@75,0x0,1"
+        "eDP-1,1920x1080@60,0x0,1.25"
+        "desc:LG Electronics LG HDR WFHD 0x0003187E,2560x1080@75,auto-left,1"
+        "desc:VIE HORIZON Z24 0000000000001,1920x1080@75, auto-left,1"
+        ",preferred, auto-left,1"
       ];
 
       workspace = [
