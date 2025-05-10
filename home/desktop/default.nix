@@ -6,11 +6,12 @@
     ./hypridle.nix
     ./hyprland.nix
     ./hyprlock.nix
-    ./hyprpaper.nix
+    # ./hyprpaper.nix
     ./polkit-agent.nix
     ./stash.nix
     ./xdg.nix
-    ./nextcloud-client.nix
+    ./timewall.nix
+    # ./nextcloud-client.nix
   ];
   home.packages = with pkgs; [
     qalculate-gtk
