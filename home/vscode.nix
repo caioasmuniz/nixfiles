@@ -3,7 +3,7 @@
   programs.vscode = {
     enable = true;
     package = pkgs.vscode-fhs;
-    profiles.test.extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       continue.continue
       jnoortheen.nix-ide
       mkhl.direnv

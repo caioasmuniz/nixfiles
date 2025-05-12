@@ -7,9 +7,18 @@
   imports = [
     ../../modules
     ../../modules/docker.nix
+    ../../modules/desktop
+    ../../modules/desktop/android.nix
+    ../../modules/desktop/bluetooth.nix
     ./hardware.nix
   ];
   networking.hostName = "inspiron";
+
+  boot = {
+    initrd.kernelModules = [ "xe" ];
+    kernelParams = [ "xe.force_probe=9a49" ];
+  };
+
   hardware = {
     graphics = {
       enable = true;

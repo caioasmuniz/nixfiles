@@ -9,6 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
+    ghostty.url = "github:ghostty-org/ghostty";
+    timewall.url = "github:bcyran/timewall";
     firefox-gnome-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
@@ -19,6 +21,7 @@
     { self, ... }@inputs:
     let
       inherit (self) outputs;
+      user = "caio";
       system = "x86_64-linux";
       pkgs = import inputs.nixpkgs {
         inherit system;
@@ -36,7 +39,7 @@
         inspiron = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
-            inherit inputs outputs;
+            inherit inputs outputs user;
           };
           modules = [
             ./hosts/inspiron

@@ -2,13 +2,15 @@
   config,
   pkgs,
   lib,
+  user,
   ...
 }:
 {
   imports = [
     ../../modules
-    ./hardware.nix
     ../../modules/ollama.nix
+    ../../modules/desktop
+    ./hardware.nix
   ];
   networking = {
     hostName = "aspire";
@@ -47,7 +49,7 @@
     tailscale.enable = true;
     greetd.settings.initial_session = {
       command = lib.getExe config.programs.hyprland.package;
-      user = "caio";
+      user = user;
     };
     sunshine = {
       enable = true;

@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   powerManagement = {
     cpuFreqGovernor = "ondemand";
     enable = true;
@@ -7,5 +8,6 @@
   services = {
     power-profiles-daemon.enable = true;
     thermald.enable = true;
+    upower.enable = true;
   };
 }
