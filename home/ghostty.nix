@@ -1,8 +1,6 @@
 { inputs, pkgs, ... }:
 {
-  home.packages = [
-    inputs.ghostty.packages.${pkgs.system}.default
-  ];
+  home.packages = [ pkgs.ghostty  ];
   xdg.configFile."ghostty/config".text = ''
     font-family = CommitMono Nerd Font
     font-size = 10
