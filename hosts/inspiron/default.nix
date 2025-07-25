@@ -8,6 +8,7 @@
     ../../modules
     ../../modules/docker.nix
     ../../modules/desktop
+    ../../modules/desktop/ddcci-driver.nix
     ../../modules/desktop/android.nix
     ../../modules/desktop/bluetooth.nix
     ./hardware.nix
