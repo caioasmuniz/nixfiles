@@ -29,6 +29,7 @@
       workspace = [
         "special:scratchpad, on-created-empty: [pseudo; size 1920 1080] ghostty"
         "1, monitor:eDP-1, default:true"
+        "10, monitor:DP-1, default:true"
         "10, monitor:HDMI-A-1, default:true"
       ];
 

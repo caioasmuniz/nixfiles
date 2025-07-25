@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     bottles
-    pkgs.osu-lazer-bin
+    osu-lazer-bin
+    hydralauncher
   ];
 }

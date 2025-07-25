@@ -10,7 +10,7 @@
     theme = light:Adwaita,dark:Adwaita Dark
     focus-follows-mouse = true
     gtk-tabs-location = bottom
-    window-decoration = false
+    window-decoration = none
     minimum-contrast = 1.1
   '';
 }
