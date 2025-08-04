@@ -11,6 +11,11 @@
     ../../nixos/desktop
     ./hardware.nix
   ];
+
+  home-manager.users.${user}.imports = [
+    ./home.nix
+  ];
+
   networking = {
     hostName = "aspire";
     interfaces.enp3s0.wakeOnLan.enable = true;

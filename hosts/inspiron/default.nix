@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 {
   imports = [
     ../../nixos
@@ -13,6 +13,11 @@
     ../../nixos/desktop/bluetooth.nix
     ./hardware.nix
   ];
+
+  home-manager.users.${user}.imports = [
+    ./home.nix
+  ];
+
   networking.hostName = "inspiron";
 
   boot = {
