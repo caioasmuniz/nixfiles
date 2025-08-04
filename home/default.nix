@@ -2,8 +2,7 @@
 {
   imports = [
     ./desktop
-    ./fish.nix
-    ./ssh.nix
+    ./shell
     ./ghostty.nix
     ./gaming.nix
     ./firefox.nix
