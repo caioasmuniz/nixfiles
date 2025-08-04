@@ -14,5 +14,4 @@
     homeDirectory = "/home/${user}";
     stateVersion = "22.11";
   };
-  vscode-server.enable = true;
 }
