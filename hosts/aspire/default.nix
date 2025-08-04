@@ -31,7 +31,6 @@
         vaapiVdpau
         libvdpau-va-gl
         intel-compute-runtime
-        intel-media-sdk
       ];
     };
     nvidia = {
