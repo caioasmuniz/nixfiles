@@ -3,10 +3,7 @@
   imports = [
     ./desktop
     ./shell
-    ./ghostty.nix
-    ./gaming.nix
-    ./firefox.nix
-    ./vscode.nix
+    ./applications
   ];
   home = {
     username = user;
