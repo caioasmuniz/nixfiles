@@ -8,6 +8,7 @@
 {
   imports = [
     ../../nixos
+    ../../nixos/ollama.nix
     ../../nixos/desktop
     ./hardware.nix
   ];
@@ -45,7 +46,13 @@
       };
     };
   };
+
+  users.users.caio.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHgNS5i0tJexqz53w7NFhme6ix8KeYMsgwiZuZeldMWD daviaaze@gmail.com"
+  ];
+
   services = {
+    tailscale.enable = true;
     greetd.settings.initial_session = {
       command = lib.getExe config.programs.hyprland.package;
       user = user;
@@ -60,7 +67,9 @@
     xserver.videoDrivers = [ "nvidia" ];
   };
   environment.systemPackages = [
-    pkgs.nvtop
+    pkgs.nvtopPackages.nvidia
     pkgs.egl-wayland
+    pkgs.immich-machine-learning
   ];
+  networking.firewall.allowedTCPPorts = [ 3003 ];
 }

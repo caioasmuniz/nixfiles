@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, inputs,... }:
 {
+  imports = [ inputs.vscode-server.homeModules.default ];
+  
+  services.vscode-server.enable = true;
   programs.vscode = {
     enable = true;
     package = pkgs.vscode-fhs;

@@ -1,6 +1,12 @@
 { inputs, pkgs, ... }:
 {
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowInsecure = true;
+    permittedInsecurePackages = [
+      "intel-media-sdk-23.2.2"
+    ];
+  };
   nix = {
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     settings = {
