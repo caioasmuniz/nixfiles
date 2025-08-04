@@ -5,12 +5,12 @@
 { pkgs, ... }:
 {
   imports = [
-    ../../modules
-    ../../modules/docker.nix
-    ../../modules/desktop
-    ../../modules/desktop/ddcci-driver.nix
-    ../../modules/desktop/android.nix
-    ../../modules/desktop/bluetooth.nix
+    ../../nixos
+    ../../nixos/docker.nix
+    ../../nixos/desktop
+    ../../nixos/desktop/ddcci-driver.nix
+    ../../nixos/desktop/android.nix
+    ../../nixos/desktop/bluetooth.nix
     ./hardware.nix
   ];
   networking.hostName = "inspiron";

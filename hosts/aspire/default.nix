@@ -7,8 +7,8 @@
 }:
 {
   imports = [
-    ../../modules
-    ../../modules/desktop
+    ../../nixos
+    ../../nixos/desktop
     ./hardware.nix
   ];
   networking = {
