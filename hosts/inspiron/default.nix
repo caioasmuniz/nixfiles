@@ -34,6 +34,7 @@
         vaapiVdpau
         libvdpau-va-gl
         intel-compute-runtime
+        vpl-gpu-rt
       ];
     };
   };
