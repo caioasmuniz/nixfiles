@@ -13,34 +13,16 @@
       enable = true;
       variables = [ "--all" ];
     };
-    extraConfig = ''
-      device {
-        name=DLL09D9:00 04F3:3146 Touchpad
-        accel_profile=adaptive
-      }'';
+
     settings = {
       monitor = [
-        "eDP-1,1920x1080@60,2560x216,1"
-        "desc:LG Electronics LG HDR WFHD 0x0003187E,2560x1080@75,0x0,1"
-        "stream,2560x1080@75,0x0,1"
+        ", preferred, auto, auto"
       ];
 
       workspace = [
         "special:scratchpad, on-created-empty: [pseudo; size 1920 1080] ghostty"
-        "1, monitor:eDP-1, default:true"
-        "10, monitor:DP-1, default:true"
-        "10, monitor:HDMI-A-1, default:true"
       ];
 
-      env = [
-        "AQ_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0"
-        #"LIBVA_DRIVER_NAME,nvidia"
-        "XDG_SESSION_TYPE,wayland"
-        "GBM_BACKEND,nvidia-drm"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-        "NVD_BACKEND,direct"
-        #"DRI_PRIME,1"
-      ];
       input = {
         kb_layout = "br,us";
         repeat_rate = 50;
@@ -109,7 +91,7 @@
         vfr = true;
         vrr = 1;
         enable_swallow = true;
-        swallow_regex = "kitty";
+        swallow_regex = "ghostty";
         layers_hog_keyboard_focus = true;
         focus_on_activate = true;
         disable_splash_rendering = true;
@@ -147,15 +129,7 @@
       layerrule = [
         "noanim,selection"
       ];
-      windowrule = [
-        "float,class:(pwvucontrol)"
-        "size 900 900,class:(pwvucontrol)"
-        "move 100%-912 64,class:(pwvucontrol)"
-        "pseudo,tag:16x9"
-        "size 1920 1080,tag:16x9"
-      ];
       bind = [
-        "SUPER,C,exec, ${lib.getExe pkgs.vscode} ~/Documents/nixfiles/nixfiles.code-workspace"
         "SUPER,Return,exec,ghostty"
         "SUPER,B,exec,firefox"
         "SUPER,V,exec,pkill pwvucontrol || pwvucontrol"
@@ -181,7 +155,6 @@
         "SUPER,Insert,movetoworkspace,special:scratchpad"
         "SUPER,Pause,movetoworkspace,special:scratchpad"
         "SUPER,S,togglesplit"
-        "SUPERSHIFT,S,swapactiveworkspaces,eDP-1 DP-1"
 
         ",XF86AudioMedia,exec,${pkgs.playerctl}/bin/playerctl play-pause"
         ",XF86AudioPlay,exec,${pkgs.playerctl}/bin/playerctl play-pause"
@@ -248,7 +221,6 @@
       ];
       exec = [
         "hyprctl setcursor Adwaita 24"
-        # "hyprctl output create headless stream"
       ];
     };
   };

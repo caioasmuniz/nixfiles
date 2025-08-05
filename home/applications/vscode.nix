@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   programs.vscode = {
     enable = true;
@@ -20,4 +20,7 @@
       bradlc.vscode-tailwindcss
     ];
   };
+  wayland.windowManager.hyprland.settings.bind = [
+    "SUPER,C,exec, ${lib.getExe pkgs.vscode} ~/Documents/nixfiles/nixfiles.code-workspace"
+  ];
 }
