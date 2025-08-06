@@ -18,6 +18,7 @@
       ms-azuretools.vscode-docker
       alefragnani.project-manager
       bradlc.vscode-tailwindcss
+      dbaeumer.vscode-eslint
     ];
   };
   wayland.windowManager.hyprland.settings.bind = [
