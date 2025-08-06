@@ -12,11 +12,7 @@
     ];
     sessionVariables = {
       EDITOR = "micro";
-      SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
     };
-    file.".profile".text = ''
-      . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
-    '';
   };
   programs = {
     eza = {
