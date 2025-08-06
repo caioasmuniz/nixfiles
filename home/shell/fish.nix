@@ -3,7 +3,6 @@
   home = {
     packages = with pkgs; [
       ripgrep
-      procs
     ];
     sessionVariables = {
       EDITOR = "micro";
@@ -50,10 +49,7 @@
         colorscheme = "simple";
       };
     };
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-    };
+    direnv.enable = true;
     fzf.enable = true;
     fd.enable = true;
     broot.enable = true;
