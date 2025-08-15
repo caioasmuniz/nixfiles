@@ -6,26 +6,21 @@
           "stash",
           "astal"
         ],
-        "gnim": [
-          "stash",
-          "gnim"
-        ],
         "nixpkgs": [
           "stash",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1750849451,
-        "narHash": "sha256-rIW6l4YBZh0Irxd59FjryfgyM1slqyOLmjJ9Bmfcp5Q=",
+        "lastModified": 1754932414,
+        "narHash": "sha256-V8c+68Axn5AGDCaG9Zv+EqNU4D6xWPHNXLIapq6AGiM=",
         "owner": "aylur",
         "repo": "ags",
-        "rev": "3271ebc8bb3cce46f817e94fde3b586368e311fa",
+        "rev": "9e6912b51d7bc58f35d10b11be1a126b926b56d3",
         "type": "github"
       },
       "original": {
         "owner": "aylur",
-        "ref": "v3",
         "repo": "ags",
         "type": "github"
       }
@@ -35,11 +30,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1750698959,
-        "narHash": "sha256-8P21Czb4goeBIyo3U/kpRNerDZ+VxE8J2jiGYOPlGmk=",
+        "lastModified": 1754893912,
+        "narHash": "sha256-kzU/3A4k+d3PsgMLohzSh4KJybTqvzqibUVqV2yXCGY=",
         "owner": "aylur",
         "repo": "astal",
-        "rev": "36f1dafe8f298a275c20032c37bd135aa955e4ba",
+        "rev": "5d4eef66392b0dff99a63a4f39ff886624bd69dd",
         "type": "github"
       },
       "original": {
@@ -82,22 +77,6 @@
         "type": "github"
       }
     },
-    "gnim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1750803500,
-        "narHash": "sha256-6eM7gaRneUW+Zzg6xZtz6dllaFtUNDVnYH+dPx6XYP4=",
-        "owner": "aylur",
-        "repo": "gnim",
-        "rev": "ab86c755d5c610999ab0ddcb0f4d60b1ccf5c9c6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "aylur",
-        "repo": "gnim",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -105,11 +84,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1754263839,
-        "narHash": "sha256-ck7lILfCNuunsLvExPI4Pw9OOCJksxXwozum24W8b+8=",
+        "lastModified": 1755229570,
+        "narHash": "sha256-soZegto0xXzG2zYlu/zjknDHv0Z7tRS5EQs+Z/VRTBg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "1d7abbd5454db97e0af51416f4960b3fb64a4773",
+        "rev": "11626a4383b458f8dc5ea3237eaa04e8ab1912f3",
         "type": "github"
       },
       "original": {
@@ -120,11 +99,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1754214453,
-        "narHash": "sha256-Q/I2xJn/j1wpkGhWkQnm20nShYnG7TI99foDBpXm1SY=",
+        "lastModified": 1755027561,
+        "narHash": "sha256-IVft239Bc8p8Dtvf7UAACMG5P3ZV+3/aO28gXpGtMXI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5b09dc45f24cf32316283e62aec81ffee3c3e376",
+        "rev": "005433b926e16227259a1843015b5b2b7f7d1fc3",
         "type": "github"
       },
       "original": {
@@ -152,11 +131,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1750776420,
-        "narHash": "sha256-/CG+w0o0oJ5itVklOoLbdn2dGB0wbZVOoDm4np6w09A=",
+        "lastModified": 1754725699,
+        "narHash": "sha256-iAcj9T/Y+3DBy2J0N+yF9XQQQ8IEb5swLFzs23CdP88=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "30a61f056ac492e3b7cdcb69c1e6abdcf00e39cf",
+        "rev": "85dbfc7aaf52ecb755f87e577ddbe6dbbdbc1054",
         "type": "github"
       },
       "original": {
@@ -231,15 +210,14 @@
       "inputs": {
         "ags": "ags",
         "astal": "astal",
-        "gnim": "gnim",
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1751127919,
-        "narHash": "sha256-ppiW78ELkySiRe0rteNUrT49WMwBmWCSTlhDWsAJVvg=",
+        "lastModified": 1755231268,
+        "narHash": "sha256-kdJkps3Q2/ly63HsvWxXqlwwgbCMz34t0tmy0uYVXKI=",
         "owner": "caioasmuniz",
         "repo": "stash",
-        "rev": "518cb5e93cdd91c7ae4ce5223ea5f7e6dbd26bbd",
+        "rev": "7e101994c3f60cf8e2321de5936319db5d45f81d",
         "type": "github"
       },
       "original": {
