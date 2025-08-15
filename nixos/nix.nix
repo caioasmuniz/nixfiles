@@ -5,6 +5,7 @@
     allowInsecure = true;
     permittedInsecurePackages = [
       "intel-media-sdk-23.2.2"
+      "dotnet-runtime-7.0.20"
     ];
   };
   nix = {
