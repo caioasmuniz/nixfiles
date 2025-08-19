@@ -38,12 +38,15 @@
       general = {
         gaps_in = 2;
         gaps_out = 4;
+        float_gaps = 4;
         border_size = 2;
         "col.active_border" = "0xffa6e3a1";
         "col.inactive_border" = "0xFF313244";
         resize_on_border = true;
+        hover_icon_on_border = true;
         snap = {
           enabled = true;
+          respect_gaps = true;
         };
       };
 
@@ -74,7 +77,8 @@
       };
 
       animations = {
-        enabled = 1;
+        enabled = true;
+        workspace_wraparound = true;
         animation = [
           "windows,1,5,default,slide"
           "layers,1,5,default,slide"
@@ -83,6 +87,10 @@
           "fadeIn,1,5,default"
           "workspaces,1,6,default,slidevert"
         ];
+      };
+
+      binds = {
+        hide_special_on_workspace_change = true;
       };
 
       misc = {
@@ -100,6 +108,7 @@
 
       xwayland = {
         force_zero_scaling = true;
+        create_abstract_socket = true;
       };
 
       dwindle = {

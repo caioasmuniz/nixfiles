@@ -3,6 +3,7 @@
   imports = [
     inputs.vscode-server.homeModules.default
     ../../home
+    ../../home/applications/gaming.nix
   ];
 
   services = {
