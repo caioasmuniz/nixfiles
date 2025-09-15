@@ -16,7 +16,7 @@
 
     settings = {
       monitor = [
-        ", preferred, auto, auto"
+        ", preferred, auto-left, auto"
       ];
 
       workspace = [

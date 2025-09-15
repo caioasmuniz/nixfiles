@@ -18,6 +18,7 @@
       alefragnani.project-manager
       bradlc.vscode-tailwindcss
       dbaeumer.vscode-eslint
+      james-yu.latex-workshop
     ];
   };
   wayland.windowManager.hyprland.settings.bind = [
