@@ -14,7 +14,6 @@
       ms-vsliveshare.vsliveshare
       redhat.ansible
       redhat.vscode-yaml
-      ms-python.python
       ms-azuretools.vscode-docker
       alefragnani.project-manager
       bradlc.vscode-tailwindcss

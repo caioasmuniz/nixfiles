@@ -23,6 +23,9 @@
   services = {
     fwupd.enable = true;
     tailscale.enable = true;
+    tailscale.package = pkgs.tailscale.overrideAttrs( old: new: {
+      doCheck = false;
+    });
   };
 
   environment.shells = [ pkgs.bashInteractive ];

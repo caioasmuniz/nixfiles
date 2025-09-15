@@ -20,7 +20,6 @@
     mpv
     loupe
     fragments
-    stremio
     spotify
     discord
     moonlight-qt
