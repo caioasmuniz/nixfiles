@@ -10,5 +10,6 @@
     gtk-tabs-location = bottom
     window-decoration = none
     minimum-contrast = 1.1
+    keybind = ctrl+enter=toggle_command_palette
   '';
 }

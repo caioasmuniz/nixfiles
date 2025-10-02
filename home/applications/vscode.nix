@@ -19,6 +19,7 @@
       bradlc.vscode-tailwindcss
       dbaeumer.vscode-eslint
       james-yu.latex-workshop
+      mesonbuild.mesonbuild
     ];
   };
   wayland.windowManager.hyprland.settings.bind = [

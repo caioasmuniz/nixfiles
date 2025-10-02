@@ -55,11 +55,12 @@
         "col.border_inactive" = "0xffcba6f7";
       };
 
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_fingers = 3;
-        workspace_swipe_create_new = true;
-      };
+      gesture = [
+        "3, vertical, workspace"
+        "3, swipe, mod: SUPER, move"
+        "3, swipe, mod: SUPERCONTROL, resize"
+        "4, vertical, special, scratchpad"
+      ];
 
       decoration = {
         rounding = 12;
@@ -82,10 +83,10 @@
         animation = [
           "windows,1,5,default,slide"
           "layers,1,5,default,slide"
-          "border,1,20,default"
-          "borderangle,1,45,default,once"
-          "fadeIn,1,5,default"
-          "workspaces,1,6,default,slidevert"
+          "border,1,10,default"
+          "fadePopups,1,5,default"
+          "workspaces,1,5,default,slidevert"
+          "monitorAdded,1,5,default"
         ];
       };
 
