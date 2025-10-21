@@ -12,6 +12,7 @@
     systemd = {
       enable = true;
       variables = [ "--all" ];
+      enableXdgAutostart = true;
     };
 
     settings = {
@@ -25,9 +26,7 @@
 
       input = {
         kb_layout = "br,us";
-        repeat_rate = 50;
-        repeat_delay = 500;
-        follow_mouse = true;
+        follow_mouse = 1;
         accel_profile = "flat";
         touchpad = {
           natural_scroll = true;

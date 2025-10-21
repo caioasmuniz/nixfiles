@@ -22,7 +22,6 @@
 
   boot = {
     initrd.kernelModules = [ "xe" ];
-    kernelParams = [ "xe.force_probe=9a49" ];
   };
 
   hardware = {
