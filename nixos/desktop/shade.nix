@@ -1,0 +1,6 @@
+{ ... }:
+{
+  programs.shade = {
+    enable = true;
+  };
+}

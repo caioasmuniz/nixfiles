@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    stash.url = "github:caioasmuniz/stash/no-ags";
+    shade.url = "github:caioasmuniz/shade";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,6 +42,7 @@
           modules = [
             ./hosts/inspiron
             inputs.home-manager.nixosModules.home-manager
+            inputs.shade.nixosModules.default
           ];
         };
 
@@ -53,6 +54,7 @@
           modules = [
             ./hosts/aspire
             inputs.home-manager.nixosModules.home-manager
+            inputs.shade.nixosModules.default
           ];
         };
       };

@@ -5,9 +5,8 @@
     ./fonts.nix
     ./greetd.nix
     ./gaming.nix
-    ./hyprland.nix
+    ./shade.nix
     ./nautilus.nix
-    ./hyprland.nix
     ./pipewire.nix
     ./home-manager.nix
   ];

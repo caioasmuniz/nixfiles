@@ -1,14 +1,10 @@
 { pkgs, ... }:
 {
   imports = [
-    ./darkman.nix
     ./gtk.nix
     ./hypridle.nix
-    ./hyprland.nix
     ./hyprlock.nix
-    # ./hyprpaper.nix
     ./polkit-agent.nix
-    ./stash.nix
     ./xdg.nix
     ./timewall.nix
     # ./nextcloud-client.nix
