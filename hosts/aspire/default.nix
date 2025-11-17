@@ -43,8 +43,8 @@
       extraPackages = with pkgs; [
         nvidia-vaapi-driver
         intel-media-driver
-        (vaapiIntel.override { enableHybridCodec = true; })
-        vaapiVdpau
+        (intel-vaapi-driver { enableHybridCodec = true; })
+        libva-vdpau-driver
         libvdpau-va-gl
         intel-compute-runtime
       ];
