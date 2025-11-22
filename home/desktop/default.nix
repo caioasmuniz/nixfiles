@@ -1,13 +1,8 @@
 { pkgs, ... }:
 {
   imports = [
-    ./gtk.nix
     ./hypridle.nix
     ./hyprlock.nix
-    ./polkit-agent.nix
-    ./xdg.nix
-    ./timewall.nix
-    # ./nextcloud-client.nix
   ];
   home.packages = with pkgs; [
     qalculate-gtk
@@ -24,17 +19,10 @@
   ];
   services = {
     udiskie.enable = true;
+    polkit-gnome.enable = true;
     kdeconnect = {
       enable = true;
       indicator = true;
-    };
-    gnome-keyring = {
-      enable = true;
-      components = [
-        "pkcs11"
-        "secrets"
-        "ssh"
-      ];
     };
     wlsunset = {
       enable = true;
@@ -42,6 +30,13 @@
       longitude = "-50.6";
     };
   };
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/desktop/wm/preferences".button-layout = ":";
+    };
+  };
+
   programs = {
     obs-studio.enable = true;
     chromium.enable = true;

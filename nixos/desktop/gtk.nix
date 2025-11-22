@@ -9,7 +9,6 @@
     gnome-online-accounts.enable = true;
     gnome-keyring.enable = true;
     gcr-ssh-agent.enable = true;
-    at-spi2-core.enable = true;
   };
   xdg.portal.extraPortals = with pkgs; [
     gnome-keyring
