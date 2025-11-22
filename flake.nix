@@ -9,7 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
-    timewall.url = "github:bcyran/timewall";
     firefox-gnome-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;

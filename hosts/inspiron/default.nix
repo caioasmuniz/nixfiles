@@ -44,7 +44,7 @@
   };
 
   services.greetd.settings.initial_session = {
-    command = "${lib.getExe pkgs.uwsm} start hyprland-uwsm.desktop";
+    command = "${pkgs.systemd}/bin/systemd-cat -t uwsm_start ${lib.getExe pkgs.uwsm} start -eD Hyprland -- hyprland-uwsm.desktop";
     user = user;
   };
 
@@ -63,7 +63,5 @@
     bind = [
       "SUPER,C,exec, uwsm-app -t service -- code.desktop ~/Documents/nixfiles/nixfiles.code-workspace"
     ];
-
-    exec = [ "hyprlock" ];
   };
 }
