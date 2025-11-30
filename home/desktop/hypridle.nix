@@ -5,13 +5,12 @@
       general = {
         after_sleep_cmd = "hyprctl dispatch dpms on";
         ignore_dbus_inhibit = false;
-        lock_cmd = "pidof hyprlock || hyprlock";
+        lock_cmd = "shade-shell lockscreen";
       };
       listener = [
         {
           timeout = 300;
-          on-timeout = "hyprlock";
-          on-resume = "notify-send 'Welcome back!'";
+          on-timeout = "shade-shell lockscreen";
         }
         {
           timeout = 380;
@@ -19,7 +18,7 @@
           on-resume = "hyprctl dispatch dpms on";
         }
         {
-          timeout = 1800; # 30min
+          timeout = 900;
           on-timeout = "systemctl suspend";
         }
       ];
