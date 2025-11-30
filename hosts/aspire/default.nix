@@ -29,7 +29,7 @@
       "GBM_BACKEND,nvidia-drm"
       "__GLX_VENDOR_LIBRARY_NAME,nvidia"
       "NVD_BACKEND,direct"
-      #"DRI_PRIME,1"
+      "DRI_PRIME,1"
     ];
   };
 
